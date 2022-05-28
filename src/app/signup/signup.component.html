@@ -1,0 +1,125 @@
+
+<div class="container">
+    <div class="col-md-5 mx-auto">
+      <main class="form-signin text-center">
+        <form [formGroup]="form" (ngSubmit)="submit()" >
+            <div class="logo-img">
+                <a href=""><img class="img-fluid" src="assets/img/logo.jpg" alt=""></a>
+            </div>
+            <h1 class="mb-2 mt-4">Sign Up</h1>
+            <p class="mb-4 fw-normal text-muted">Sign Up to keep track your vaccination records</p>   
+    
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="phone" placeholder="Phone Number" formControlName="phone">
+            <label for="floatingInput">Phone Number</label>
+
+            <div *ngIf="isSubmitted && f['phone'].invalid" class="errFrm">
+                <div *ngIf="f['phone'].errors && f['phone'].errors['required']">Phone is required.</div>
+            </div>
+
+          </div>
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="email" placeholder="Email" formControlName="email">
+            <label for="email">Email</label>
+          </div>
+
+          <div *ngIf="isSubmitted && f['email'].invalid" class="errFrm">
+                <div *ngIf="f['email'].errors && f['email'].errors['required']">Email is required.</div>
+                <div *ngIf="f['email'].errors && f['email'].errors['required']">Please, enter valid email address.</div>
+          </div>
+
+
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="fname" placeholder="Name" formControlName="fname">
+            <label for="name">First Name</label>
+
+            <div *ngIf="isSubmitted && f['fname'].invalid" class="errFrm">
+                <div *ngIf="f['fname'].errors && f['fname'].errors['required']">First name is required.</div>
+          </div>
+
+          </div>
+
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="lname" placeholder="Last name" formControlName="lname">
+            <label for="name">Last Name</label>
+
+            <div *ngIf="isSubmitted && f['lname'].invalid" class="errFrm">
+                <div *ngIf="f['lname'].errors && f['lname'].errors['required']">Last name is required.</div>
+          </div>
+
+          </div>
+
+          <div class="form-floating mb-3">
+            <input type="date" class="form-control" id="dob" placeholder="DOB" formControlName="dob">
+            <label for="name">Date of Birth</label>
+
+            <div *ngIf="isSubmitted && f['dob'].invalid" class="errFrm">
+                <div *ngIf="f['dob'].errors && f['dob'].errors['required']">Date of birth is required.</div>
+          </div>
+
+          </div>
+
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="name" placeholder="Name" formControlName="emgNo">
+            <label for="name">Emergency Phone Number</label>
+
+            <div *ngIf="isSubmitted && f['emgNo'].invalid" class="errFrm">
+                <div *ngIf="f['emgNo'].errors && f['emgNo'].errors['required']">Emergency number is required.</div>
+          </div>
+
+
+          </div>
+
+          <div class="form-floating mb-3">
+            <label for="name">Select Blood Group</label>
+            <select class="form-control" id="name" placeholder="Name" formControlName="bloodGroup">
+                <option value="A">A</option>
+                <option value="AB" >AB</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="O+">O+</option>
+            </select>
+
+            <div *ngIf="isSubmitted && f['bloodGroup'].invalid" class="errFrm">
+                <div *ngIf="f['bloodGroup'].errors && f['bloodGroup'].errors['required']">Blood group is required.</div>
+          </div>
+
+          </div>
+
+
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="name" placeholder="Name" formControlName="password">
+            <label for="name">Password</label>
+
+            <div *ngIf="isSubmitted && f['password'].invalid" class="errFrm">
+                <div *ngIf="f['password'].errors && f['password'].errors['required']">Password is required.</div>
+          </div>
+
+          </div>
+
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="name" placeholder="Name" formControlName="cpassword">
+            <label for="name">Confirm Password</label>
+
+            <div *ngIf="isSubmitted && f['cpassword'].invalid" class="errFrm">
+                <div *ngIf="f['cpassword'].errors && f['cpassword'].errors['required']">Confirm password is required.</div>
+          </div>
+
+          </div>
+
+
+          <!-- <ng-container *ngIf="showErr">
+            <div class="alert alert-danger" role="alert">
+              {{errMsg[0]}}
+            </div>
+          </ng-container> -->
+    
+          <button class="w-100 btn btn-lg btn-primary" type="submit">
+            Continue
+           
+          </button>     
+        </form>
+      </main>
+    </div>
+    </div>
+    
