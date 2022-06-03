@@ -5,19 +5,25 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { MainserviceComponent } from './services/mainservice/mainservice.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ChartComponent } from './chart/chart.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent, 
     SignupComponent,
     LoginComponent,
-    MainserviceComponent
+    MainserviceComponent,
+    DashboardComponent,
+    ChartComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

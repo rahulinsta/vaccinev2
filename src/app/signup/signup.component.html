@@ -88,7 +88,7 @@
 
 
           <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="name" placeholder="Name" formControlName="password">
+            <input type="password" class="form-control" id="name" placeholder="Name" formControlName="password">
             <label for="name">Password</label>
 
             <div *ngIf="isSubmitted && f['password'].invalid" class="errFrm">
@@ -98,7 +98,7 @@
           </div>
 
           <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="name" placeholder="Name" formControlName="cpassword">
+            <input type="password" class="form-control" id="name" placeholder="Name" formControlName="cpassword">
             <label for="name">Confirm Password</label>
 
             <div *ngIf="isSubmitted && f['cpassword'].invalid" class="errFrm">
@@ -118,6 +118,8 @@
             Continue
            
           </button>     
+        <p *ngIf="successMsg">{{successMsg}}</p>
+
         </form>
       </main>
     </div>

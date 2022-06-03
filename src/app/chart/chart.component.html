@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<style>
+table, th, td {
+  border:1px solid black;
+}
+</style>
+<body>
+
+    <div class="container">
+        <div class="col-md-12 mx-auto">
+            <table style="width:100%">
+                <tr>
+                  <th>Company</th>
+                  <th>Birth</th>
+                  <th>1 mos</th>
+                  <th>2 mos</th>
+                  <th>3 mos</th>
+                  <th>4 mos</th>
+                  <th>6 mos</th>
+                  <th>9 mos</th>
+                  <th>12 mos</th>
+                  <th>15 mos</th>
+                  <th>18 mos</th>
+                </tr>
+
+                <tr  *ngFor="let vc of vcData.data;">
+
+                  <td>
+                      {{vc.name}}  
+                  </td>
+                </tr>
+
+                <tr>
+                    <td>ysysys</td>
+                </tr>
+               
+              </table>
+        </div>
+    </div>
+    
+    </body>
+    </html>

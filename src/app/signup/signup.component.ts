@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
+import { MainserviceComponent } from '../services/mainservice/mainservice.component';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {environment as env} from '../../environments/environment';
 
 
 @Component({
@@ -11,7 +14,9 @@ import { FormGroup, FormControl, Validators} from '@angular/forms';
 export class SignupComponent implements OnInit {
 
   isSubmitted:boolean = false
-  formArr={phone:'',email:'', fname:'', lname:'',emgNo:'',dob:'',password:'',bloodGroup:''};
+  successMsg:any;
+  errmsg:any;
+  formArr={phone:'',email:'', fname:'', lname:'',emgNo:'',dob:'',password:'',cpassword:'',bloodGroup:''};
   
   form = new FormGroup({
     phone: new FormControl('', [Validators.required]),
@@ -26,7 +31,7 @@ export class SignupComponent implements OnInit {
     
   });
 
-  constructor() { }
+  constructor(private usrObj:MainserviceComponent,private http:HttpClient) { }
 
   ngOnInit(): void {
   }
@@ -40,7 +45,7 @@ export class SignupComponent implements OnInit {
     if (this.form.invalid) {  
       return  
     }  
-    console.log(this.form.value);
+   // console.log(this.form.value);
 
     this.formArr.phone = this.form.value.phone;
     this.formArr.email = this.form.value.email;
@@ -50,6 +55,25 @@ export class SignupComponent implements OnInit {
     this.formArr.emgNo = this.form.value.emgNo;
     this.formArr.bloodGroup = this.form.value.bloodGroup;
     this.formArr.password = this.form.value.password;
+    this.formArr.cpassword = this.form.value.cpassword;
+
+    this.usrObj.register(this.formArr).subscribe((data:any)=>{
+      //this.isLoading = false; 
+      if (data.success){
+        this.successMsg = data.message;
+        this.form.reset();
+        //this.router.navigate(['register-verify']);
+      }else{
+        this.errmsg = data.message+data.data;
+      }
+    },
+    error=> {
+      this.errmsg  = 'Internal Server Error.. You Registration could not be completed.';
+      //this.isLoading = false;
+    });
+
+    
+
     
   }
 
