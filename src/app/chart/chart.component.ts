@@ -16,6 +16,7 @@ const httpOptions ={
 })
 export class ChartComponent implements OnInit {
  vcData : any = [];
+ chartData : any = [];
   
   constructor(private http:HttpClient) { }
 
@@ -28,7 +29,16 @@ export class ChartComponent implements OnInit {
       //get shopclosed status
     this.http.get(env.apiurl+'charts',httpOptions).subscribe(data=>{
        this.vcData = data;
-       console.log(this.vcData);
+       console.log(this.vcData.data);
+
+       for(var i=0; i < this.vcData.data.length; i++ ){
+         //console.log();
+         this.chartData.push(this.vcData.data[i].charts);
+
+       }
+
+       //console.log(this.chartData);
+
     });
   }
 

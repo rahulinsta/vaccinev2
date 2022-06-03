@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <style>
-table, th, td {
+table, th, td,tr {
   border:1px solid black;
 }
 </style>
@@ -24,17 +24,16 @@ table, th, td {
                   <th>18 mos</th>
                 </tr>
 
-                <tr  *ngFor="let vc of vcData.data;">
 
-                  <td>
-                      {{vc.name}}  
-                  </td>
+                
+                <tr *ngFor="let vc of vcData.data">
+                    {{vc.name}}
+                    <td *ngFor="let ch of vc.charts">
+                        {{ch.month}}  
+                    </td>
                 </tr>
+            
 
-                <tr>
-                    <td>ysysys</td>
-                </tr>
-               
               </table>
         </div>
     </div>
