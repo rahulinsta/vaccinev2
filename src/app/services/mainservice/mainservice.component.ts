@@ -36,7 +36,7 @@ export class MainserviceComponent implements OnInit {
 
   login(frmAr:any = []){
     return this.http.post(env.apiurl+'login', {
-      email:frmAr.emil,
+      username:frmAr.email,
       password: frmAr.password
     }).pipe(rawData => {return rawData;});
   }

@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
 
 
       }else{
-        this.errmsg = data.data;
+        this.errmsg = data.message;
   
       }
     },error=> {
