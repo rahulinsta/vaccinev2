@@ -22,24 +22,41 @@ export class ChartComponent implements OnInit {
 
   ngOnInit(): void { 
     this.getChartdata();
+   
   }
 
 
   getChartdata(){
       //get shopclosed status
-    this.http.get(env.apiurl+'charts',httpOptions).subscribe(data=>{
+    this.http.get(env.apiurl+'charts?userId=20',httpOptions).subscribe(data=>{
        this.vcData = data;
        console.log(this.vcData.data);
 
        for(var i=0; i < this.vcData.data.length; i++ ){
          //console.log();
          this.chartData.push(this.vcData.data[i].charts);
-
        }
 
        //console.log(this.chartData);
 
     });
+  }
+
+  getCellData(cellName:any, chartData:any){
+    const cellCon = chartData.find((x:any) => x.month == cellName);
+    const index = chartData.findIndex((x:any) => x.month == cellName);
+    const currentCell = chartData[index]?.dose;
+    console.log(chartData.filter(function(item:any){ return item.dose == currentCell }))
+    if(cellCon){
+      if(!chartData[index]?.record_id){
+        return 'schedule-yellow'; 
+      } else{
+        return 'schedule-active';
+      }      
+    } else{
+      return 'schedule-gray';
+    }
+
   }
 
 }
