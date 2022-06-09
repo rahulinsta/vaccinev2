@@ -56,7 +56,9 @@ export class ChartComponent implements OnInit {
         if(isSimiliarData.length > 1){
           rows[rowIndex].children[cellIndex].setAttribute('colspan', isSimiliarData.length);
           rows[rowIndex].children[cellIndex].classList.add('same-row');
+         
         }
+        rows[rowIndex].children[cellIndex].setAttribute('data-track', chartData[index]?.track_id);
         return 'cell schedule-yellow';
         
       } else {
@@ -64,6 +66,8 @@ export class ChartComponent implements OnInit {
           rows[rowIndex].children[cellIndex].setAttribute('colspan', isSimiliarData.length);
           rows[rowIndex].children[cellIndex].classList.add('same-row');
         }
+        rows[rowIndex].children[cellIndex].setAttribute('data-track', chartData[index]?.track_id);
+        rows[rowIndex].children[cellIndex].setAttribute('data-rocord', chartData[index]?.record_id);
         return 'cell schedule-active';
       }
     } else {
