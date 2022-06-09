@@ -1,0 +1,45 @@
+.schedule-yellow {
+    background-color: #ffd204;
+}
+
+.schedule-active {
+    background-color: green;
+}
+
+.schedule-gray {
+    background-color: #d5d7d8;
+}
+
+.table {
+    border: 0;
+}
+
+.table .thead-light th {
+    background-color: #4ebaaa;
+}
+
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid #000000;
+}
+
+.table .thead-light th:not(:first-child),
+.table td {
+    min-width: 80px;
+    text-align: center;
+}
+
+.table .thead-light th:first-child,
+.table tbody th:first-child {
+    position: sticky;
+    left: -1px;
+    min-width: 395px;
+}
+
+.table tbody th:first-child {
+    background-color: #fff;
+}
+
+.cell.same-row+.same-row{
+    display: none;
+}
