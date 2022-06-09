@@ -33,9 +33,13 @@
 .table tbody th:first-child {
     position: sticky;
     left: -1px;
-    min-width: 400px;
+    min-width: 395px;
 }
 
 .table tbody th:first-child {
     background-color: #fff;
+}
+
+.cell.same-row+.same-row{
+    display: none;
 }
