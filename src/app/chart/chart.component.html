@@ -27,10 +27,11 @@ table, th, td,tr {
 
                 
                 <tr *ngFor="let vc of vcData.data">
-                    {{vc.name}}
-                    <td *ngFor="let ch of vc.charts" >
+                   <th>{{vc.name}}</th> 
+                    
+                    <!-- <td *ngFor="let ch of vc.charts" >
                         {{ch.dose}}  
-                    </td>
+                    </td> -->
                 </tr>
             
 
