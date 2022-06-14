@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators} from '@angular/forms';
 import { MainserviceComponent } from '../services/mainservice/mainservice.component';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {environment as env} from '../../environments/environment';
+import {Router} from "@angular/router"
 
 
 @Component({
@@ -16,6 +17,9 @@ export class SignupComponent implements OnInit {
   isSubmitted:boolean = false
   successMsg:any;
   errmsg:any;
+  emailErr:any;
+  passErr1:any;
+  passErr2:any;
   formArr={phone:'',email:'', fname:'', lname:'',emgNo:'',dob:'',password:'',cpassword:'',bloodGroup:''};
   
   form = new FormGroup({
@@ -31,9 +35,16 @@ export class SignupComponent implements OnInit {
     
   });
 
-  constructor(private usrObj:MainserviceComponent,private http:HttpClient) { }
+  constructor(private usrObj:MainserviceComponent,private http:HttpClient,private router: Router) { }
 
   ngOnInit(): void {
+    console.log('oninit');
+    var userId = localStorage.getItem('userid');
+    console.log(userId);
+    if(userId){
+      this.router.navigate(['/login']);
+    }
+
   }
 
   get f(){
@@ -58,17 +69,30 @@ export class SignupComponent implements OnInit {
     this.formArr.cpassword = this.form.value.cpassword;
 
     this.usrObj.register(this.formArr).subscribe((data:any)=>{
+      console.log('step-1');
       //this.isLoading = false; 
-      if (data.success){
+      if (data.status){
         this.successMsg = data.message;
-        this.form.reset();
+        //this.form.reset();
         //this.router.navigate(['register-verify']);
       }else{
+        console.log('yes inside the error message');
         this.errmsg = data.message+data.data;
+        console.log(this.errmsg);
       }
     },
     error=> {
-      this.errmsg  = 'Internal Server Error.. You Registration could not be completed.';
+      if(error.error.errors.email){
+        this.emailErr =error.error.errors.email[0]; 
+      }
+      
+      if(error.error.errors.password){
+        this.passErr1 =error.error.errors.password[0]; 
+        this.passErr2 =error.error.errors.password[1]; 
+      }
+
+    
+      //this.errmsg  = 'Internal Server Error.. You Registration could not be completed.';
       //this.isLoading = false;
     });
 

@@ -71,14 +71,14 @@
           </div>
 
           <div class="form-floating mb-3">
-            <label for="name">Select Blood Group</label>
-            <select class="form-control" id="name" placeholder="Name" formControlName="bloodGroup">
+            <select class="form-control" id="bloodGroup" placeholder="Select Blood Group" formControlName="bloodGroup">
                 <option value="A">A</option>
                 <option value="AB" >AB</option>
                 <option value="B+">B+</option>
                 <option value="B-">B-</option>
                 <option value="O+">O+</option>
             </select>
+            <label for="bloodGroup">Select Blood Group</label>
 
             <div *ngIf="isSubmitted && f['bloodGroup'].invalid" class="errFrm">
                 <div *ngIf="f['bloodGroup'].errors && f['bloodGroup'].errors['required']">Blood group is required.</div>
@@ -108,18 +108,36 @@
           </div>
 
 
-          <ng-container *ngIf="errmsg">
+          <ng-container *ngIf="emailErr">
             <div class="alert alert-danger" role="alert">
-              {{errmsg}}
+              {{emailErr}}
             </div>
           </ng-container>
+
+          <ng-container *ngIf="passErr1">
+            <div class="alert alert-danger" role="alert">
+              {{passErr1}}
+            </div>
+          </ng-container>
+          <ng-container *ngIf="passErr2">
+            <div class="alert alert-danger" role="alert">
+              {{passErr2}}
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="successMsg">
+            <div class="alert alert-success" role="alert">
+              {{successMsg}}
+            </div>
+          </ng-container>
+
+
     
           <button class="w-100 btn btn-lg btn-primary" type="submit">
             Continue
            
           </button>     
-        <p *ngIf="successMsg">{{successMsg}}</p>
-
+      
         </form>
       </main>
     </div>

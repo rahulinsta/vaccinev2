@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators} from '@angular/forms';
 import { MainserviceComponent } from '../services/mainservice/mainservice.component';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {environment as env} from '../../environments/environment';
+import {Router} from "@angular/router"
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,7 @@ export class LoginComponent implements OnInit {
   });
 
 
-  constructor(private usrObj:MainserviceComponent,private http:HttpClient) { }
+  constructor(private usrObj:MainserviceComponent,private http:HttpClient,private router: Router) { }
 
   ngOnInit(): void { 
   }
@@ -41,13 +42,14 @@ export class LoginComponent implements OnInit {
 
     this.usrObj.login(this.formArr).subscribe((data:any)=>{
       //this.isLoading = false;
-      if (data.success){
+      if (data.status){ 
          //this.redirectsAfterLogin(data);
-
         this.token = data.token;
         localStorage.setItem('userid', data.data.id);
         localStorage.setItem('uname', data.data.uName);
-        localStorage.setItem('vctoken', this.token); 
+        localStorage.setItem('vctoken', this.token);
+
+        this.router.navigate(['/chart']);
 
 
       }else{
@@ -55,7 +57,7 @@ export class LoginComponent implements OnInit {
   
       }
     },error=> {
-      this.errmsg  = 'Internal Server Error.. You login could not be completed.';
+      this.errmsg  = 'Internal Server Error.. Your login could not be completed.';
       //this.isLoading = false;  
     });
 

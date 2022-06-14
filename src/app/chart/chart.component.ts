@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment as env } from '../../environments/environment';
+import {Router} from "@angular/router"
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -18,9 +19,15 @@ export class ChartComponent implements OnInit {
   vcData: any = [];
   chartData: any = [];
 
-  constructor(private http: HttpClient, private el: ElementRef) { }
+  constructor(private http: HttpClient, private el: ElementRef,private router: Router) { }
 
   ngOnInit(): void {
+
+    var userId = localStorage.getItem('userid');
+    if(userId == null || userId == undefined ){
+      this.router.navigate(['/login']);
+    }
+
     this.getChartdata();
 
   }
