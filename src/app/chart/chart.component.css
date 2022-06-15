@@ -43,3 +43,8 @@
 .cell.same-row+.same-row{
     display: none;
 }
+
+.errFrm{
+    color: red;
+    text-align: left  !important;
+}

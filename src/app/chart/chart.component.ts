@@ -1,7 +1,9 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { FormGroup, FormControl, Validators} from '@angular/forms';
 import { environment as env } from '../../environments/environment';
 import {Router} from "@angular/router"
+import { MainserviceComponent } from '../services/mainservice/mainservice.component';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -18,13 +20,28 @@ const httpOptions = {
 export class ChartComponent implements OnInit {
   vcData: any = [];
   chartData: any = [];
+  isSubmitted:boolean= false;
+  userId:any;
+  successMsg:any;
+  errmsg:any;
+  track_id:any;
+  record_id:any;
 
-  constructor(private http: HttpClient, private el: ElementRef,private router: Router) { }
+  formArr={vcdate:'',vctime:'', vclocation:''};
+
+  form = new FormGroup({
+    vcdate: new FormControl('', [Validators.required]),
+    vctime: new FormControl('', [Validators.required]),
+    vclocation: new FormControl('', [Validators.required]),
+  });
+
+
+  constructor(private usrObj:MainserviceComponent, private http: HttpClient, private el: ElementRef,private router: Router) { }
 
   ngOnInit(): void {
 
-    var userId = localStorage.getItem('userid');
-    if(userId == null || userId == undefined ){
+    this.userId = localStorage.getItem('userid');
+    if(this.userId == null || this.userId == undefined ){
       this.router.navigate(['/login']);
     }
 
@@ -32,10 +49,77 @@ export class ChartComponent implements OnInit {
 
   }
 
+  get f(){
+    return this.form.controls;
+  }
 
-  getChartdata() {
+  submit(){
+    this.isSubmitted = true;  
+    if (this.form.invalid) {  
+      return  
+    } 
+
+    this.formArr.vcdate = this.form.value.vcdate;
+    this.formArr.vctime = this.form.value.vctime;
+    this.formArr.vclocation = this.form.value.vclocation;
+    var vcdata = {
+      'vaccine_date': this.formArr.vcdate,
+      'vaccine_time': this.formArr.vctime,
+      'vaccine_location': this.formArr.vclocation,
+      'userId': this.userId,
+      'track_id': 9,
+      'lat': 48.89899,
+      'long': 68.49590
+    }
+    
+    this.usrObj.addVaccine(vcdata).subscribe((data:any)=>{
+      //this.isLoading = false; 
+      if (data.status){
+        this.successMsg = data.message;
+        setTimeout(()=>{                         
+          location.reload();
+      }, 2000);
+        //this.form.reset();
+        //this.router.navigate(['register-verify']);
+      }else{
+        console.log('yes inside the error message');
+        this.errmsg = data.message;
+        //console.log(this.errmsg);
+      }
+    });
+
+
+
+  } 
+
+
+  displayStyle = "none";
+  displayStyle2 = "none";
+
+  
+  openPopup(track_id:any, record_id:any) {
+    this.track_id = track_id;
+    this.record_id = record_id;
+
+    console.log(this.track_id);
+    console.log(this.record_id);
+    if(this.record_id == null || this.record_id == undefined){
+      this.displayStyle = "block";
+    }else{
+      this.displayStyle2 = "block";
+    }
+    
+  }
+  closePopup() {
+    this.displayStyle = "none";
+    this.displayStyle2 = "none";
+  }
+
+
+
+  getChartdata() { 
     //get shopclosed status
-    this.http.get(env.apiurl + 'charts?userId=20', httpOptions).subscribe(data => {
+    this.http.get(env.apiurl + 'charts?userId='+this.userId, httpOptions).subscribe(data => {
       this.vcData = data;
       console.log(this.vcData.data);
 

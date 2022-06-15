@@ -37,23 +37,23 @@
               <th>{{vc.name}}
                 <div>{{vc.short_name}}</div>
               </th>
-              <td [attr.class]="getCellData('Birth', vc?.charts, i, 1)"></td>
-              <td [attr.class]="getCellData('1 mos', vc?.charts, i, 2)"></td>
-              <td [attr.class]="getCellData('2 mos', vc?.charts, i, 3)"></td>
-              <td [attr.class]="getCellData('4 mos', vc?.charts, i, 4)"></td>
-              <td [attr.class]="getCellData('6 mos', vc?.charts, i, 5)"></td>
-              <td [attr.class]="getCellData('9 mos', vc?.charts, i, 6)"></td>
-              <td [attr.class]="getCellData('12 mos', vc?.charts, i, 7)"></td>
-              <td [attr.class]="getCellData('15 mos', vc?.charts, i, 8)"></td>
-              <td [attr.class]="getCellData('18 mos', vc?.charts, i, 9)"></td>
-              <td [attr.class]="getCellData('19-23 mos', vc?.charts, i, 10)"></td>
-              <td [attr.class]="getCellData('2-3 yrs', vc?.charts, i, 11)"></td>
-              <td [attr.class]="getCellData('4-6 yrs', vc?.charts, i, 12)"></td>
-              <td [attr.class]="getCellData('7-10 yrs', vc?.charts, i, 13)"></td>
-              <td [attr.class]="getCellData('11-12 yrs', vc?.charts, i, 14)"></td>
-              <td [attr.class]="getCellData('13-15 yrs', vc?.charts, i, 15)"></td>
-              <td [attr.class]="getCellData('16 yrs', vc?.charts, i, 16)"></td>
-              <td [attr.class]="getCellData('17-18 yrs', vc?.charts, i, 17)"></td>
+              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id)" [attr.class]="getCellData('Birth', vc?.charts, i, 1)"></td>
+              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id)" [attr.class]="getCellData('1 mos', vc?.charts, i, 2)"></td>
+              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id)" [attr.class]="getCellData('2 mos', vc?.charts, i, 3)"></td>
+              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id)" [attr.class]="getCellData('4 mos', vc?.charts, i, 4)"></td>
+              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id)" [attr.class]="getCellData('6 mos', vc?.charts, i, 5)"></td>
+              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id)" [attr.class]="getCellData('9 mos', vc?.charts, i, 6)"></td>
+              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id)" [attr.class]="getCellData('12 mos', vc?.charts, i, 7)"></td>
+              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id)" [attr.class]="getCellData('15 mos', vc?.charts, i, 8)"></td>
+              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id)" [attr.class]="getCellData('18 mos', vc?.charts, i, 9)"></td>
+              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id)" [attr.class]="getCellData('19-23 mos', vc?.charts, i, 10)"></td>
+              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id)" [attr.class]="getCellData('2-3 yrs', vc?.charts, i, 11)"></td>
+              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id)" [attr.class]="getCellData('4-6 yrs', vc?.charts, i, 12)"></td>
+              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id)" [attr.class]="getCellData('7-10 yrs', vc?.charts, i, 13)"></td>
+              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id)" [attr.class]="getCellData('11-12 yrs', vc?.charts, i, 14)"></td>
+              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id)" [attr.class]="getCellData('13-15 yrs', vc?.charts, i, 15)"></td>
+              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id)" [attr.class]="getCellData('16 yrs', vc?.charts, i, 16)"></td>
+              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id)" [attr.class]="getCellData('17-18 yrs', vc?.charts, i, 17)"></td>
               <!-- <td *ngFor="let ch of vc.charts" >
                         {{ch.dose}}  
                     </td> -->
@@ -66,6 +66,118 @@
       </div>
     </div>
   </div>
+
+  <!-- =========Pop up data======= -->
+
+<div
+  class="modal"
+  tabindex="-1"
+  role="dialog"
+  [ngStyle]="{'display':displayStyle}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add Vaccine</h4>
+      </div>
+      <div class="modal-body">
+          <form [formGroup]="form" (ngSubmit)="submit()">
+            <div class="form-floating mb-3">
+              <input type="date" class="form-control" id="phone" placeholder="Vaccine Date" formControlName="vcdate" >
+              <label for="floatingInput">Vaccine Date</label>
+              <div *ngIf="isSubmitted && f['vcdate'].invalid" class="errFrm">
+                <div *ngIf="f['vcdate'].errors && f['vcdate'].errors['required']">Vaccine date is required.</div>
+            </div>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input type="time" class="form-control" id="phone" placeholder="Vaccine Time" formControlName="vctime" >
+              <label for="floatingInput">Vaccine Time</label>
+
+              <div *ngIf="isSubmitted && f['vctime'].invalid" class="errFrm">
+                <div *ngIf="f['vctime'].errors && f['vctime'].errors['required']">Vaccine time is required.</div>
+            </div>
+  
+            </div>
+
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="vclocation" placeholder="Vaccine Location" formControlName="vclocation" >
+              <label for="floatingInput">Vaccine Location</label>
+              <div *ngIf="isSubmitted && f['vclocation'].invalid" class="errFrm">
+                <div *ngIf="f['vclocation'].errors && f['vclocation'].errors['required']">Vaccine location is required.</div>
+            </div>
+  
+            </div>
+
+            <button class="w-100 btn btn-lg btn-primary" type="submit">
+              Add
+            </button> 
+
+
+          </form>
+          
+          <ng-container *ngIf="errmsg">
+            <div class="alert alert-danger" role="alert">
+              {{errmsg}}
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="successMsg">
+            <div class="alert alert-success" role="alert">
+              {{successMsg}}
+            </div>
+          </ng-container>
+
+
+      </div>
+
+
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" 
+                (click)="closePopup()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- =========Second pop up=========== -->
+
+<div
+class="modal"
+tabindex="-1"
+role="dialog"
+[ngStyle]="{'display':displayStyle2}">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">Vaccine details</h4>
+    </div>
+    <div class="modal-body">
+        <p>Vaccine Name: HepB</p>
+        <p>Location: India</p>
+        <p>Date: 25-06-2022 </p>
+        <p>Time: 20:58</p>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" 
+              (click)="closePopup()">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+
+
 
 </body>
 
