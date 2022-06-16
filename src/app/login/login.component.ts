@@ -28,6 +28,10 @@ export class LoginComponent implements OnInit {
   constructor(private usrObj:MainserviceComponent,private http:HttpClient,private router: Router) { }
 
   ngOnInit(): void { 
+    var userId = localStorage.getItem('userid');
+    if(userId){
+      this.router.navigate(['/chart']);
+    }
   }
 
   get f(){

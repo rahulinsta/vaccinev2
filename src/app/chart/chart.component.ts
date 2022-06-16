@@ -1,4 +1,5 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
 import { environment as env } from '../../environments/environment';
@@ -26,6 +27,11 @@ export class ChartComponent implements OnInit {
   errmsg:any;
   track_id:any;
   record_id:any;
+  latitude : any;
+  longitude: any;
+  zoom: any;
+  private geoCoder:any;
+  
 
   formArr={vcdate:'',vctime:'', vclocation:''};
 
@@ -36,7 +42,8 @@ export class ChartComponent implements OnInit {
   });
 
 
-  constructor(private usrObj:MainserviceComponent, private http: HttpClient, private el: ElementRef,private router: Router) { }
+  constructor(private usrObj:MainserviceComponent, private http: HttpClient, 
+    private el: ElementRef,private router: Router) { }
 
   ngOnInit(): void {
 
@@ -45,9 +52,12 @@ export class ChartComponent implements OnInit {
       this.router.navigate(['/login']);
     }
 
+  
     this.getChartdata();
 
   }
+
+ 
 
   get f(){
     return this.form.controls;

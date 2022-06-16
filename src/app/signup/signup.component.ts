@@ -38,9 +38,7 @@ export class SignupComponent implements OnInit {
   constructor(private usrObj:MainserviceComponent,private http:HttpClient,private router: Router) { }
 
   ngOnInit(): void {
-    console.log('oninit');
     var userId = localStorage.getItem('userid');
-    console.log(userId);
     if(userId){
       this.router.navigate(['/login']);
     }
