@@ -107,12 +107,10 @@ export class ChartComponent implements OnInit {
   displayStyle2 = "none";
 
   
-  openPopup(track_id:any, record_id:any) {
-    this.track_id = track_id;
-    this.record_id = record_id;
+  openPopup(track_id:any, record_id:any, el:any) {
+    this.track_id = el.getAttribute('data-rocord');
+    this.record_id = el.getAttribute('data-tack');
 
-    console.log(this.track_id);
-    console.log(this.record_id);
     if(this.record_id == null || this.record_id == undefined){
       this.displayStyle = "block";
     }else{
@@ -144,6 +142,12 @@ export class ChartComponent implements OnInit {
   }
 
   getCellData(cellName: any, chartData: any, rowIndex: number, cellIndex: number) {
+
+    // console.log('cellName'+cellName);
+    // console.log('chartData'+chartData);
+    // console.log('rowIndex'+rowIndex);
+    // console.log('cellName'+cellName);
+    
     const cellCon = chartData.find((x: any) => x.month == cellName);
     const index = chartData.findIndex((x: any) => x.month == cellName);
     const currentCell = chartData[index]?.dose;
@@ -160,6 +164,12 @@ export class ChartComponent implements OnInit {
          
         }
         rows[rowIndex].children[cellIndex].setAttribute('data-track', chartData[index]?.track_id);
+        rows[rowIndex].children[cellIndex].setAttribute('data-rocord', chartData[index]?.record_id);
+        rows[rowIndex].children[cellIndex].innerHTML = chartData[index]?.dose + chartData[index]?.suffix+' Dose';
+        if(chartData[index]?.suffix == null){
+          rows[rowIndex].children[cellIndex].innerHTML = chartData[index]?.dose;
+        }
+        
         return 'cell schedule-yellow';
         
       } else {
@@ -169,6 +179,7 @@ export class ChartComponent implements OnInit {
         }
         rows[rowIndex].children[cellIndex].setAttribute('data-track', chartData[index]?.track_id);
         rows[rowIndex].children[cellIndex].setAttribute('data-rocord', chartData[index]?.record_id);
+        rows[rowIndex].children[cellIndex].innerHTML = chartData[index]?.vaccine_date +'<br>' + chartData[index]?.vaccine_time;
         return 'cell schedule-active';
       }
     } else {

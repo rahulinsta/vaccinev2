@@ -37,23 +37,23 @@
               <th>{{vc.name}}
                 <div>{{vc.short_name}}</div>
               </th>
-              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id)" [attr.class]="getCellData('Birth', vc?.charts, i, 1)"></td>
-              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id)" [attr.class]="getCellData('1 mos', vc?.charts, i, 2)"></td>
-              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id)" [attr.class]="getCellData('2 mos', vc?.charts, i, 3)"></td>
-              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id)" [attr.class]="getCellData('4 mos', vc?.charts, i, 4)"></td>
-              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id)" [attr.class]="getCellData('6 mos', vc?.charts, i, 5)"></td>
-              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id)" [attr.class]="getCellData('9 mos', vc?.charts, i, 6)"></td>
-              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id)" [attr.class]="getCellData('12 mos', vc?.charts, i, 7)"></td>
-              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id)" [attr.class]="getCellData('15 mos', vc?.charts, i, 8)"></td>
-              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id)" [attr.class]="getCellData('18 mos', vc?.charts, i, 9)"></td>
-              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id)" [attr.class]="getCellData('19-23 mos', vc?.charts, i, 10)"></td>
-              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id)" [attr.class]="getCellData('2-3 yrs', vc?.charts, i, 11)"></td>
-              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id)" [attr.class]="getCellData('4-6 yrs', vc?.charts, i, 12)"></td>
-              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id)" [attr.class]="getCellData('7-10 yrs', vc?.charts, i, 13)"></td>
-              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id)" [attr.class]="getCellData('11-12 yrs', vc?.charts, i, 14)"></td>
-              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id)" [attr.class]="getCellData('13-15 yrs', vc?.charts, i, 15)"></td>
-              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id)" [attr.class]="getCellData('16 yrs', vc?.charts, i, 16)"></td>
-              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id)" [attr.class]="getCellData('17-18 yrs', vc?.charts, i, 17)"></td>
+              <td (click)="openPopup(1,2,lr)" [attr.class]="getCellData('Birth', vc?.charts, i, 1)" #lr></td>
+              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id,lr)" [attr.class]="getCellData('1 mos', vc?.charts, i, 2)"></td>
+              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id,lr)" [attr.class]="getCellData('2 mos', vc?.charts, i, 3)"></td>
+              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id,lr)" [attr.class]="getCellData('4 mos', vc?.charts, i, 4)"></td>
+              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id,lr)" [attr.class]="getCellData('6 mos', vc?.charts, i, 5)"></td>
+              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id,lr)" [attr.class]="getCellData('9 mos', vc?.charts, i, 6)"></td>
+              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id,lr)" [attr.class]="getCellData('12 mos', vc?.charts, i, 7)"></td>
+              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id,lr)" [attr.class]="getCellData('15 mos', vc?.charts, i, 8)"></td>
+              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id,lr)" [attr.class]="getCellData('18 mos', vc?.charts, i, 9)"></td>
+              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id,lr)" [attr.class]="getCellData('19-23 mos', vc?.charts, i, 10)"></td>
+              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id,lr)" [attr.class]="getCellData('2-3 yrs', vc?.charts, i, 11)"></td>
+              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id,lr)" [attr.class]="getCellData('4-6 yrs', vc?.charts, i, 12)"></td>
+              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id,lr)" [attr.class]="getCellData('7-10 yrs', vc?.charts, i, 13)"></td>
+              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id,lr)" [attr.class]="getCellData('11-12 yrs', vc?.charts, i, 14)"></td>
+              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id,lr)" [attr.class]="getCellData('13-15 yrs', vc?.charts, i, 15)"></td>
+              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id,lr)" [attr.class]="getCellData('16 yrs', vc?.charts, i, 16)"></td>
+              <td (click)="openPopup(vc?.charts[i].track_id,vc?.charts[i].record_id,lr)" [attr.class]="getCellData('17-18 yrs', vc?.charts, i, 17)"></td>
               <!-- <td *ngFor="let ch of vc.charts" >
                         {{ch.dose}}  
                     </td> -->
