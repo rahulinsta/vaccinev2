@@ -1,0 +1,159 @@
+/* app header */
+.navbar-fixed {
+    left: 0;
+    top: 0px;
+    width: 100%;
+    height: auto;
+    z-index: 999;
+    background-color: transparent;
+    -webkit-transition: .5s;
+    transition: .5s;
+     background-color: #000d34;
+}
+
+.navbar-fixed.navbar-white {
+    background-color: #fff;
+    padding: 0px;
+}
+
+.navbar-fixed * {
+    transition: all 0.3s ease-in-out;
+}
+
+.navbar-fixed.is-sticky {
+    position: fixed;
+    padding: 0;
+    -webkit-box-shadow: 0 2px 28px 0 rgb(0 0 0 / 20%);
+    box-shadow: 0 2px 28px 0 rgb(0 0 0 / 20%);
+    background-color: #000d34;
+}
+
+.navbar-fixed.navbar-light .navbar-nav .nav-item {
+    padding: 0px 20px;
+}
+
+.navbar-fixed.navbar-light .navbar-nav .nav-link {
+    color: #fff;
+    font-weight: 500;
+    text-transform: uppercase;
+    line-height: 30px;
+    padding: 0px;
+    letter-spacing: 1px;
+}
+
+.navbar-fixed .navbar-brand img {
+    max-height: 60px;
+}
+
+.navbar-fixed.is-sticky .navbar-brand img {
+    max-width: 75px;
+}
+
+.navbar-fixed.navbar-light.navbar-expand-lg.navbar-white .navbar-nav {
+    padding-top: 0.5rem;
+}
+
+.navbar-fixed.navbar-light.navbar-expand-lg.is-sticky .navbar-nav {
+    padding-top: 0.125rem;
+}
+
+.navbar-fixed.navbar-light .navbar-nav .nav-link:hover,
+.navbar-fixed.navbar-light .navbar-nav .nav-link.highlighted {
+    color: #ffa737;
+}
+.nav-link{
+    cursor: pointer;
+}
+
+@media screen and (max-width: 991px) {
+    /* header start */
+    .app-header .container{
+        position: relative;
+    }
+    .navbar-fixed.mobile-menu:not(.is-sticky){
+        background-color: var(--gh-dark-bg);        
+    }
+    .navbar-toggler:focus{
+        outline: none;
+        box-shadow: none;
+    }
+    .navbar-fixed,
+    .navbar-fixed.is-sticky {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .navbar-toggler {
+        color: #fff;
+        width: 36px;
+        height: 36px;
+        padding: 0;
+        margin: 0;
+        outline: 0;
+        position: relative;
+        border: 0px;
+        cursor: pointer;
+    }
+    .navbar-toggler:focus{
+        outline:  none;
+    }
+    .navbar-fixed .navbar-toggler{
+        color: #fff;
+    }
+    .app-header .navbar-toggler svg {
+        width: 44px;
+        height: 48px;
+        top: -6px;
+        left: -4px;
+        stroke: currentColor;
+        stroke-width: .2rem;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        fill: none;
+        display: block;
+        position: absolute;
+    }
+    .app-header .navbar-toggler svg path {
+        -webkit-transition: stroke-dasharray var(--duration,.85s) var(--easing,ease) var(--delay,0s),stroke-dashoffset var(--duration,.85s) var(--easing,ease) var(--delay,0s);
+        transition: stroke-dasharray var(--duration,.85s) var(--easing,ease) var(--delay,0s),stroke-dashoffset var(--duration,.85s) var(--easing,ease) var(--delay,0s);
+        stroke-dasharray: var(--array-1,26px) var(--array-2,100px);
+        stroke-dashoffset: var(--offset,126px);
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+    }
+    .app-header .navbar-toggler path:nth-child(2) {
+        --duration: .7s;
+        --easing: ease-in;
+        --offset: 100px;
+        --array-2: 74px;
+    }
+    .app-header .navbar-toggler path:nth-child(3) {
+        --offset: 133px;
+        --array-2: 107px;
+    }
+    .app-header .navbar-toggler[aria-expanded="true"] svg path {
+        --offset: 57px;
+    }
+    .app-header .navbar-toggler[aria-expanded="true"] svg path:nth-child(1), 
+    .app-header .navbar-toggler[aria-expanded="true"] svg path:nth-child(3) {
+        --delay: .15s;
+        --easing: cubic-bezier(0.2,.4,.2,1.1);
+    }
+    .app-header .navbar-toggler[aria-expanded="true"] svg path:nth-child(2) {
+        --duration: .4s;
+        --offset: 2px;
+        --array-1: 1px;
+    }
+    .app-header .navbar-toggler[aria-expanded="true"] svg path:nth-child(3) {
+        --offset: 58px;
+    }
+    .navbar-fixed.navbar-light.navbar-expand-lg .navbar-nav{
+        padding-top: 5px;
+        padding-bottom: 10px;
+        border-top: 1px solid #131c35;
+        margin-top: 12px;
+    }
+    .navbar-fixed.navbar-light .navbar-nav .nav-item{
+        padding: 5px 0px 0;
+    }
+    /* header end */
+}

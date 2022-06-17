@@ -1,0 +1,32 @@
+.app-footer {
+    position: relative;
+    background: #0B0D19;
+    padding: 12px 0 15px;
+}
+
+.footer-copyright {
+    color: #bcbcbc;
+    font-size: 14px;
+}
+
+.app-footer a {
+    color: #fff;
+    border-left: 1px solid #fff;
+    margin-left: 8px;
+    padding-left: 8px;
+    text-decoration: none;
+    font-size: 13px;
+    line-height: 20px;
+    font-weight: 400;
+    transition: 0.3s;
+}
+
+.app-footer a:hover {
+    color: hsla(0,0%,100%,.7);
+     transition: 0.3s;
+}
+@media screen and (max-width:996px) {
+    .app-footer a{
+        border-left: 0px;
+    }
+}

@@ -105,11 +105,16 @@ export class ChartComponent implements OnInit {
 
   displayStyle = "none";
   displayStyle2 = "none";
-
   
-  openPopup(track_id:any, record_id:any, el:any) {
-    this.track_id = el.getAttribute('data-rocord');
-    this.record_id = el.getAttribute('data-tack');
+  openPopup(el:any) {
+    console.log('yes');
+    return;
+    this.record_id = el.getAttribute('data-rocord');
+    this.track_id = el.getAttribute('data-track');
+
+    console.log(el);
+    console.log(this.track_id+'trid');
+    console.log(this.record_id+'recrdid');
 
     if(this.record_id == null || this.record_id == undefined){
       this.displayStyle = "block";
@@ -165,6 +170,7 @@ export class ChartComponent implements OnInit {
         }
         rows[rowIndex].children[cellIndex].setAttribute('data-track', chartData[index]?.track_id);
         rows[rowIndex].children[cellIndex].setAttribute('data-rocord', chartData[index]?.record_id);
+        rows[rowIndex].children[cellIndex].addEventListener('click', this.openPopup(chartData[index]?.record_id));
         rows[rowIndex].children[cellIndex].innerHTML = chartData[index]?.dose + chartData[index]?.suffix+' Dose';
         if(chartData[index]?.suffix == null){
           rows[rowIndex].children[cellIndex].innerHTML = chartData[index]?.dose;
