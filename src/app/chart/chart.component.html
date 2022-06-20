@@ -69,146 +69,102 @@
 
   <!-- =========Pop up data======= -->
 
-
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Launch demo modal
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+  <button class="btn btn-lg btn-outline-primary" [hidden]="true"  (click)="open(mymodal)" id="m1" #cmodel>Open My Modal</button>
+   
+  <ng-template #mymodal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Add vaccine</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')" #closeBtn>
+        <span aria-hidden="true">×</span>
+      </button>
     </div>
-  </div>
-</div>
+    <div class="modal-body">
+
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="form-floating mb-3">
+          <input type="date" class="form-control" id="phone" placeholder="Vaccine Date" formControlName="vcdate" >
+          <label for="floatingInput">Vaccine Date</label>
+          <div *ngIf="isSubmitted && f['vcdate'].invalid" class="errFrm">
+            <div *ngIf="f['vcdate'].errors && f['vcdate'].errors['required']">Vaccine date is required.</div>
+        </div>
+        </div>
+
+        <div class="form-floating mb-3">
+          <input type="time" class="form-control" id="phone" placeholder="Vaccine Time" formControlName="vctime" >
+          <label for="floatingInput">Vaccine Time</label>
+
+          <div *ngIf="isSubmitted && f['vctime'].invalid" class="errFrm">
+            <div *ngIf="f['vctime'].errors && f['vctime'].errors['required']">Vaccine time is required.</div>
+        </div>
+
+        </div>
+
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="vclocation" placeholder="Vaccine Location" formControlName="vclocation" >
+          <label for="floatingInput">Vaccine Location</label>
+          <div *ngIf="isSubmitted && f['vclocation'].invalid" class="errFrm">
+            <div *ngIf="f['vclocation'].errors && f['vclocation'].errors['required']">Vaccine location is required.</div>
+        </div>
+
+        </div>
+
+        <button class="w-100 btn btn-lg btn-primary" type="submit">
+          Add
+        </button> 
+
+
+      </form>
+      
+      <ng-container *ngIf="errmsg">
+        <div class="alert alert-danger" role="alert">
+          {{errmsg}}
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="successMsg">
+        <div class="alert alert-success" role="alert">
+          {{successMsg}}
+        </div>
+      </ng-container>
 
 
 
-
-
-
-
-
- 
-<div
-  class="modal"
-  tabindex="-1"
-  role="dialog"
-  id="modalPopup"
-  >
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Add Vaccine</h4>
-      </div>
-      <div class="modal-body">
-          <form [formGroup]="form" (ngSubmit)="submit()">
-            <div class="form-floating mb-3">
-              <input type="date" class="form-control" id="phone" placeholder="Vaccine Date" formControlName="vcdate" >
-              <label for="floatingInput">Vaccine Date</label>
-              <div *ngIf="isSubmitted && f['vcdate'].invalid" class="errFrm">
-                <div *ngIf="f['vcdate'].errors && f['vcdate'].errors['required']">Vaccine date is required.</div>
-            </div>
-            </div>
-
-            <div class="form-floating mb-3">
-              <input type="time" class="form-control" id="phone" placeholder="Vaccine Time" formControlName="vctime" >
-              <label for="floatingInput">Vaccine Time</label>
-
-              <div *ngIf="isSubmitted && f['vctime'].invalid" class="errFrm">
-                <div *ngIf="f['vctime'].errors && f['vctime'].errors['required']">Vaccine time is required.</div>
-            </div>
-  
-            </div>
-
-            <div class="form-floating mb-3">
-              <input type="text" class="form-control" id="vclocation" placeholder="Vaccine Location" formControlName="vclocation" >
-              <label for="floatingInput">Vaccine Location</label>
-              <div *ngIf="isSubmitted && f['vclocation'].invalid" class="errFrm">
-                <div *ngIf="f['vclocation'].errors && f['vclocation'].errors['required']">Vaccine location is required.</div>
-            </div>
-  
-            </div>
-
-            <button class="w-100 btn btn-lg btn-primary" type="submit">
-              Add
-            </button> 
-
-
-          </form>
-          
-          <ng-container *ngIf="errmsg">
-            <div class="alert alert-danger" role="alert">
-              {{errmsg}}
-            </div>
-          </ng-container>
-
-          <ng-container *ngIf="successMsg">
-            <div class="alert alert-success" role="alert">
-              {{successMsg}}
-            </div>
-          </ng-container>
-
-
-      </div>
-
-
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" 
-                (click)="closePopup()">
-          Close
-        </button>
-      </div>
     </div>
-  </div>
-</div>
-
-
-
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+    </div>
+  </ng-template>
+  
 
 <!-- =========Second pop up=========== -->
 
-<div
-class="modal"
-tabindex="-1"
-role="dialog"
-[ngStyle]="{'display':displayStyle2}">
-<div class="modal-dialog" role="document">
-  <div class="modal-content">
+
+<button class="btn btn-lg btn-outline-primary" [hidden]="true"  (click)="open(mymodal2)" id="m2"></button>
+   
+  <ng-template #mymodal2 let-modal>
     <div class="modal-header">
-      <h4 class="modal-title">Vaccine details</h4>
+      <h4 class="modal-title" id="modal-basic-title">Vaccine Details</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')" #closeBtn>
+        <span aria-hidden="true">×</span>
+      </button>
     </div>
     <div class="modal-body">
+
+      <div class="modal-body">
         <p>Vaccine Name: HepB</p>
         <p>Location: India</p>
         <p>Date: 25-06-2022 </p>
         <p>Time: 20:58</p>
     </div>
 
-    <div class="modal-footer">
-      <button type="button" class="btn btn-danger" 
-              (click)="closePopup()">
-        Close
-      </button>
     </div>
-  </div>
-</div>
-</div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+    </div>
+  </ng-template>
+
+
+
 
 
 

@@ -5,6 +5,7 @@ import { FormGroup, FormControl, Validators} from '@angular/forms';
 import { environment as env } from '../../environments/environment';
 import {Router} from "@angular/router"
 import { MainserviceComponent } from '../services/mainservice/mainservice.component';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-chart',
@@ -12,6 +13,10 @@ import { MainserviceComponent } from '../services/mainservice/mainservice.compon
   styleUrls: ['./chart.component.css']
 })
 export class ChartComponent implements OnInit {
+
+  @ViewChild('cmodel') cmodel:any;
+  @ViewChild('closeBtn') closeBtn:any;
+
   vcData: any = [];
   chartData: any = [];
   isSubmitted:boolean= false;
@@ -24,6 +29,7 @@ export class ChartComponent implements OnInit {
   longitude: any;
   zoom: any;
   private geoCoder:any;
+  closeResult: string = '';
   
 
   formArr={vcdate:'',vctime:'', vclocation:''};
@@ -36,7 +42,7 @@ export class ChartComponent implements OnInit {
 
 
   constructor(private usrObj:MainserviceComponent, private http: HttpClient, 
-    private el: ElementRef,private router: Router) { }
+    private el: ElementRef,private router: Router,private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.userId = localStorage.getItem('userid');
@@ -69,7 +75,7 @@ export class ChartComponent implements OnInit {
       'vaccine_time': this.formArr.vctime,
       'vaccine_location': this.formArr.vclocation,
       'userId': this.userId,
-      'track_id': 9,
+      'track_id': 1,
       'lat': 48.89899,
       'long': 68.49590
     }
@@ -84,9 +90,7 @@ export class ChartComponent implements OnInit {
         //this.form.reset();
         //this.router.navigate(['register-verify']);
       }else{
-        console.log('yes inside the error message');
         this.errmsg = data.message;
-        //console.log(this.errmsg);
       }
     });
 
@@ -99,19 +103,21 @@ export class ChartComponent implements OnInit {
   displayStyle2 = "none";
   
   openPopup(event:any) {
-    console.log('yes1');
-
-    this.track_id =(event.currentTarget.getAttribute('data-track'));
-    this.record_id =(event.currentTarget.getAttribute('data-record')); 
+    this.track_id =event.currentTarget.getAttribute('data-track');
+    this.record_id =event.currentTarget.getAttribute('data-record'); 
     
-    console.log(this.track_id+'trid');
-    console.log(this.record_id+'recrdid');
+    console.log(this.track_id+' trid');
+    console.log(this.record_id+' record_id');
 
-    if(this.record_id == null || this.record_id == undefined){
-      //this.displayStyle = "block";
+    if(this.record_id == 'null'){
       console.log('yes inside the condition');
+      var btn = document.getElementById('m1');
+      btn?.click();
+
     }else{
-      this.displayStyle2 = "block";
+      console.log('inelse condition');
+      var btn2 = document.getElementById('m2');
+      btn2?.click();
     }
     
   }
@@ -119,6 +125,31 @@ export class ChartComponent implements OnInit {
     this.displayStyle = "none";
     this.displayStyle2 = "none";
   }
+
+  open(content:any) {
+
+    console.log(this.chartData);
+    console.log(this.record_id);
+
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  } 
+
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
+  }
+
+
 
 
 
@@ -133,7 +164,7 @@ export class ChartComponent implements OnInit {
 
     this.http.get(env.apiurl + 'charts?userId='+this.userId, httpOptions).subscribe(data => {
       this.vcData = data;
-      console.log(this.vcData.data);
+      //console.log(this.vcData.data);
 
       for (var i = 0; i < this.vcData.data.length; i++) {
         //console.log();
@@ -162,7 +193,7 @@ export class ChartComponent implements OnInit {
          
         }
         rows[rowIndex].children[cellIndex].setAttribute('data-track', chartData[index]?.track_id);
-        rows[rowIndex].children[cellIndex].setAttribute('data-rocord', chartData[index]?.record_id);
+        rows[rowIndex].children[cellIndex].setAttribute('data-record', chartData[index]?.record_id);
         rows[rowIndex].children[cellIndex].addEventListener('click',this.openPopup,false );
         rows[rowIndex].children[cellIndex].innerHTML = chartData[index]?.dose + chartData[index]?.suffix+' Dose';
         if(chartData[index]?.suffix == null){
@@ -177,7 +208,8 @@ export class ChartComponent implements OnInit {
           rows[rowIndex].children[cellIndex].classList.add('same-row');
         }
         rows[rowIndex].children[cellIndex].setAttribute('data-track', chartData[index]?.track_id);
-        rows[rowIndex].children[cellIndex].setAttribute('data-rocord', chartData[index]?.record_id);
+        rows[rowIndex].children[cellIndex].setAttribute('data-record', chartData[index]?.record_id);
+        rows[rowIndex].children[cellIndex].addEventListener('click',this.openPopup,false );
         rows[rowIndex].children[cellIndex].innerHTML = chartData[index]?.vaccine_date +'<br>' + chartData[index]?.vaccine_time;
         return 'cell schedule-active';
       }
@@ -187,8 +219,5 @@ export class ChartComponent implements OnInit {
 
   }
 
-  testf(){
-     console.log('test f function');
-  }
-
+  
 }
