@@ -45,17 +45,8 @@ export class ChartComponent implements OnInit {
     }
 
     this.getChartdata();
-  }
 
-  
-  ngAfterViewInit() {
-    this.el.nativeElement.querySelector('.cell')
-                                  .addEventListener('click', this.onClick.bind(this));
-  }
-  
-  onClick(e:any) {
-    console.log('onclcke');
-    console.log(e);
+    
   }
 
 
@@ -107,18 +98,18 @@ export class ChartComponent implements OnInit {
   displayStyle = "none";
   displayStyle2 = "none";
   
-  openPopup(el:any) {
+  openPopup(event:any) {
     console.log('yes1');
-    return;
-    this.record_id = el.getAttribute('data-rocord');
-    this.track_id = el.getAttribute('data-track');
 
-    console.log(el);
+    this.track_id =(event.currentTarget.getAttribute('data-track'));
+    this.record_id =(event.currentTarget.getAttribute('data-record')); 
+    
     console.log(this.track_id+'trid');
     console.log(this.record_id+'recrdid');
 
     if(this.record_id == null || this.record_id == undefined){
-      this.displayStyle = "block";
+      //this.displayStyle = "block";
+      console.log('yes inside the condition');
     }else{
       this.displayStyle2 = "block";
     }
@@ -154,13 +145,7 @@ export class ChartComponent implements OnInit {
     });
   }
 
-  getCellData(cellName: any, chartData: any, rowIndex: number, cellIndex: number) {
-
-    // console.log('cellName'+cellName);
-    // console.log('chartData'+chartData);
-    // console.log('rowIndex'+rowIndex);
-    // console.log('cellName'+cellName);
-    
+  getCellData(cellName: any, chartData: any, rowIndex: number, cellIndex: number) { 
     const cellCon = chartData.find((x: any) => x.month == cellName);
     const index = chartData.findIndex((x: any) => x.month == cellName);
     const currentCell = chartData[index]?.dose;
@@ -178,7 +163,7 @@ export class ChartComponent implements OnInit {
         }
         rows[rowIndex].children[cellIndex].setAttribute('data-track', chartData[index]?.track_id);
         rows[rowIndex].children[cellIndex].setAttribute('data-rocord', chartData[index]?.record_id);
-        //rows[rowIndex].children[cellIndex].addEventListener('onclick', this.openPopup(chartData[index]?.record_id));
+        rows[rowIndex].children[cellIndex].addEventListener('click',this.openPopup,false );
         rows[rowIndex].children[cellIndex].innerHTML = chartData[index]?.dose + chartData[index]?.suffix+' Dose';
         if(chartData[index]?.suffix == null){
           rows[rowIndex].children[cellIndex].innerHTML = chartData[index]?.dose;
@@ -200,6 +185,10 @@ export class ChartComponent implements OnInit {
       return 'schedule-gray';
     }
 
+  }
+
+  testf(){
+     console.log('test f function');
   }
 
 }

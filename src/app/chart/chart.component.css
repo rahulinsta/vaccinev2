@@ -48,3 +48,7 @@
     color: red;
     text-align: left  !important;
 }
+
+myModal.in{
+    z-index: 999999;
+}
