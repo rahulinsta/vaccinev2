@@ -25,6 +25,10 @@ export class ChartComponent implements OnInit {
   errmsg:any;
   track_id:any;
   record_id:any;
+  location:any;
+  vcDate:any;
+  vcName:any;
+  vcTime:any;
   latitude : any;
   longitude: any;
   zoom: any;
@@ -67,6 +71,10 @@ export class ChartComponent implements OnInit {
       return  
     } 
 
+    console.log(this.form.value);
+    return;
+
+
     this.formArr.vcdate = this.form.value.vcdate;
     this.formArr.vctime = this.form.value.vctime;
     this.formArr.vclocation = this.form.value.vclocation;
@@ -99,15 +107,22 @@ export class ChartComponent implements OnInit {
   } 
 
 
-  displayStyle = "none";
-  displayStyle2 = "none";
   
   openPopup(event:any) {
     this.track_id =event.currentTarget.getAttribute('data-track');
-    this.record_id =event.currentTarget.getAttribute('data-record'); 
+    this.record_id =event.currentTarget.getAttribute('data-record');
+    this.location =event.currentTarget.getAttribute('data-location');
+    this.vcName =event.currentTarget.getAttribute('data-vaccine');
+    this.vcDate =event.currentTarget.getAttribute('data-date');
+    this.vcTime =event.currentTarget.getAttribute('data-time');
     
-    console.log(this.track_id+' trid');
-    console.log(this.record_id+' record_id');
+    // console.log(this.track_id+' trid');
+    // console.log(this.record_id+' record_id');
+    // console.log(this.location+' location');
+    var inpVal = document.getElementById('lc');
+    //console.log('inp');
+    //inpVal!.innerHTML = "kdkdk"
+    //inpVal!.setAttribute('value', this.track_id);
 
     if(this.record_id == 'null'){
       console.log('yes inside the condition');
@@ -118,13 +133,16 @@ export class ChartComponent implements OnInit {
       console.log('inelse condition');
       var btn2 = document.getElementById('m2');
       btn2?.click();
+      document.getElementById('lc')!.innerHTML =this.location;
+      document.getElementById('date')!.innerHTML =this.vcDate;
+      document.getElementById('time')!.innerHTML =this.vcTime;
+      document.getElementById('vcn')!.innerHTML =this.vcName;
     }
     
   }
-  closePopup() {
-    this.displayStyle = "none";
-    this.displayStyle2 = "none";
-  }
+  
+
+ 
 
   open(content:any) {
 
@@ -164,14 +182,16 @@ export class ChartComponent implements OnInit {
 
     this.http.get(env.apiurl + 'charts?userId='+this.userId, httpOptions).subscribe(data => {
       this.vcData = data;
-      //console.log(this.vcData.data);
+      console.log(this.vcData.data);
 
       for (var i = 0; i < this.vcData.data.length; i++) {
-        //console.log();
-        this.chartData.push(this.vcData.data[i].charts);
+        console.log(this.vcData.data[i].charts);
+        
+          this.chartData.push(this.vcData.data[i].charts);
       }
-
-      //console.log(this.chartData);
+    
+    //console.log('this.chartData');
+    //console.log(this.chartData);
 
     });
   }
@@ -209,6 +229,11 @@ export class ChartComponent implements OnInit {
         }
         rows[rowIndex].children[cellIndex].setAttribute('data-track', chartData[index]?.track_id);
         rows[rowIndex].children[cellIndex].setAttribute('data-record', chartData[index]?.record_id);
+        rows[rowIndex].children[cellIndex].setAttribute('data-location', chartData[index]?.location);
+        rows[rowIndex].children[cellIndex].setAttribute('data-location', chartData[index]?.location);
+        rows[rowIndex].children[cellIndex].setAttribute('data-date', chartData[index]?.vaccine_date);
+        rows[rowIndex].children[cellIndex].setAttribute('data-time', chartData[index]?.vaccine_time);
+        rows[rowIndex].children[cellIndex].setAttribute('data-vaccine', chartData[index]?.vaccine_name);
         rows[rowIndex].children[cellIndex].addEventListener('click',this.openPopup,false );
         rows[rowIndex].children[cellIndex].innerHTML = chartData[index]?.vaccine_date +'<br>' + chartData[index]?.vaccine_time;
         return 'cell schedule-active';

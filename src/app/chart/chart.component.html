@@ -68,7 +68,6 @@
   </div>
 
   <!-- =========Pop up data======= -->
-
   <button class="btn btn-lg btn-outline-primary" [hidden]="true"  (click)="open(mymodal)" id="m1" #cmodel>Open My Modal</button>
    
   <ng-template #mymodal let-modal>
@@ -80,7 +79,9 @@
     </div>
     <div class="modal-body">
 
+      
       <form [formGroup]="form" (ngSubmit)="submit()">
+        
         <div class="form-floating mb-3">
           <input type="date" class="form-control" id="phone" placeholder="Vaccine Date" formControlName="vcdate" >
           <label for="floatingInput">Vaccine Date</label>
@@ -151,10 +152,10 @@
     <div class="modal-body">
 
       <div class="modal-body">
-        <p>Vaccine Name: HepB</p>
-        <p>Location: India</p>
-        <p>Date: 25-06-2022 </p>
-        <p>Time: 20:58</p>
+        <p>Vaccine Name: <span id="vcn">t</span></p>
+        <p >Location: <span id="lc">t</span></p>
+        <p>Date: <span id="date">t</span> </p>
+        <p>Time: <span id="time">t</span></p>
     </div>
 
     </div>
