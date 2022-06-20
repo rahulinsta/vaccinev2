@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
+  uname:any;
+
   constructor() { }
 
   ngOnInit(): void {
+
+    this.uname = localStorage.getItem('ufname');
+    console.log(this.uname);
+
   }
 
 }

@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void { 
     var userId = localStorage.getItem('userid');
+    console.log(userId);
     if(userId){
       this.router.navigate(['/chart']);
     }
@@ -52,6 +53,8 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('userid', data.data.id);
         localStorage.setItem('uname', data.data.uName);
         localStorage.setItem('vctoken', this.token);
+        localStorage.setItem('ufname', data.data.first_name);
+        localStorage.setItem('ufullname', data.data.name);
 
         this.router.navigate(['/chart']);
 
