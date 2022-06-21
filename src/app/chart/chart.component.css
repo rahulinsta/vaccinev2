@@ -4,6 +4,12 @@
 
 .schedule-active {
     background-color: green;
+    color: #fff;
+        font-size: 14px;
+}
+
+.check-opt{
+    font-size:20px !important;
 }
 
 .schedule-gray {
@@ -49,6 +55,7 @@
     text-align: left  !important;
 }
 
-myModal.in{
+.myModal.in{
     z-index: 999999;
 }
+

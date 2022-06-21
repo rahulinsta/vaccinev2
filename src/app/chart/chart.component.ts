@@ -235,7 +235,7 @@ export class ChartComponent implements OnInit {
         rows[rowIndex].children[cellIndex].setAttribute('data-time', chartData[index]?.vaccine_time);
         rows[rowIndex].children[cellIndex].setAttribute('data-vaccine', chartData[index]?.vaccine_name);
         rows[rowIndex].children[cellIndex].addEventListener('click',this.openPopup,false );
-        rows[rowIndex].children[cellIndex].innerHTML = chartData[index]?.vaccine_date +'<br>' + chartData[index]?.vaccine_time;
+        rows[rowIndex].children[cellIndex].innerHTML = '<i style="font-size:36px; line-height:30px;" class=" bi bi-check"></i>' + '<br>' + chartData[index]?.vaccine_date +'<br>' + chartData[index]?.vaccine_time;
         return 'cell schedule-active';
       }
     } else {
