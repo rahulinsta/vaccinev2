@@ -10,6 +10,26 @@
     background-color: #d5d7d8;
 }
 
+
+.dose-taken{
+    background-color:  #736f65;
+}
+
+.dose-overdue{
+    background-color: #ad1909;
+}
+
+.dose-coming{
+    background-color: #edda09;
+}
+
+
+.dose-dueOn{
+    background-color: #09d60c;
+}
+
+
+
 .table {
     border: 0;
 }

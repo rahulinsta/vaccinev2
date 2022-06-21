@@ -195,7 +195,7 @@ export class ChartComponent implements OnInit {
     const currentCell = chartData[index]?.dose;
     const isSimiliarData = chartData.filter((item: any) => { return item.dose == currentCell });
     const rows = this.el.nativeElement.querySelectorAll('.table-body .rows')
-    
+    var cellData:any;
     if (cellCon) {
       
    
@@ -213,7 +213,21 @@ export class ChartComponent implements OnInit {
           rows[rowIndex].children[cellIndex].innerHTML = chartData[index]?.dose;
         }
         
-        return 'cell schedule-yellow';
+        if(chartData[index]?.DoseStatus == 'Taken'){
+          cellData = 'cell dose-taken';
+        }
+        if(chartData[index]?.DoseStatus == 'overdue'){
+          cellData = 'cell dose-overdue';
+        }
+        if(chartData[index]?.DoseStatus == 'coming'){
+          cellData = 'cell dose-coming';
+        }
+        if(chartData[index]?.DoseStatus == 'dueOn'){
+          cellData = 'cell dose-dueOn';
+        } 
+
+        //return 'cell schedule-yellow';
+        return cellData;
         
       } else {
         if(isSimiliarData.length > 1){
@@ -229,7 +243,22 @@ export class ChartComponent implements OnInit {
         rows[rowIndex].children[cellIndex].setAttribute('data-vaccine', chartData[index]?.vaccine_name);
         rows[rowIndex].children[cellIndex].addEventListener('click',this.openPopup,false );
         rows[rowIndex].children[cellIndex].innerHTML = chartData[index]?.vaccine_date +'<br>' + chartData[index]?.vaccine_time;
-        return 'cell schedule-active';
+
+        if(chartData[index]?.DoseStatus == 'Taken'){
+          cellData = 'cell dose-taken';
+        }
+        if(chartData[index]?.DoseStatus == 'overdue'){
+          cellData = 'cell dose-overdue';
+        }
+        if(chartData[index]?.DoseStatus == 'coming'){
+          cellData = 'cell dose-coming';
+        }
+        if(chartData[index]?.DoseStatus == 'dueOn'){
+          cellData = 'cell dose-dueOn';
+        } 
+
+        //return 'cell schedule-active';
+        return cellData
       }
     } else {
       return 'schedule-gray';
