@@ -69,12 +69,12 @@ export class ChartComponent implements OnInit {
     this.isSubmitted = true;  
     if (this.form.invalid) {  
       return  
-    } 
+    }
+    
+    var trackId = document.getElementById('hiddenspn')!.innerHTML;
+   
 
-    console.log(this.form.value);
-    return;
-
-
+   
     this.formArr.vcdate = this.form.value.vcdate;
     this.formArr.vctime = this.form.value.vctime;
     this.formArr.vclocation = this.form.value.vclocation;
@@ -83,7 +83,7 @@ export class ChartComponent implements OnInit {
       'vaccine_time': this.formArr.vctime,
       'vaccine_location': this.formArr.vclocation,
       'userId': this.userId,
-      'track_id': 1,
+      'track_id': trackId,
       'lat': 48.89899,
       'long': 68.49590
     }
@@ -116,21 +116,14 @@ export class ChartComponent implements OnInit {
     this.vcDate =event.currentTarget.getAttribute('data-date');
     this.vcTime =event.currentTarget.getAttribute('data-time');
     
-    // console.log(this.track_id+' trid');
-    // console.log(this.record_id+' record_id');
-    // console.log(this.location+' location');
-    var inpVal = document.getElementById('lc');
-    //console.log('inp');
-    //inpVal!.innerHTML = "kdkdk"
-    //inpVal!.setAttribute('value', this.track_id);
-
     if(this.record_id == 'null'){
-      console.log('yes inside the condition');
+      //console.log('yes inside the condition');
       var btn = document.getElementById('m1');
       btn?.click();
+      document.getElementById('hiddenspn')!.innerHTML = this.track_id;
 
     }else{
-      console.log('inelse condition');
+      //console.log('inelse condition');
       var btn2 = document.getElementById('m2');
       btn2?.click();
       document.getElementById('lc')!.innerHTML =this.location;
