@@ -14,15 +14,18 @@
 
 .schedule-gray {
     background-color: #d5d7d8;
+   
 }
 
 
 .dose-taken{
     background-color:  #736f65;
+    color: #fff;
 }
 
 .dose-overdue{
     background-color: #ad1909;
+    color: #fff;
 }
 
 .dose-coming{
@@ -32,6 +35,7 @@
 
 .dose-dueOn{
     background-color: #09d60c;
+    color: #fff;
 }
 
 

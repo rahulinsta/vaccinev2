@@ -30,12 +30,6 @@ export class HeaderComponent implements OnInit {
     })
   }
 
-  addVaccine() {
-    var modalId = document.querySelector("#addVaccine");
-    var myModal = new bootstrap.Modal(modalId!, {
-      keyboard: false
-    })
-    myModal.show();
-  }
+ 
 
 }

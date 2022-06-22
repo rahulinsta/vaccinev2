@@ -137,10 +137,8 @@
 
 <!-- =========Second pop up=========== -->
 
-
 <button class="btn btn-lg btn-outline-primary" [hidden]="true"  (click)="open(mymodal2)" id="m2"></button>
-   
-  <ng-template #mymodal2 let-modal>
+     <ng-template #mymodal2 let-modal>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Vaccine Details</h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')" #closeBtn>
@@ -161,11 +159,6 @@
       <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
     </div>
   </ng-template>
-
-
-
-
-
 
 <app-footer></app-footer>
 
