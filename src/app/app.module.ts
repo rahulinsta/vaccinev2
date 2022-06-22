@@ -13,6 +13,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { VerifyOtpComponent } from './verify-otp/verify-otp.component';
+import { NgOtpInputModule } from 'ng-otp-input';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { VerifyOtpComponent } from './verify-otp/verify-otp.component';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    NgOtpInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
