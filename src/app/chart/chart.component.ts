@@ -34,14 +34,17 @@ export class ChartComponent implements OnInit {
   zoom: any;
   private geoCoder:any;
   closeResult: string = '';
+  imageSrc: string = '';
   
 
-  formArr={vcdate:'',vctime:'', vclocation:''};
+  formArr={vcdate:'',vctime:'', vclocation:'', img:''};
 
   form = new FormGroup({
     vcdate: new FormControl('', [Validators.required]),
     vctime: new FormControl('', [Validators.required]),
     vclocation: new FormControl('', [Validators.required]),
+    file: new FormControl('', [Validators.required]),
+    fileSource: new FormControl('', [Validators.required]),
   });
 
 
@@ -57,6 +60,28 @@ export class ChartComponent implements OnInit {
     this.getChartdata();
 
     
+  }
+
+
+
+  onFileChange(event:any) {
+    const reader = new FileReader();
+     
+    if(event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+     
+      reader.onload = () => {
+    
+        this.imageSrc = reader.result as string;
+      
+        this.form.patchValue({
+          fileSource: reader.result
+        });
+    
+      };
+    
+    }
   }
 
 
@@ -78,6 +103,8 @@ export class ChartComponent implements OnInit {
     this.formArr.vcdate = this.form.value.vcdate;
     this.formArr.vctime = this.form.value.vctime;
     this.formArr.vclocation = this.form.value.vclocation;
+    this.formArr.img = this.form.value.file;
+
     var vcdata = {
       'vaccine_date': this.formArr.vcdate,
       'vaccine_time': this.formArr.vctime,
@@ -85,8 +112,10 @@ export class ChartComponent implements OnInit {
       'userId': this.userId,
       'track_id': trackId,
       'lat': 48.89899,
-      'long': 68.49590
+      'long': 68.49590,
+      'upload_file': this.formArr.img
     }
+
     
     this.usrObj.addVaccine(vcdata).subscribe((data:any)=>{
       //this.isLoading = false; 

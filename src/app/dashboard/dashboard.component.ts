@@ -22,6 +22,7 @@ export class DashboardComponent implements OnInit {
   email:any;
   phone:any;
   userData :any = [];
+  members:any = [];
   fletter:any;
   constructor(private router: Router,private http: HttpClient, 
     ) { }
@@ -36,6 +37,7 @@ export class DashboardComponent implements OnInit {
     this.uname = localStorage.getItem('ufname');
 
     this.userProfile();
+    this.getMembers();
 
 
   }
@@ -83,6 +85,24 @@ export class DashboardComponent implements OnInit {
       this.fletter = this.userName.charAt(0);
 
     });
+  }
+
+
+  // get members
+
+  getMembers(){
+
+    var vcToken = localStorage.getItem('vctoken');
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Accept': 'application/json',
+        'Authorization': 'Bearer '+vcToken
+      })
+    }
+    this.http.get(env.apiurl + 'member', httpOptions).subscribe(data => {
+        console.log(data);
+    });
+
   }
 
 
