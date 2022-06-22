@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-<<<<<<< HEAD
 import { MainserviceComponent } from '../services/mainservice/mainservice.component';
 import {Router} from "@angular/router"
-=======
 import * as bootstrap from 'bootstrap';
->>>>>>> c41c0d1e60ec03aa821193a23172943cec81381e
 
 @Component({
   selector: 'app-header',
@@ -24,13 +21,12 @@ export class HeaderComponent implements OnInit {
 
   }
 
-<<<<<<< HEAD
   logout(){
     console.log('yes logout');
     this.usrObj.logout();
     localStorage.clear();
     this.router.navigate(['/login']);
-=======
+  }
   toggleMenu(e: any) {
     // console.log(e.currentTarget);
     const btn = e.currentTarget;
@@ -48,7 +44,6 @@ export class HeaderComponent implements OnInit {
       keyboard: false
     })
     myModal.show();
->>>>>>> c41c0d1e60ec03aa821193a23172943cec81381e
   }
 
 }
