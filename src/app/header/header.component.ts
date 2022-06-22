@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MainserviceComponent } from '../services/mainservice/mainservice.component';
+import {Router} from "@angular/router"
 import * as bootstrap from 'bootstrap';
 
 @Component({
@@ -10,15 +12,21 @@ export class HeaderComponent implements OnInit {
 
   uname:any;
 
-  constructor() { }
+  constructor(private usrObj:MainserviceComponent,private router: Router) { }
 
   ngOnInit(): void {
     var e = document.getElementById("navbar");
     this.uname = localStorage.getItem('ufname');
-    console.log(this.uname);
+    //console.log(this.uname);
 
   }
 
+  logout(){
+    //console.log('yes logout');
+    this.usrObj.logout();
+    localStorage.clear();
+    this.router.navigate(['/login']);
+  }
   toggleMenu(e: any) {
     // console.log(e.currentTarget);
     const btn = e.currentTarget;
