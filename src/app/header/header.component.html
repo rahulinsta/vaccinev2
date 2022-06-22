@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-lg navbar-light navbar-fixed is-sticky" id="navbar">
         <div class="container">
             <a class="navbar-brand" href="/">
-                <img class="logo" src="assets/logo.png" alt="logo">
+                <img class="logo" src="assets/logo.png" alt="logo"> 
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -17,7 +17,7 @@
                 <ul class="navbar-nav ml-auto nav-pills" id="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="#intro" data-category-id="intro">Hi {{uname}}</a>
-                        <a class="nav-link" href="#intro" data-category-id="intro">Logout</a>
+                        <a class="nav-link" (click)="logout()" data-category-id="intro">Logout</a>
                     </li>
                     
                     

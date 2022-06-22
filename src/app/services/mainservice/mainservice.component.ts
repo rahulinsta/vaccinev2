@@ -54,6 +54,10 @@ export class MainserviceComponent implements OnInit {
     }).pipe(rawData => {return rawData;});
   }
 
+  //
+  logout(){
+      this.http.post(env.apiurl+'logout', httpOptions);
+  }
 
   //add vaccine from chart
 
