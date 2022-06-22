@@ -11,6 +11,13 @@ export class DashboardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
+    // profileForm = this.fb.group({
+    //   firstName: [''],
+    //   lastName: [''],
+     
+    // });
+
   }
 
   openInfo(e: any) {
@@ -21,11 +28,15 @@ export class DashboardComponent implements OnInit {
   }
 
   addVaccine() {
-    var modalId = document.querySelector("#addVaccine");
+    var modalId = document.querySelector("#addVaccineStep1");
     var myModal = new bootstrap.Modal(modalId!, {
       keyboard: false
     })
     myModal.show();
+  }
+
+  selectAge(){
+    
   }
 
 }
