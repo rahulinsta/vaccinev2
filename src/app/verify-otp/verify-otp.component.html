@@ -1,0 +1,54 @@
+<div class="container login-page">
+    <div class="col-lg-5 col-md-8 mx-auto">
+        <main class="form-signin text-center">
+            <!-- <div class="apploader loading" *ngIf="resendLoader">
+                <div class="loader">
+                    <div class="spinner-border" role="status"></div>
+                    <span class="d-block mt-3">Sending OTP...</span>
+                </div>
+            </div> -->
+            <form>
+                <div class="logo-img">
+                    <a href=""><img class="img-fluid" src="assets/img/logo.jpg" alt=""></a>
+                </div>
+                <h1 class="mb-2 mt-4">OTP Verification</h1>
+                <p class="mb-4 fw-normal text-muted">
+                    An OTP has been sent to<br>loginID
+                    <a [routerLink]="['/login']">
+                        <svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="fa-w-16">
+                            <path fill="currentColor"
+                                d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"
+                                class=""></path>
+                        </svg>
+                    </a>
+                </p>
+
+
+                <!-- <div class="form-floating mb-3">
+                    <ng-otp-input #ngOtpInput (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
+                </div> -->
+                <p class="mt-4 fw-normal text-muted">Didn't receive the code<br>
+                    <a class="link-text resend">Resend OTP</a>
+                </p>
+                <!-- <ng-container *ngIf="showSucc">
+                    <div class="alert alert-success" role="alert">
+                        {{succMsg[0]}}
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="showErr">
+                    <div class="alert alert-danger" role="alert">
+                        {{errMsg[0]}}
+                    </div>
+                </ng-container> -->
+
+                <button class="w-100 btn btn-lg btn-primary" type="submit">
+                    Next
+                    
+                    <!-- <span class="spinner-border spinner-border-sm ml-2" role="status" 
+                        aria-hidden="true"></span> -->
+                </button>
+                <div id="sign-in-button"></div>
+            </form>
+        </main>
+    </div>
+</div>

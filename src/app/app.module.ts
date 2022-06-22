@@ -12,6 +12,7 @@ import { ChartComponent } from './chart/chart.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { VerifyOtpComponent } from './verify-otp/verify-otp.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     DashboardComponent,
     ChartComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    VerifyOtpComponent
   ],
   imports: [
     BrowserModule,

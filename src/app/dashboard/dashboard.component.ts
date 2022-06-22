@@ -82,8 +82,6 @@ export class DashboardComponent implements OnInit {
       this.pincode = this.userData.data.zipcode;
       this.fletter = this.userName.charAt(0);
 
-
-
     });
   }
 
