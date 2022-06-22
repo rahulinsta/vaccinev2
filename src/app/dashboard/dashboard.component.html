@@ -6,7 +6,7 @@
     <div class="mem-bg">
     <div class="row row align-items-center">
         <div class="col-md-8">
-<h3>Welcome, James  </h3>
+<h3>Welcome, {{uname}}  </h3>
 <span class="legend"> Default Member </span>
         </div>
 <div class="col-md-4">
@@ -35,12 +35,12 @@
                     <div class="col-md-6 text-start header-text">
                         <div class="row align-items-center mb-md-0 mb-3">
                             <div class="col-auto mr-3">
-                                <div class="avatar">J</div>
+                                <div class="avatar">{{fletter}}</div>
                             </div>
                             <div class="col">
-                                <h1 class="user-name">James</h1>
+                                <h1 class="user-name">{{userName}}</h1>
                                 <div class="user-dob">
-                                    DOB : 01/05/2020
+                                    DOB : {{dob}}
                                 </div>
                             </div>
                             <!-- <div class="col-auto d-md-none">
@@ -85,15 +85,15 @@
                                     <div class="col-md-4">
                                         <p class="mb-md-0"><span>Address :</span> <br>
                                             <!-- {{ userInfo?.street }},<br> -->
-                                            city, .state,<br>
-                                            United States .zip_code
+                                            {{city}}, {{state}},<br>
+                                            {{pincode}}
                                         </p>
                                     </div>
                                     <div class="col-md-4">
-                                        <p><span>Phone :</span> <br> (country_code) - phone_no</p>
+                                        <p><span>Phone :</span> <br> {{phone}}</p>
                                     </div>
                                     <div class="col-md-4">
-                                        <p><span>Email: </span> <br> email </p>
+                                        <p><span>Email: </span> <br> {{email}} </p>
                                     </div>
                                 </div>
                             </div>

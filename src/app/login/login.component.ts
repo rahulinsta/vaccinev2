@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     var userId = localStorage.getItem('userid');
     console.log(userId);
     if(userId){
-      this.router.navigate(['/chart']);
+      this.router.navigate(['/dashboard']);
     }
   }
 
@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('ufname', data.data.first_name);
         localStorage.setItem('ufullname', data.data.name);
 
-        this.router.navigate(['/chart']);
+        this.router.navigate(['/dashboard']);
 
 
       }else{
