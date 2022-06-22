@@ -2,7 +2,7 @@
   <app-header></app-header> 
 
 
-  <div class="container">
+  
     <div class="col-md-12 mx-auto" style="margin-top: 85px;">
       <div class="table-responsive">
         <table class="table table-bordered">
@@ -64,7 +64,7 @@
 
       </div>
     </div>
-  </div>
+  
 
   <!-- =========Pop up data======= -->
   <button class="btn btn-lg btn-outline-primary" [hidden]="true"  (click)="open(mymodal)" id="m1" #cmodel>Open My Modal</button>
@@ -78,9 +78,8 @@
     </div>
     <div class="modal-body">
 
-      
+      <p [hidden]= "true" > <span id="hiddenspn">spn</span> </p>
       <form [formGroup]="form" (ngSubmit)="submit()">
-        
         <div class="form-floating mb-3">
           <input type="date" class="form-control" id="phone" placeholder="Vaccine Date" formControlName="vcdate" >
           <label for="floatingInput">Vaccine Date</label>
