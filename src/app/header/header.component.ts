@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+<<<<<<< HEAD
 import { MainserviceComponent } from '../services/mainservice/mainservice.component';
 import {Router} from "@angular/router"
+=======
+import * as bootstrap from 'bootstrap';
+>>>>>>> c41c0d1e60ec03aa821193a23172943cec81381e
 
 @Component({
   selector: 'app-header',
@@ -14,17 +18,37 @@ export class HeaderComponent implements OnInit {
   constructor(private usrObj:MainserviceComponent,private router: Router) { }
 
   ngOnInit(): void {
-
+    var e = document.getElementById("navbar");
     this.uname = localStorage.getItem('ufname');
     console.log(this.uname);
 
   }
 
+<<<<<<< HEAD
   logout(){
     console.log('yes logout');
     this.usrObj.logout();
     localStorage.clear();
     this.router.navigate(['/login']);
+=======
+  toggleMenu(e: any) {
+    // console.log(e.currentTarget);
+    const btn = e.currentTarget;
+    btn.getAttribute('aria-expanded') == 'false' ? btn.setAttribute('aria-expanded', "true") : btn.setAttribute('aria-expanded', "false")
+    var myCollapse = document.getElementById('navbarSupportedContent')
+    // return new bootstrap.Collapse(myCollapse)
+    new bootstrap.Collapse(myCollapse!, {
+      toggle: false
+    })
+  }
+
+  addVaccine() {
+    var modalId = document.querySelector("#addVaccine");
+    var myModal = new bootstrap.Modal(modalId!, {
+      keyboard: false
+    })
+    myModal.show();
+>>>>>>> c41c0d1e60ec03aa821193a23172943cec81381e
   }
 
 }
