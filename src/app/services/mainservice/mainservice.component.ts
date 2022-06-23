@@ -65,6 +65,11 @@ export class MainserviceComponent implements OnInit {
     return this.http.post(env.apiurl+'add-vaccine',data,httpOptions );
   }
 
+  //add vaccine form dashboard
+  addVaccineFromDashboard(data:any){
+    return this.http.post(env.apiurl+'store-vaccine-records',data,httpOptions );
+  }
+
 
 
   ngOnInit(): void {

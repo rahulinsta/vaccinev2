@@ -3,6 +3,7 @@ import * as bootstrap from 'bootstrap';
 import {Router} from "@angular/router"
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment as env } from '../../environments/environment';
+import { MainserviceComponent } from '../services/mainservice/mainservice.component';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
 
 var vcToken = localStorage.getItem('vctoken');
@@ -40,6 +41,9 @@ export class DashboardComponent implements OnInit {
   memberid:any;
   diseaseList:any = [];
   vaccineList:any = [];
+  successMsg:any;
+  errmsg:any;
+  memberId:any;
 
   form = new FormGroup({
     selectAge: new FormControl('', [Validators.required]),
@@ -55,7 +59,7 @@ export class DashboardComponent implements OnInit {
   });
 
 
-  constructor(private router: Router,private http: HttpClient, 
+  constructor(private router: Router,private http: HttpClient,private usrObj:MainserviceComponent 
     ) { }
 
   ngOnInit(): void { 
@@ -106,12 +110,6 @@ export class DashboardComponent implements OnInit {
   }
 
 
-
-  selectAge(){
-    
-  }
-
-
   get f(){
     return this.form.controls;
   }
@@ -121,7 +119,6 @@ export class DashboardComponent implements OnInit {
     if (this.form.invalid) {  
       return  
     }
-    console.log(this.form.value.selectAge);
     this.age = this.form.value.selectAge;
     if(this.age == 18){
       this.hideVaccineModlefirst();
@@ -141,6 +138,37 @@ export class DashboardComponent implements OnInit {
     if (this.addvcFrm.invalid) {  
       return  
     }
+
+    var vcdata = {
+      'userId': this.memberId,
+      'diseaseId': this.addvcFrm.value.diseaseId,
+      'vendorId': this.addvcFrm.value.vendorId,
+      'vaccine_date': this.addvcFrm.value.vaccine_date,
+      'vaccine_time': this.addvcFrm.value.vaccine_time,
+      'vaccine_location': this.addvcFrm.value.vaccine_location,
+      'lat': 48.89899,
+      'long': 68.49590,
+      
+    }
+
+    this.usrObj.addVaccineFromDashboard(vcdata).subscribe((data:any)=>{
+      //this.isLoading = false; 
+      if (data.status){
+        this.successMsg = data.message;
+        setTimeout(()=>{                         
+          location.reload();
+      }, 2000);
+        //this.form.reset();
+        //this.router.navigate(['register-verify']);
+      }else{
+        this.errmsg = data.message;
+      }
+    });
+
+
+
+    
+
   }
 
   //get user profile data
@@ -166,6 +194,7 @@ export class DashboardComponent implements OnInit {
   getMembers(){
     this.http.get(env.apiurl + 'member', httpOptions).subscribe(data => {
         this.members = data;
+        console.log(this.members.data);
     });
 
   }
@@ -177,9 +206,22 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+
+  getDiseaseId(e:any){
+    var diseaseId = e.target.value; 
+    this.getVaccine(diseaseId);
+    
+  }
+
+  getMemberid(e:any){
+    this.memberId = e.target.value;
+    //console.log(this.memberId);
+  }
+
     getVaccine(vendorId:any){
       this.http.get(env.apiurl + 'get-vendor-by-disease?diseaseId='+vendorId, httpOptions).subscribe(data => {
           this.vaccineList = data;
+          console.log('vaccine');
           console.log(this.vaccineList.data);
       });
 

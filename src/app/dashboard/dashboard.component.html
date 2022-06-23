@@ -12,7 +12,7 @@
 <div class="col-md-4">
     <label for="selectMember" class="form-label mb-1">Select Member </label>
     <select class="form-select" formControlName="selectMember" id="selectMember">
-        <option>Select member</option>
+        <option value="">Select member</option>
         <option *ngFor=" let mem of members.data" > {{mem.name}} </option>
     </select>
 </div>
@@ -289,7 +289,7 @@ aria-labelledby="vaccineLabel" aria-hidden="true">
             <div class="modal-body">
                 <div class="mb-3">
                     <label for="selectAge" class="form-label">Select Age <sup class="text-danger">*</sup></label>
-                    <select class="form-select" formControlName="selectAge" id="selectAge" (change)="selectAge()">
+                    <select class="form-select" formControlName="selectAge" id="selectAge" >
                         <option value=""> Select Age </option>
                         <option  id="selectAge18" value="18+" > Select 18+ </option>
                         <option id="BerthTo18" value="18" > Berth to 18 </option>
@@ -301,9 +301,9 @@ aria-labelledby="vaccineLabel" aria-hidden="true">
                 </div>
                 <div class="mb-3" id="selectAge">
                     <label for="selectMember" class="form-label">Select Member <sup class="text-danger">*</sup></label>
-                    <select class="form-select" formControlName="selectMember" id="selectMember">
-                        <option> Select Member </option>
-                        <option *ngFor=" let member of members.data" > {{member.name}} </option>
+                    <select class="form-select" formControlName="selectMember" id="selectMember" (change)="getMemberid($event)">
+                        <option value=""> Select Member </option>
+                        <option *ngFor=" let member of members.data" value="{{member.id}}" > {{member.name}} </option>
                      </select>
                      <div *ngIf="isSubmitted && f['selectMember'].invalid" class="errFrm">
                         <div *ngIf="f['selectMember'].errors && f['selectMember'].errors['required']">Please select member</div>
@@ -346,8 +346,9 @@ aria-labelledby="vaccineLabel" aria-hidden="true">
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="diseaseId" class="form-label">Disease <sup class="text-danger">*</sup></label>
-                        <select class="form-select" formControlName="diseaseId" id="diseaseId">
-                            <option>name</option>
+                        <select class="form-select" formControlName="diseaseId" id="diseaseId" (change)="getDiseaseId($event)">
+                            <option value="">name</option>
+                            <option *ngFor="let disease of diseaseList.data" value="{{disease.id}}" >{{disease.name}}</option>
                         </select>
                         <div *ngIf="isSubmittedVc && f2['diseaseId'].invalid" class="errFrm">
                             <div *ngIf="f2['diseaseId'].errors && f2['diseaseId'].errors['required']">Please select disease name.</div>
@@ -356,7 +357,8 @@ aria-labelledby="vaccineLabel" aria-hidden="true">
                     <div class="mb-3">
                         <label for="vendorId" class="form-label">Vaccine Name <sup class="text-danger">*</sup></label>
                         <select class="form-select" formControlName="vendorId" id="vendorId">
-                            <option>name</option>
+                            <option value="">name</option>
+                            <option *ngFor="let vc of vaccineList.data" value="{{vc.id}}" > {{vc.name}}</option>
                         </select>
                         <div *ngIf="isSubmittedVc && f2['vendorId'].invalid" class="errFrm">
                             <div *ngIf="f2['vendorId'].errors && f2['vendorId'].errors['required']">Please select vaccine name.</div>
@@ -368,7 +370,7 @@ aria-labelledby="vaccineLabel" aria-hidden="true">
                                 <label for="vaccine_date" class="form-label">Vaccine Date<sup
                                         class="text-danger">*</sup></label>
                                 <div class="position-relative">
-                                    <input type="text" formControlName="vaccine_date" class="form-control datepicker"
+                                    <input type="date" formControlName="vaccine_date" class="form-control datepicker"
                                          id="vaccine_date" placeholder="mm-dd-yyyy">
                                 </div>
                                 <div *ngIf="isSubmittedVc && f2['vaccine_date'].invalid" class="errFrm">
@@ -380,7 +382,7 @@ aria-labelledby="vaccineLabel" aria-hidden="true">
                             <div class="mb-3">
                                 <label for="vaccine_time" class="form-label">Vaccine Time</label>
                                 <div class="position-relative">
-                                    <input type="text" formControlName="vaccine_time" class="form-control timepicker"
+                                    <input type="time" formControlName="vaccine_time" class="form-control timepicker"
                                         id="vaccine_time"  placeholder="hh:mm">
                                 </div>
                                 <div *ngIf="isSubmittedVc && f2['vaccine_time'].invalid" class="errFrm">
@@ -399,16 +401,7 @@ aria-labelledby="vaccineLabel" aria-hidden="true">
                                 <div *ngIf="f2['vaccine_location'].errors && f2['vaccine_location'].errors['required']">Please enter vaccine location.</div>
                             </div>
                     </div>
-                    <!-- <ng-container *ngIf="showMsg">
-                        <div class="alert alert-success mb-0 mt-2" role="alert">
-                            {{showMsg}}
-                        </div>
-                    </ng-container>
-                    <ng-container *ngIf="showErr">
-                        <div class="alert alert-danger mb-0 mt-2" role="alert">
-                            {{errMsg[0]}}
-                        </div>
-                    </ng-container> -->
+                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary">Cancel</button>
@@ -419,6 +412,19 @@ aria-labelledby="vaccineLabel" aria-hidden="true">
                     </button>
                 </div>
             </form>
+
+            <ng-container *ngIf="errmsg">
+                <div class="alert alert-danger" role="alert">
+                  {{errmsg}}
+                </div>
+              </ng-container>
+        
+              <ng-container *ngIf="successMsg">
+                <div class="alert alert-success" role="alert">
+                  {{successMsg}}
+                </div>
+              </ng-container>
+
         </div>
     </div>
 </div>
