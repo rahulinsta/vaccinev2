@@ -14,6 +14,7 @@ import { FooterComponent } from './footer/footer.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { VerifyOtpComponent } from './verify-otp/verify-otp.component';
 import { NgOtpInputModule } from 'ng-otp-input';
+import { MembersListComponent } from './dashboard/members-list/members-list.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { NgOtpInputModule } from 'ng-otp-input';
     ChartComponent,
     HeaderComponent,
     FooterComponent,
-    VerifyOtpComponent
+    VerifyOtpComponent,
+    MembersListComponent
   ],
   imports: [
     BrowserModule,
