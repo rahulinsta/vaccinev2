@@ -5,6 +5,15 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment as env } from '../../environments/environment';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
 
+var vcToken = localStorage.getItem('vctoken');
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Accept': 'application/json',
+    'Authorization': 'Bearer '+vcToken
+  })
+}
+
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -26,14 +35,24 @@ export class DashboardComponent implements OnInit {
   members:any = [];
   fletter:any;
   isSubmitted:boolean= false;
+  isSubmittedVc:boolean= false;
   age:any;
   memberid:any;
+  diseaseList:any = [];
+  vaccineList:any = [];
 
   form = new FormGroup({
     selectAge: new FormControl('', [Validators.required]),
     selectMember: new FormControl('', [Validators.required]),
   });
 
+  addvcFrm = new FormGroup ({
+    diseaseId: new FormControl('', [Validators.required]),
+    vendorId: new FormControl('', [Validators.required]),
+    vaccine_date: new FormControl('', [Validators.required]),
+    vaccine_time: new FormControl('', [Validators.required]),
+    vaccine_location: new FormControl('', [Validators.required]),
+  });
 
 
   constructor(private router: Router,private http: HttpClient, 
@@ -50,6 +69,7 @@ export class DashboardComponent implements OnInit {
 
     this.userProfile();
     this.getMembers();
+    this.getDisease();
 
 
   }
@@ -112,21 +132,21 @@ export class DashboardComponent implements OnInit {
 
   }
 
+  get f2(){
+    return this.addvcFrm.controls;
+  }
 
+  submitVcfrm(){
+    this.isSubmittedVc = true;  
+    if (this.addvcFrm.invalid) {  
+      return  
+    }
+  }
 
   //get user profile data
 
   userProfile(){
-    var vcToken = localStorage.getItem('vctoken');
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Accept': 'application/json',
-        'Authorization': 'Bearer '+vcToken
-      })
-    }
     this.http.get(env.apiurl + 'user-profile?userId='+this.userId, httpOptions).subscribe(data => {
-
-      console.log('user profile data');
       this.userData = data;
       this.userName = this.userData.data.first_name;
       this.dob = this.userData.data.dob;
@@ -144,17 +164,25 @@ export class DashboardComponent implements OnInit {
   // get members
 
   getMembers(){
-
-    var vcToken = localStorage.getItem('vctoken');
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Accept': 'application/json',
-        'Authorization': 'Bearer '+vcToken
-      })
-    }
     this.http.get(env.apiurl + 'member', httpOptions).subscribe(data => {
         this.members = data;
     });
+
+  }
+
+  getDisease(){
+    this.http.get(env.apiurl + 'get-disease', httpOptions).subscribe(data => {
+        this.diseaseList = data;
+        console.log(this.diseaseList.data);
+    });
+  }
+
+    getVaccine(vendorId:any){
+      this.http.get(env.apiurl + 'get-vendor-by-disease?diseaseId='+vendorId, httpOptions).subscribe(data => {
+          this.vaccineList = data;
+          console.log(this.vaccineList.data);
+      });
+
 
   }
 

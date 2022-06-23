@@ -342,15 +342,15 @@ aria-labelledby="vaccineLabel" aria-hidden="true">
                 <h5 class="modal-title" id="vaccineLabel">Add Vaccine</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" #closeModal aria-label="Close"></button>
             </div>
-            <form class="text-start">
+            <form [formGroup]="addvcFrm" (ngSubmit)="submitVcfrm()"  class="text-start">
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="diseaseId" class="form-label">Disease <sup class="text-danger">*</sup></label>
                         <select class="form-select" formControlName="diseaseId" id="diseaseId">
                             <option>name</option>
                         </select>
-                        <div class="invalid-feedback text-left">
-                            <span>Disease is required.</span>
+                        <div *ngIf="isSubmittedVc && f2['diseaseId'].invalid" class="errFrm">
+                            <div *ngIf="f2['diseaseId'].errors && f2['diseaseId'].errors['required']">Please select disease name.</div>
                         </div>
                     </div>
                     <div class="mb-3">
@@ -358,8 +358,8 @@ aria-labelledby="vaccineLabel" aria-hidden="true">
                         <select class="form-select" formControlName="vendorId" id="vendorId">
                             <option>name</option>
                         </select>
-                        <div class="invalid-feedback text-left">
-                            <span>Vaccine Name is required.</span>
+                        <div *ngIf="isSubmittedVc && f2['vendorId'].invalid" class="errFrm">
+                            <div *ngIf="f2['vendorId'].errors && f2['vendorId'].errors['required']">Please select vaccine name.</div>
                         </div>
                     </div>
                     <div class="row">
@@ -371,8 +371,8 @@ aria-labelledby="vaccineLabel" aria-hidden="true">
                                     <input type="text" formControlName="vaccine_date" class="form-control datepicker"
                                          id="vaccine_date" placeholder="mm-dd-yyyy">
                                 </div>
-                                <div class="invalid-feedback text-left">
-                                    <span>Vaccine Date is required.</span>
+                                <div *ngIf="isSubmittedVc && f2['vaccine_date'].invalid" class="errFrm">
+                                    <div *ngIf="f2['vaccine_date'].errors && f2['vaccine_date'].errors['required']">Please enter vaccine date.</div>
                                 </div>
                             </div>
                         </div>
@@ -383,6 +383,9 @@ aria-labelledby="vaccineLabel" aria-hidden="true">
                                     <input type="text" formControlName="vaccine_time" class="form-control timepicker"
                                         id="vaccine_time"  placeholder="hh:mm">
                                 </div>
+                                <div *ngIf="isSubmittedVc && f2['vaccine_time'].invalid" class="errFrm">
+                                    <div *ngIf="f2['vaccine_time'].errors && f2['vaccine_time'].errors['required']">Please enter vaccine time.</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -392,9 +395,9 @@ aria-labelledby="vaccineLabel" aria-hidden="true">
                                 class="text-danger">*</sup></label>
                         <input type="text" formControlName="vaccine_location" class="form-control" id="vaccine_location"
                             >
-                        <div class="invalid-feedback text-left">
-                            <span>Vaccine Location is required.</span>
-                        </div>
+                            <div *ngIf="isSubmittedVc && f2['vaccine_location'].invalid" class="errFrm">
+                                <div *ngIf="f2['vaccine_location'].errors && f2['vaccine_location'].errors['required']">Please enter vaccine location.</div>
+                            </div>
                     </div>
                     <!-- <ng-container *ngIf="showMsg">
                         <div class="alert alert-success mb-0 mt-2" role="alert">
