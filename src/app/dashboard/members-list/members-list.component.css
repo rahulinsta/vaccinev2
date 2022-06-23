@@ -1,0 +1,118 @@
+.avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #427dfa;
+    line-height: 60px;
+    color: #fff;
+    font-size: 35px;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-align: center;
+}
+
+.header-text .user-name {
+    font-size: 28px;
+        font-weight: 600;
+            color: #0d0c22;
+                margin-bottom: 0.125rem
+}
+
+a.add-vaccine {
+    border-radius: 25px;
+        line-height: 1;
+        border: 1px solid #7e7e7e;
+        padding: 2px 13px 4px 13px;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 500;
+        color: #2f2f2f;
+        cursor: pointer;
+}
+.view-chart {
+border-radius: 25px;
+    line-height: 1;
+    padding: 3px 13px 5px 13px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    color: #ffffff;
+    cursor: pointer;
+    background: #f44336;
+}
+
+.dashboard-page{
+    margin-top: 90px;
+}
+.mem-bg {
+    border: 1px solid #dee1e6;
+    background: #fff;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    text-align: left;
+    padding: 20px;
+    position: relative;
+}
+.mem-bg h3 {
+    font-size: 24px;
+    margin: 0px;
+    font-weight: 700;
+}
+.mem-bg span {
+    font-size: 13px;
+    font-weight: 500;
+    background: #40455d;
+    display: inline-block;
+    color: #fff;
+    width: auto;
+    padding: 4px 12px;
+    border-radius: 17px;
+    line-height: 1;
+    margin-top: 5px;
+}
+
+.member-list{
+    padding: 30px 30px 40px;
+    margin:0;
+}
+a.add-member{
+    border-radius: 25px;
+        line-height: 1;
+        border: 1px solid #427dfa;
+        padding: 8px 20px;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 500;
+        color: #ffffff;
+        cursor: pointer;
+        background: #427dfa;
+}
+
+.add-member svg{
+        margin-right: 3px;
+        vertical-align: -3px;
+    
+}
+
+.addmember-form .btn-primary {
+    background-color: #1f2136;
+    border: none;
+    text-transform: uppercase;
+    font-size: 16px;
+    box-shadow: none;
+    padding: 18px 0;
+    box-shadow: none;
+    border-radius: 5px;
+}
+
+.addmember-form .form-floating>.form-control {
+    border: 1px solid #1f2136;
+    box-shadow: none !important;
+}
+.addmember-form .form-floating>.form-control:focus {
+    border: 1px solid #1563b9;
+    box-shadow: none !important;
+}
+.addmember-form .btn-primary:hover {
+    background: #1563b9;
+}
