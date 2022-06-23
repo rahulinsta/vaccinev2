@@ -3,6 +3,7 @@ import * as bootstrap from 'bootstrap';
 import {Router} from "@angular/router"
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment as env } from '../../environments/environment';
+import { FormGroup, FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,6 +25,17 @@ export class DashboardComponent implements OnInit {
   userData :any = [];
   members:any = [];
   fletter:any;
+  isSubmitted:boolean= false;
+  age:any;
+  memberid:any;
+
+  form = new FormGroup({
+    selectAge: new FormControl('', [Validators.required]),
+    selectMember: new FormControl('', [Validators.required]),
+  });
+
+
+
   constructor(private router: Router,private http: HttpClient, 
     ) { }
 
@@ -57,9 +69,50 @@ export class DashboardComponent implements OnInit {
     myModal.show();
   }
 
+  addVaccineStep2() {
+    var modalId = document.querySelector("#addVaccineStep2");
+    var myModal = new bootstrap.Modal(modalId!, {
+      keyboard: false
+    })
+    myModal.show();
+  }
+
+  hideVaccineModlefirst(){
+    var modalId = document.querySelector("#addVaccineStep1");
+    var myModal = new bootstrap.Modal(modalId!, {
+      keyboard: false
+    })
+    myModal.hide();
+  }
+
+
+
   selectAge(){
     
   }
+
+
+  get f(){
+    return this.form.controls;
+  }
+
+  submit(){
+    this.isSubmitted = true;  
+    if (this.form.invalid) {  
+      return  
+    }
+    console.log(this.form.value.selectAge);
+    this.age = this.form.value.selectAge;
+    if(this.age == 18){
+      this.hideVaccineModlefirst();
+      this.router.navigate(['/chart']);
+    }else{
+      this.addVaccineStep2();
+    }
+
+  }
+
+
 
   //get user profile data
 
@@ -100,7 +153,7 @@ export class DashboardComponent implements OnInit {
       })
     }
     this.http.get(env.apiurl + 'member', httpOptions).subscribe(data => {
-        console.log(data);
+        this.members = data;
     });
 
   }

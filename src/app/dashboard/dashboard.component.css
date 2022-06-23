@@ -271,6 +271,11 @@
 .dashboard-page {
     margin-top: 90px;
 }
+.errFrm{
+    color: red;
+    text-align: left  !important;
+}
+
 .mem-bg{
         border: 1px solid #dee1e6;
             background: #fff;

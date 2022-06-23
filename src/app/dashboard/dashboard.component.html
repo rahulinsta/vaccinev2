@@ -12,7 +12,8 @@
 <div class="col-md-4">
     <label for="selectMember" class="form-label mb-1">Select Member </label>
     <select class="form-select" formControlName="selectMember" id="selectMember">
-        <option>James (default login member)</option>
+        <option>Select member</option>
+        <option *ngFor=" let mem of members.data" > {{mem.name}} </option>
     </select>
 </div>
     </div>
@@ -284,25 +285,29 @@ aria-labelledby="vaccineLabel" aria-hidden="true">
             <h5 class="modal-title" id="vaccineLabel">Select Profile</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" #closeModal aria-label="Close"></button>
         </div>
-        <!-- <form  class="text-start" [formGroup]="profileForm" (ngSubmit)="onSubmit()"> -->
-        <form  class="text-start">
+        <form  [formGroup]="form" (ngSubmit)="submit()" class="text-start">
             <div class="modal-body">
                 <div class="mb-3">
                     <label for="selectAge" class="form-label">Select Age <sup class="text-danger">*</sup></label>
                     <select class="form-select" formControlName="selectAge" id="selectAge" (change)="selectAge()">
                         <option value=""> Select Age </option>
-                        <option  id="selectAge18"> Select 18+ </option>
-                        <option id="BerthTo18"> Berth to 18 </option>
-                    </select>
+                        <option  id="selectAge18" value="18+" > Select 18+ </option>
+                        <option id="BerthTo18" value="18" > Berth to 18 </option>
+                    </select> 
+                    <div *ngIf="isSubmitted && f['selectAge'].invalid" class="errFrm">
+                        <div *ngIf="f['selectAge'].errors && f['selectAge'].errors['required']">Please select age</div>
+                    </div>
                    
                 </div>
                 <div class="mb-3" id="selectAge">
                     <label for="selectMember" class="form-label">Select Member <sup class="text-danger">*</sup></label>
                     <select class="form-select" formControlName="selectMember" id="selectMember">
                         <option> Select Member </option>
-                        <option>James (default login member)</option>
+                        <option *ngFor=" let member of members.data" > {{member.name}} </option>
                      </select>
-                
+                     <div *ngIf="isSubmitted && f['selectMember'].invalid" class="errFrm">
+                        <div *ngIf="f['selectMember'].errors && f['selectMember'].errors['required']">Please select member</div>
+                    </div>
                 </div>
 
                 <!-- <ng-container *ngIf="showMsg">
