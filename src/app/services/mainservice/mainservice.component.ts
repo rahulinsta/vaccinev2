@@ -37,6 +37,7 @@ export class MainserviceComponent implements OnInit {
       fname:frmAr.fname,
       lname:frmAr.lname,
       dob: frmAr.dob,
+      gender:frmAr.gender,
       emergency_number: frmAr.emgNo,
       password: frmAr.password,
       password_confirmation: frmAr.cpassword,

@@ -32,7 +32,7 @@ export class SignupComponent implements OnInit {
     bloodGroup: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
     cpassword: new FormControl('', [Validators.required]),
-    gender: new FormControl('', [Validators.required])
+    genderType: new FormControl('', [Validators.required])
     
   });
 
@@ -66,8 +66,9 @@ export class SignupComponent implements OnInit {
     this.formArr.bloodGroup = this.form.value.bloodGroup;
     this.formArr.password = this.form.value.password;
     this.formArr.cpassword = this.form.value.cpassword;
-    this.formArr.gender = this.form.value.gender;
+    this.formArr.gender = this.form.value.genderType;
 
+   
     this.usrObj.register(this.formArr).subscribe((data:any)=>{
       console.log('step-1');
       //this.isLoading = false; 

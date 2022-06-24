@@ -41,9 +41,11 @@ export class DashboardComponent implements OnInit {
   memberid:any;
   diseaseList:any = [];
   vaccineList:any = [];
+  memberVaccineList:any = [];
   successMsg:any;
   errmsg:any;
   memberId:any;
+  memberAge:any;
 
   form = new FormGroup({
     selectAge: new FormControl('', [Validators.required]),
@@ -74,6 +76,7 @@ export class DashboardComponent implements OnInit {
     this.userProfile();
     this.getMembers();
     this.getDisease();
+    this.getVaccinebyMemberId(this.userId);
 
 
   }
@@ -213,19 +216,49 @@ export class DashboardComponent implements OnInit {
     
   }
 
+  //get member on chage
   getMemberid(e:any){
+    console.log(e);
     this.memberId = e.target.value;
-    //console.log(this.memberId);
+    this.getVaccinebyMemberId(this.memberId);
+    const [option] = e.target.selectedOptions
+    var dob = option.dataset.dob;
+    this.memberAge =  this.getAge(dob);
+    console.log(this.memberAge);
+    
   }
 
-    getVaccine(vendorId:any){
-      this.http.get(env.apiurl + 'get-vendor-by-disease?diseaseId='+vendorId, httpOptions).subscribe(data => {
-          this.vaccineList = data;
-          console.log('vaccine');
-          console.log(this.vaccineList.data);
-      });
+  getVaccine(vendorId:any){
+    this.http.get(env.apiurl + 'get-vendor-by-disease?diseaseId='+vendorId, httpOptions).subscribe(data => {
+        this.vaccineList = data;
+        console.log('vaccine list');
+        console.log(this.vaccineList.data);
+    });
+
+  }
 
 
+  getVaccinebyMemberId(memberId:any){
+    this.http.get(env.apiurl + 'vaccine-data?userId='+memberId, httpOptions).subscribe(data => {
+        this.memberVaccineList = data;
+        console.log('member vaccine list');
+        console.log(this.memberVaccineList.data);
+    });
+
+  }
+
+
+  //calculate age
+  getAge(dateString:any) {
+      var today = new Date();
+      var birthDate = new Date(dateString);
+      var age = today.getFullYear() - birthDate.getFullYear();
+      var m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) 
+      {
+          age--;
+      }
+      return age;
   }
 
 
