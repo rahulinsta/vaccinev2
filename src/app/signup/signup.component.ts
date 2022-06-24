@@ -20,7 +20,7 @@ export class SignupComponent implements OnInit {
   emailErr:any;
   passErr1:any;
   passErr2:any;
-  formArr={phone:'',email:'', fname:'', lname:'',emgNo:'',dob:'',password:'',cpassword:'',bloodGroup:''};
+  formArr={phone:'',email:'', fname:'', lname:'',emgNo:'',dob:'',password:'',cpassword:'',bloodGroup:'',gender:''};
   
   form = new FormGroup({
     phone: new FormControl('', [Validators.required]),
@@ -32,6 +32,7 @@ export class SignupComponent implements OnInit {
     bloodGroup: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
     cpassword: new FormControl('', [Validators.required]),
+    gender: new FormControl('', [Validators.required])
     
   });
 
@@ -54,7 +55,7 @@ export class SignupComponent implements OnInit {
     if (this.form.invalid) {  
       return  
     }  
-   // console.log(this.form.value);
+    
 
     this.formArr.phone = this.form.value.phone;
     this.formArr.email = this.form.value.email;
@@ -65,6 +66,7 @@ export class SignupComponent implements OnInit {
     this.formArr.bloodGroup = this.form.value.bloodGroup;
     this.formArr.password = this.form.value.password;
     this.formArr.cpassword = this.form.value.cpassword;
+    this.formArr.gender = this.form.value.gender;
 
     this.usrObj.register(this.formArr).subscribe((data:any)=>{
       console.log('step-1');
