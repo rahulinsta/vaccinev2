@@ -47,6 +47,7 @@ export class DashboardComponent implements OnInit {
   memberId:any;
   memberAge:any;
   cert_url:any;
+  imageSrc:any;
 
   form = new FormGroup({
     selectAge: new FormControl('', [Validators.required]),
@@ -59,6 +60,8 @@ export class DashboardComponent implements OnInit {
     vaccine_date: new FormControl('', [Validators.required]),
     vaccine_time: new FormControl('', [Validators.required]),
     vaccine_location: new FormControl('', [Validators.required]),
+    file: new FormControl(''),
+    fileSource: new FormControl(''),
   });
 
 
@@ -108,6 +111,14 @@ export class DashboardComponent implements OnInit {
     
   }
 
+  editProfileModel() {
+    var modalId = document.querySelector("#editProfile");
+    var myModal = new bootstrap.Modal(modalId!, {
+      keyboard: false
+    })
+    myModal.show();
+  }
+
 
   addVaccineStep2() {
     var modalId = document.querySelector("#addVaccineStep2");
@@ -124,6 +135,28 @@ export class DashboardComponent implements OnInit {
     })
     myModal.hide();
   }
+
+
+  onFileChange(event:any) {
+    const reader = new FileReader();
+     
+    if(event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+     
+      reader.onload = () => {
+    
+        this.imageSrc = reader.result as string;
+      
+        this.form.patchValue({
+          fileSource: reader.result
+        });
+    
+      };
+    
+    }
+  }
+
 
 
   get f(){
@@ -163,6 +196,7 @@ export class DashboardComponent implements OnInit {
       'vaccine_date': this.addvcFrm.value.vaccine_date,
       'vaccine_time': this.addvcFrm.value.vaccine_time,
       'vaccine_location': this.addvcFrm.value.vaccine_location,
+      'upload_file': this.addvcFrm.value.file,
       'lat': 48.89899,
       'long': 68.49590,
       

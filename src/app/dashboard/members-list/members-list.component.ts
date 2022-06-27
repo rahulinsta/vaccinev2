@@ -28,6 +28,7 @@ export class MembersListComponent implements OnInit {
   successMsg:any;
   errmsg:any;
   imageSrc: string = '';
+  isSubmittedVc:any;
 
   form = new FormGroup({
     fname: new FormControl('', [Validators.required]),
@@ -38,6 +39,15 @@ export class MembersListComponent implements OnInit {
     genderType: new FormControl('',[Validators.required]),
     file: new FormControl(''),
     fileSource: new FormControl(''),
+  });
+
+  editMemberfrm = new FormGroup({
+    fname: new FormControl('', [Validators.required]),
+    mname: new FormControl(''),
+    lname: new FormControl('', [Validators.required]),
+    dob: new FormControl('', [Validators.required]),
+    bloodGroup: new FormControl(''),
+    genderType: new FormControl('',[Validators.required]),
   });
 
 
@@ -65,6 +75,15 @@ export class MembersListComponent implements OnInit {
     myModal.show();
   }
 
+  editMember() {
+    var modalId = document.querySelector("#editMember");
+    var myModal = new bootstrap.Modal(modalId!, {
+      keyboard: false
+    })
+    myModal.show();
+  }
+
+
   onFileChange(event:any) {
     const reader = new FileReader();
      
@@ -87,6 +106,10 @@ export class MembersListComponent implements OnInit {
 
 
   get f(){
+    return this.form.controls;
+  }
+
+  get f2(){
     return this.form.controls;
   }
 

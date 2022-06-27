@@ -52,12 +52,12 @@
                     <div class="right-side">
                         <div class="pro-feature d-block">
                         <div class="mb-2">
-                            <a class="add-vaccine">
+                            <a class="add-vaccine" (click)="editMember()" >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
                                     class="bi bi-pencil" viewBox="0 0 16 16">
                                     <path
                                         d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
-                                </svg>
+                                </svg>  
                                 Edit
                             </a>
                             </div>
@@ -92,6 +92,76 @@
 
 
 
+<!-- edit member model STARTS here -->
+
+<div class="modal fade" id="editMember" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="vaccineLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="vaccineLabel">Edit Member</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" #closeModal aria-label="Close"></button>
+            </div>
+            <form  class="text-start">
+                <div class="modal-body">
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name<sup
+                                        class="text-danger">*</sup></label>
+                                <div class="position-relative">
+                                    <input type="date" formControlName="name" class="form-control datepicker"
+                                         id="name" placeholder="mm-dd-yyyy">
+                                </div>
+                                <div *ngIf="isSubmittedVc && f2['name'].invalid" class="errFrm">
+                                    <div *ngIf="f2['name'].errors && f2['name'].errors['required']">Please enter name.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <div class="position-relative">
+                                    <input type="text" formControlName="email" class="form-control"
+                                        id="email"  placeholder="Email">
+                                </div>
+                                <div *ngIf="isSubmittedVc && f2['email'].invalid" class="errFrm">
+                                    <div *ngIf="f2['email'].errors && f2['email'].errors['required']">Please enter email.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                  
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary">Cancel</button>
+                    <button type="submit"  class="btn btn-success">
+                        Submit
+                        <!-- <span class="spinner-border spinner-border-sm ml-2" role="status" aria-hidden="true"
+                            *ngIf="submit"></span> -->
+                    </button>
+                </div>
+            </form>
+
+            <ng-container *ngIf="errmsg">
+                <div class="alert alert-danger" role="alert">
+                  {{errmsg}}
+                </div>
+              </ng-container>
+        
+              <ng-container *ngIf="successMsg">
+                <div class="alert alert-success" role="alert">
+                  {{successMsg}}
+                </div>
+              </ng-container>
+
+        </div>
+    </div>
+</div>
+
+<!-- edit member model ENDS here -->
 
 
 <!-- Modal -->
