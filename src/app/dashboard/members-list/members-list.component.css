@@ -6,9 +6,14 @@
     line-height: 60px;
     color: #fff;
     font-size: 35px;
-    text-transform: uppercase;
+    text-transform: uppercase; 
     font-weight: 700;
     text-align: center;
+}
+
+.errFrm{
+    color: red;
+    text-align: left  !important;
 }
 
 .header-text .user-name {

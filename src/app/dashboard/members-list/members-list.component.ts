@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment as env } from '../../../environments/environment';
 import { MainserviceComponent } from '../../services/mainservice/mainservice.component';
 import {Router} from "@angular/router"
+import { FormGroup, FormControl, Validators} from '@angular/forms';
 
 var vcToken = localStorage.getItem('vctoken');
 const httpOptions = {
@@ -23,6 +24,19 @@ export class MembersListComponent implements OnInit {
   uname: any;
   userId:any;
   members:any = [];
+  isSubmitted:boolean = false
+  successMsg:any;
+  errmsg:any;
+
+  form = new FormGroup({
+    fname: new FormControl('', [Validators.required]),
+    mname: new FormControl(''),
+    lname: new FormControl('', [Validators.required]),
+    dob: new FormControl('', [Validators.required]),
+    bloodGroup: new FormControl(''),
+    genderType: new FormControl('',[Validators.required])
+  });
+
 
   constructor(private router: Router,private http: HttpClient,private usrObj:MainserviceComponent) {
 
@@ -46,6 +60,45 @@ export class MembersListComponent implements OnInit {
       keyboard: false
     })
     myModal.show();
+  }
+
+  get f(){
+    return this.form.controls;
+  }
+
+  submit(){
+    this.isSubmitted = true;  
+    if (this.form.invalid) {  
+      return  
+    }  
+
+    
+    
+    var memberData = {
+      'fname': this.form.value.fname,
+      'mname': this.form.value.mname,
+      'lname': this.form.value.lname,
+      'dob': this.form.value.dob,
+      'gender': this.form.value.genderType,
+      'blood_group': this.form.value.bloodGroup,
+      "is_member" : 1
+    }
+   
+    this.usrObj.addMember(memberData).subscribe((data:any)=>{
+      //this.isLoading = false; 
+      if (data.status){
+        this.successMsg = data.message;
+        setTimeout(()=>{                         
+          location.reload();
+      }, 2000);
+        //this.form.reset();
+        //this.router.navigate(['register-verify']);
+      }else{
+        console.log('yes inside the error message');
+        this.errmsg = data.message+data.data;
+        console.log(this.errmsg);
+      }
+    });
   }
 
   // get members

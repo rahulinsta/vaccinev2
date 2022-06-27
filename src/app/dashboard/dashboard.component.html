@@ -142,7 +142,7 @@
                                                         </div>
                                                         <div class="col-lg-5 col-md-6">
                                                             <div class="dose-download text-center">
-                                                                <a [href]="" target="_blank">
+                                                                <a href="{{vacc.cert_url}}" target="_blank">
                                                                     <svg xmlns="http://www.w3.org/2000/svg"
                                                                         viewBox="0 0 512 512">
                                                                         <path fill="currentColor"
@@ -150,7 +150,7 @@
                                                                             class=""></path>
                                                                     </svg>
                                                                     Certificate</a>
-                                                                <a>
+                                                                <a (click)="showQrcode()">
                                                                     <svg xmlns="http://www.w3.org/2000/svg"
                                                                         viewBox="0 0 448 512">
                                                                         <path fill="currentColor"
@@ -158,6 +158,7 @@
                                                                             class=""></path>
                                                                     </svg>
                                                                     QR Code</a>
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -194,8 +195,8 @@
     </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="qrModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<!-- QR code Model goes here -->
+<div class="modal fade" id="qrcode" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -210,7 +211,7 @@
                     <p class="mb-1">Vaccine Certificate</p>
                 </div>
                 <div class="qr-code mb-2">
-                   
+                    <qr-code value="this is a test qr" [size]="150"></qr-code>
                 </div>
                 <div class="qr-footer text-muted small">
                     Scan from any scanner app, camera, etc to view this certificate.

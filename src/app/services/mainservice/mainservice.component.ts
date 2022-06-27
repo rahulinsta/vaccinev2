@@ -71,6 +71,22 @@ export class MainserviceComponent implements OnInit {
     return this.http.post(env.apiurl+'store-vaccine-records',data,httpOptions );
   }
 
+  // add member
+  addMember(data:any = []){
+
+    return this.http.post(env.apiurl+'member/store',data,httpOptions );
+    // return this.http.post(env.apiurl+'member/store',frmAr.httpOptions {
+    //   phone_no:frmAr.phone,
+    //   email:frmAr.email,
+    //   fname:frmAr.fname,
+    //   lname:frmAr.lname,
+    //   dob: frmAr.dob,
+    //   gender:frmAr.gender,
+    //   emergency_number: frmAr.emgNo,
+    //   blood_group: frmAr.bloodGroup,
+    //   "is_member" : 1
+    // }).pipe(rawData => {return rawData;});
+  }
 
 
   ngOnInit(): void {

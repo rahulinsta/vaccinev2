@@ -96,6 +96,16 @@ export class DashboardComponent implements OnInit {
     myModal.show();
   }
 
+
+  showQrcode() {
+    var modalId = document.querySelector("#qrcode");
+    var myModal = new bootstrap.Modal(modalId!, {
+      keyboard: false
+    })
+    myModal.show();
+  }
+
+
   addVaccineStep2() {
     var modalId = document.querySelector("#addVaccineStep2");
     var myModal = new bootstrap.Modal(modalId!, {
