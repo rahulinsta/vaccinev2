@@ -27,6 +27,7 @@ export class MembersListComponent implements OnInit {
   isSubmitted:boolean = false
   successMsg:any;
   errmsg:any;
+  imageSrc: string = '';
 
   form = new FormGroup({
     fname: new FormControl('', [Validators.required]),
@@ -34,7 +35,9 @@ export class MembersListComponent implements OnInit {
     lname: new FormControl('', [Validators.required]),
     dob: new FormControl('', [Validators.required]),
     bloodGroup: new FormControl(''),
-    genderType: new FormControl('',[Validators.required])
+    genderType: new FormControl('',[Validators.required]),
+    file: new FormControl(''),
+    fileSource: new FormControl(''),
   });
 
 
@@ -62,6 +65,27 @@ export class MembersListComponent implements OnInit {
     myModal.show();
   }
 
+  onFileChange(event:any) {
+    const reader = new FileReader();
+     
+    if(event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+     
+      reader.onload = () => {
+    
+        this.imageSrc = reader.result as string;
+      
+        this.form.patchValue({
+          fileSource: reader.result
+        });
+    
+      };
+    
+    }
+  }
+
+
   get f(){
     return this.form.controls;
   }
@@ -81,7 +105,8 @@ export class MembersListComponent implements OnInit {
       'dob': this.form.value.dob,
       'gender': this.form.value.genderType,
       'blood_group': this.form.value.bloodGroup,
-      "is_member" : 1
+      "is_member" : 1,
+      'upload_file': this.form.value.file
     }
    
     this.usrObj.addMember(memberData).subscribe((data:any)=>{

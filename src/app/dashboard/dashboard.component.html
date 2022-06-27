@@ -150,7 +150,7 @@
                                                                             class=""></path>
                                                                     </svg>
                                                                     Certificate</a>
-                                                                <a (click)="showQrcode()">
+                                                                <a (click)="showQrcode(vacc.cert_url)">
                                                                     <svg xmlns="http://www.w3.org/2000/svg"
                                                                         viewBox="0 0 448 512">
                                                                         <path fill="currentColor"
@@ -212,7 +212,7 @@
                     <!-- <p class="mb-1">Vaccine Certificate</p> -->
                 </div>
                 <div class="qr-code mb-2">
-                    <qr-code value="this is a test qr" [size]="150"></qr-code>
+                    <qr-code [value]="cert_url" [size]="150"></qr-code>
                 </div>
                 <div class="qr-footer text-muted small">
                     Scan from any scanner app, camera, etc to view this certificate.

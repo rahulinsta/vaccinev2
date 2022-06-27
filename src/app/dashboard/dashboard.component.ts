@@ -46,6 +46,7 @@ export class DashboardComponent implements OnInit {
   errmsg:any;
   memberId:any;
   memberAge:any;
+  cert_url:any;
 
   form = new FormGroup({
     selectAge: new FormControl('', [Validators.required]),
@@ -97,12 +98,14 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  showQrcode() {
+  showQrcode(certificateUrl:any) {
+    this.cert_url = certificateUrl;
     var modalId = document.querySelector("#qrcode");
     var myModal = new bootstrap.Modal(modalId!, {
       keyboard: false
     })
     myModal.show();
+    
   }
 
 
