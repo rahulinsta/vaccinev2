@@ -182,7 +182,8 @@
               </ng-template> -->
 
               <span class="view-chart d-inline-block text-center" *ngIf="memberAge < 18">
-                <a>
+                <a [routerLink]="['/chart']" [queryParams]=
+                "{user:memberId}"> 
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bar-chart-line"
                         viewBox="0 0 16 16">
                         <path
@@ -207,8 +208,8 @@
             <div class="modal-body text-center">
                 <div class="user-name">
                     <img class="img-fluid mb-3" src="assets/img/logo.jpg" alt="" style="max-width: 100px;">
-                    <h5 class="mb-0">currUserName's</h5>
-                    <p class="mb-1">Vaccine Certificate</p>
+                    <!-- <h5 class="mb-0">currUserName's</h5> -->
+                    <!-- <p class="mb-1">Vaccine Certificate</p> -->
                 </div>
                 <div class="qr-code mb-2">
                     <qr-code value="this is a test qr" [size]="150"></qr-code>

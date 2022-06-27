@@ -38,7 +38,7 @@ export class DashboardComponent implements OnInit {
   isSubmitted:boolean= false;
   isSubmittedVc:boolean= false;
   age:any;
-  memberid:any;
+  //memberid:any;
   diseaseList:any = [];
   vaccineList:any = [];
   memberVaccineList:any = [];
@@ -135,7 +135,8 @@ export class DashboardComponent implements OnInit {
     this.age = this.form.value.selectAge;
     if(this.age == 18){
       this.hideVaccineModlefirst();
-      this.router.navigate(['/chart']);
+      window.location.href = '/chart?user='+this.memberId;
+      //this.router.navigate(['/chart?user', 87]);
     }else{
       this.addVaccineStep2();
     }
@@ -233,7 +234,9 @@ export class DashboardComponent implements OnInit {
     this.getVaccinebyMemberId(this.memberId);
     const [option] = e.target.selectedOptions
     var dob = option.dataset.dob;
+    console.log('dob'+ dob);
     this.memberAge =  this.getAge(dob);
+    console.log('memeber age');
     console.log(this.memberAge);
     
   }

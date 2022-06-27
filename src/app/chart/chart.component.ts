@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild, ElementRef, NgZone, AfterViewInit} from '
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
 import { environment as env } from '../../environments/environment';
-import {Router} from "@angular/router"
+import {Router,ActivatedRoute} from "@angular/router"
 import { MainserviceComponent } from '../services/mainservice/mainservice.component';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
@@ -21,6 +21,7 @@ export class ChartComponent implements OnInit {
   chartData: any = [];
   isSubmitted:boolean= false;
   userId:any;
+  memberId:any;
   successMsg:any;
   errmsg:any;
   track_id:any;
@@ -49,7 +50,7 @@ export class ChartComponent implements OnInit {
 
 
   constructor(private usrObj:MainserviceComponent, private http: HttpClient, 
-    private el: ElementRef,private router: Router,private modalService: NgbModal) { }
+    private el: ElementRef,private router: Router,private route: ActivatedRoute,private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.userId = localStorage.getItem('userid');
@@ -57,9 +58,18 @@ export class ChartComponent implements OnInit {
       this.router.navigate(['/login']);
     }
 
-    this.getChartdata();
+    this.route.queryParams.subscribe(
+      params => {
+        this.memberId =  params['user'];
+        if(params['user'] != undefined){
+          this.userId = this.memberId;
+        }
+        //console.log(this.memberId);
+      }
+    )
 
-    
+
+    this.getChartdata();
   }
 
 
@@ -168,8 +178,8 @@ export class ChartComponent implements OnInit {
 
   open(content:any) {
 
-    console.log(this.chartData);
-    console.log(this.record_id);
+    //console.log(this.chartData);
+    //console.log(this.record_id);
 
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -204,10 +214,10 @@ export class ChartComponent implements OnInit {
 
     this.http.get(env.apiurl + 'charts?userId='+this.userId, httpOptions).subscribe(data => {
       this.vcData = data;
-      console.log(this.vcData.data);
+      //console.log(this.vcData.data);
 
       for (var i = 0; i < this.vcData.data.length; i++) {
-        console.log(this.vcData.data[i].charts);
+        //console.log(this.vcData.data[i].charts);
         
           this.chartData.push(this.vcData.data[i].charts);
       }
