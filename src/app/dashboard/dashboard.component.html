@@ -237,7 +237,7 @@ aria-labelledby="vaccineLabel" aria-hidden="true">
             <div class="modal-body">
                 <div class="mb-3">
                     <label for="selectAge" class="form-label">Select Age <sup class="text-danger">*</sup></label>
-                    <select class="form-select" formControlName="selectAge" id="selectAge" >
+                    <select class="form-select" formControlName="selectAge" id="selectAge" (change)="onAgechange($event)" >
                         <option value=""> Select Age </option>
                         <option  id="selectAge18" value="18+" > Select 18+ </option>
                         <option id="BerthTo18" value="18" > Berth to 18 </option>

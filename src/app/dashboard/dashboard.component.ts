@@ -264,6 +264,22 @@ export class DashboardComponent implements OnInit {
     
   }
 
+  // get members based on the age
+  onAgechange(e:any){
+    var age = e.target.value;
+    if(age == '18'){
+      age = 1;
+    }else{
+      age = 2;
+    }
+
+    this.http.get(env.apiurl + 'member?age='+age, httpOptions).subscribe(data => {
+      this.members = data;
+      console.log(this.members.data);
+    });
+
+  }
+
   //get member on chage
   getMemberid(e:any){
     console.log(e);
