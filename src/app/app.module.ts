@@ -18,7 +18,6 @@ import { MembersListComponent } from './dashboard/members-list/members-list.comp
 import {DatePipe} from '@angular/common';
 import { QRCodeModule } from 'angular2-qrcode';
 import { PageLoaderComponent } from './elements/page-loader/page-loader.component';
-import { FormLoaderComponent } from './elements/form-loader/form-loader.component';
 
 
 @NgModule({
@@ -33,8 +32,7 @@ import { FormLoaderComponent } from './elements/form-loader/form-loader.componen
     FooterComponent,
     VerifyOtpComponent,
     MembersListComponent,
-    PageLoaderComponent,
-    FormLoaderComponent
+    PageLoaderComponent
   ],
   imports: [
     BrowserModule,

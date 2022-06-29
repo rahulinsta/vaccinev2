@@ -1,9 +1,9 @@
 .avatar {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     background-color: #427dfa;
-    line-height: 60px;
+    line-height: 70px;
     color: #fff;
     font-size: 35px;
     text-transform: uppercase; 
@@ -86,6 +86,22 @@ border-radius: 25px;
     padding: 30px 30px 40px;
     margin:0;
 }
+
+.member-list .img-avatar{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.member-list .dashboard-header img{
+width: 100%;
+max-width: 70px;
+object-fit: cover;
+}
+
+
+
 a.add-member{
     border-radius: 25px;
         line-height: 1;

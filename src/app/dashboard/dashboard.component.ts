@@ -37,6 +37,7 @@ export class DashboardComponent implements OnInit {
   members:any = [];
   fletter:any;
   isSubmitted:boolean= false;
+  isSubmit:boolean= false;
   isSubmittedVc:boolean= false;
   age:any;
   //memberid:any;
@@ -166,8 +167,11 @@ export class DashboardComponent implements OnInit {
   }
 
   submit(){
+    this.isSubmit = true;  
     this.isSubmitted = true;  
+    
     if (this.form.invalid) {  
+      this.isSubmit = false;  
       return  
     }
     this.age = this.form.value.selectAge;
@@ -177,6 +181,7 @@ export class DashboardComponent implements OnInit {
       //this.router.navigate(['/chart?user', 87]);
     }else{
       this.addVaccineStep2();
+      this.isSubmit = false;
     }
 
   }
@@ -186,8 +191,10 @@ export class DashboardComponent implements OnInit {
   }
 
   submitVcfrm(){
+    this.isSubmit = true;
     this.isSubmittedVc = true;  
     if (this.addvcFrm.invalid) {  
+      this.isSubmit = false;
       return  
     }
 
@@ -206,6 +213,7 @@ export class DashboardComponent implements OnInit {
 
     this.usrObj.addVaccineFromDashboard(vcdata).subscribe((data:any)=>{
       //this.isLoading = false; 
+      this.isSubmit = false;
       if (data.status){
         this.successMsg = data.message;
         setTimeout(()=>{                         
