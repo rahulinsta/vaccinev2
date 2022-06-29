@@ -5,7 +5,7 @@ import { environment as env } from '../../../environments/environment';
 import { MainserviceComponent } from '../../services/mainservice/mainservice.component';
 import {Router} from "@angular/router"
 import { DatePipe } from '@angular/common';
-import { FormGroup, FormControl, Validators} from '@angular/forms';
+import { FormGroup, FormControl, UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 
 var vcToken = localStorage.getItem('vctoken');
 const httpOptions = {
@@ -24,6 +24,7 @@ const httpOptions = {
 export class MembersListComponent implements OnInit {
   uname: any;
   userId:any;
+
   members:any = [];
   isSubmitted:boolean = false
   isSubmittedMeb:boolean = false
@@ -39,26 +40,27 @@ export class MembersListComponent implements OnInit {
   memDob:any;
   memberId:any;
   mesgClass:any = 'hide';
+  pageLoader: boolean = false;
 
 
-  form = new FormGroup({
-    fname: new FormControl('', [Validators.required]),
-    mname: new FormControl(''),
-    lname: new FormControl('', [Validators.required]),
-    dob: new FormControl('', [Validators.required]),
-    bloodGroup: new FormControl(''),
-    genderType: new FormControl('',[Validators.required]),
-    file: new FormControl(''),
-    fileSource: new FormControl(''),
+  form = new UntypedFormGroup({
+    fname: new UntypedFormControl('', [Validators.required]),
+    mname: new UntypedFormControl(''),
+    lname: new UntypedFormControl('', [Validators.required]),
+    dob: new UntypedFormControl('', [Validators.required]),
+    bloodGroup: new UntypedFormControl(''),
+    genderType: new UntypedFormControl('',[Validators.required]),
+    file: new UntypedFormControl(''),
+    fileSource: new UntypedFormControl(''),
   });
 
-  editMemberfrm = new FormGroup({
-    fname: new FormControl('', [Validators.required]),
-    mname: new FormControl(''),
-    lname: new FormControl('', [Validators.required]),
-    dob: new FormControl('', [Validators.required]),
-    bloodGroup: new FormControl(''),
-    gender: new FormControl('',[Validators.required]),
+  editMemberfrm = new UntypedFormGroup({
+    fname: new UntypedFormControl('', [Validators.required]),
+    mname: new UntypedFormControl(''),
+    lname: new UntypedFormControl('', [Validators.required]),
+    dob: new UntypedFormControl('', [Validators.required]),
+    bloodGroup: new UntypedFormControl(''),
+    gender: new UntypedFormControl('',[Validators.required]),
   });
 
 
@@ -182,6 +184,22 @@ export class MembersListComponent implements OnInit {
         this.members = data;
         console.log('memebeers');
         console.log(this.members.data);
+    this.pageLoader = true;
+    this.http.get(env.apiurl + 'member', httpOptions).subscribe((data:any) => {
+       
+      
+      this.members = data.data.sort((a: any, b: any) => {
+        if (a.id === this.userId) {
+          return -1;
+        };
+        if (b.id === this.userId) {
+          return 1;
+        };
+        return a.id < b.id ? -1 : 1;
+      });
+        //console.log(this.members.data);
+      this.pageLoader = false;
+    });
     });
 
   }

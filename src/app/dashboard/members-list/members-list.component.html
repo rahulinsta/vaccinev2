@@ -1,6 +1,8 @@
 <app-header></app-header>
 
-<div class="container dashboard-page mb-5">
+<app-page-loader *ngIf="pageLoader"></app-page-loader>
+
+<div *ngIf="!pageLoader" class="container dashboard-page mb-5">
    
 
         <div class="mem-bg mb-4">
@@ -23,17 +25,20 @@
     <div class="alert alert-success" [ngClass]='mesgClass' role="alert">Member has been deleted successfully.</div>
 <div class="col-lg-6 col-md-6 mb-4" *ngFor=" let member of members.data">
     <main class="form-signin member-list">
+<div class="col-lg-6 col-md-6 mb-4" *ngFor="let member of members">
+    <main class="form-signin member-list" [ngClass]="{'bg-light': userId==member.id}">
 
         <div class="dashboard-header">
             <div class="row align-items-center">
                 <div class="col-md-8 text-start header-text">
                     <div class="row align-items-center mb-md-0 mb-3">
                         <div class="col-auto">
-                            <div class="avatar">J</div>
+                            <div class="avatar">{{member.name.charAt(0)}}</div>
                             
                         </div>
                         <div class="col">
-                            <h1 class="user-name">{{member.name}}  </h1>
+                            <h1 class="user-name">{{member.name}} <sup class="badge memDefault rounded-pill badge-sm bg-secondary" *ngIf="userId==member.id"> Default</sup> </h1>
+                          
                             <div class="user-dob">
                                 DOB : {{member.dob}}
                             </div>
@@ -64,7 +69,11 @@
                             </div>
                             <div>
 
+<<<<<<< HEAD
                             <span class="view-chart text-center" *ngIf="member.id != userId">
+=======
+                            <span class="view-chart text-center" *ngIf="userId!=member.id">
+>>>>>>> ebaf802597ef0a80d1a6dfeac2b4480ef68c392e
                                 <a (click)="deleteMember(member.id)">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
                                         class="bi bi-trash3" viewBox="0 0 16 16">

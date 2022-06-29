@@ -23,6 +23,10 @@
     color: #fff;
 }
 
+.dose-taken i{
+    font-size: 24px;
+}
+
 .dose-overdue{
     background-color: #ad1909;
     color: #fff;

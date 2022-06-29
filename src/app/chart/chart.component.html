@@ -1,23 +1,23 @@
 
   <app-header></app-header> 
 
-
+<app-page-loader *ngIf="pageLoader"></app-page-loader>
   
-    <div class="col-md-12 mx-auto" style="margin-top: 85px;">
-      <div class="instrctions">
-          <div class="row">
-              <div class="col-md-3 ">
-                  <div class="box dose-taken"></div> DOSE TAKEN
+    <div *ngIf="!pageLoader" class="col-md-12 mx-auto" style="margin-top: 85px;">
+      <div class="instrctions mb-3">
+          <div class="row justify-content-center">
+              <div class="col-md-2 d-flex align-items-center">
+                  <span class="box d-inline-block dose-taken rounded mr-2"></span> DOSE TAKEN
               </div>
-              <div class="col-md-3">
-                <div class="box dose-overdue"></div> DOSE OVERDUE
+              <div class="col-md-2 d-flex align-items-center">
+                <div class="box dose-overdue d-inline-block rounded mr-2"></div> DOSE OVERDUE
               </div>
-              <div class="col-md-3">
-                <div class="box dose-coming"></div> DOSE COMMING
+              <div class="col-md-2 d-flex align-items-center">
+                <div class="box dose-coming d-inline-block rounded mr-2"></div> DOSE COMMING
               </div>
 
-              <div class="col-md-3">
-                <div class="box dose-dueOn"></div> DOSE DUE ON 
+              <div class="col-md-2 d-flex align-items-center">
+                <div class="box dose-dueOn d-inline-block rounded mr-2"></div> DOSE DUE ON 
               </div>
 
           </div>

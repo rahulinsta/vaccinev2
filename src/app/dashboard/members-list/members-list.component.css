@@ -127,3 +127,9 @@ a.add-member{
 .addmember-form .btn-primary:hover {
     background: #1563b9;
 }
+
+.memDefault{
+        font-weight: 400;
+            font-size: 13px;
+            top: -10px;
+}
