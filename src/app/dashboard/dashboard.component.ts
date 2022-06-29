@@ -32,6 +32,7 @@ export class DashboardComponent implements OnInit {
   country:any;
   email:any;
   phone:any;
+  currMember:any;
   userData :any = [];
   members:any = [];
   fletter:any;
@@ -83,7 +84,7 @@ export class DashboardComponent implements OnInit {
     this.getDisease();
     this.getVaccinebyMemberId(this.userId);
 
-
+    this.currMember = this.userId;
   }
 
   openInfo(e: any) {
@@ -225,9 +226,9 @@ export class DashboardComponent implements OnInit {
 
   //get user profile data
 
-  userProfile(){
+  userProfile(user_id=this.userId){
     this.pageLoader = true;
-    this.http.get(env.apiurl + 'user-profile?userId='+this.userId, httpOptions).subscribe(data => {
+    this.http.get(env.apiurl + 'user-profile?userId=' + user_id, httpOptions).subscribe(data => {
       this.userData = data;
       this.userName = this.userData.data.first_name;
       this.dob = this.userData.data.dob;
@@ -295,6 +296,10 @@ export class DashboardComponent implements OnInit {
     this.memberAge =  this.getAge(dob);
     console.log('memeber age');
     console.log(this.memberAge);
+    this.userProfile(e.target.value);
+    this.currMember = '';
+    this.currMember = e.target.value;
+    console.log(this.currMember)
     
   }
 
