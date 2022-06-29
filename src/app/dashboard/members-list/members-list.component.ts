@@ -120,18 +120,13 @@ export class MembersListComponent implements OnInit {
     const reader = new FileReader();
      
     if(event.target.files && event.target.files.length) {
-      const [file] = event.target.files;
-      reader.readAsDataURL(file);
-     
-      reader.onload = () => {
-    
-        this.imageSrc = reader.result as string;
+      const file = event.target.files[0];
       
         this.form.patchValue({
-          fileSource: reader.result
+          fileSource: file
         });
     
-      };
+     
     
     }
   }
@@ -151,20 +146,19 @@ export class MembersListComponent implements OnInit {
       return  
     }  
 
+  
+    const formData = new FormData();
+    formData.append('member_image', this.form.value.fileSource);
+    formData.append('fname', this.form.value.fname);
+    formData.append('mname', this.form.value.mname);
+    formData.append('lname', this.form.value.lname);
+    formData.append('dob', this.form.value.dob);
+    formData.append('gender', this.form.value.genderType);
+    formData.append('blood_group', this.form.value.bloodGroup);
+    formData.append('is_member', '1');
     
-    
-    var memberData = {
-      'fname': this.form.value.fname,
-      'mname': this.form.value.mname,
-      'lname': this.form.value.lname,
-      'dob': this.form.value.dob,
-      'gender': this.form.value.genderType,
-      'blood_group': this.form.value.bloodGroup,
-      "is_member" : 1,
-      'member_image': this.form.value.file
-    }
    
-    this.usrObj.addMember(memberData).subscribe((data:any)=>{
+    this.usrObj.addMember(formData).subscribe((data:any)=>{
       //this.isLoading = false; 
       if (data.status){
         this.successMsg = data.message;
