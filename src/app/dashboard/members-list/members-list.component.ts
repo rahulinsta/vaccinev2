@@ -214,6 +214,11 @@ export class MembersListComponent implements OnInit {
 
   }
 
+  //delete member
+  deleteMember(id:any){
+      console.log(id);
+  }
+
 
 }
 
