@@ -44,8 +44,8 @@ export class ChartComponent implements OnInit {
     vcdate: new FormControl('', [Validators.required]),
     vctime: new FormControl('', [Validators.required]),
     vclocation: new FormControl('', [Validators.required]),
-    file: new FormControl('', [Validators.required]),
-    fileSource: new FormControl('', [Validators.required]),
+    file: new FormControl(''),
+    fileSource: new FormControl(''),
   });
 
 

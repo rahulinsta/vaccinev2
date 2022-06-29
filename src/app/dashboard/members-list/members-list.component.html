@@ -52,7 +52,7 @@
                     <div class="right-side">
                         <div class="pro-feature d-block">
                         <div class="mb-2">
-                            <a class="add-vaccine" (click)="editMember()" >
+                            <a class="add-vaccine" (click)="editMember(member.id)" >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
                                     class="bi bi-pencil" viewBox="0 0 16 16">
                                     <path
@@ -102,36 +102,100 @@
                 <h5 class="modal-title" id="vaccineLabel">Edit Member</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" #closeModal aria-label="Close"></button>
             </div>
-            <form  class="text-start">
+            <form [formGroup]="editMemberfrm" (ngSubmit)="editFrmSubmit()" class="text-start">
                 <div class="modal-body">
                     
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="name" class="form-label">Name<sup
+                                <label for="fname" class="form-label">First Name<sup
                                         class="text-danger">*</sup></label>
                                 <div class="position-relative">
-                                    <input type="date" formControlName="name" class="form-control datepicker"
-                                         id="name" placeholder="mm-dd-yyyy">
+                                    <input type="text" formControlName="fname" class="form-control datepicker"
+                                         id="fname" placeholder="First name" >
                                 </div>
-                                <div *ngIf="isSubmittedVc && f2['name'].invalid" class="errFrm">
-                                    <div *ngIf="f2['name'].errors && f2['name'].errors['required']">Please enter name.</div>
+                                <div *ngIf="isSubmittedMeb && f2['fname'].invalid" class="errFrm">
+                                    <div *ngIf="f2['fname'].errors && f2['fname'].errors['required']">Please enter first name.</div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
+                                <label for="mname" class="form-label">Middle Name</label>
                                 <div class="position-relative">
-                                    <input type="text" formControlName="email" class="form-control"
-                                        id="email"  placeholder="Email">
+                                    <input type="text" formControlName="mname" class="form-control"
+                                        id="mname"  placeholder="Middle name" >
                                 </div>
-                                <div *ngIf="isSubmittedVc && f2['email'].invalid" class="errFrm">
-                                    <div *ngIf="f2['email'].errors && f2['email'].errors['required']">Please enter email.</div>
+                                <div *ngIf="isSubmittedMeb && f2['mname'].invalid" class="errFrm">
+                                    <div *ngIf="f2['mname'].errors && f2['mname'].errors['required']">Please enter middle name.</div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="lname" class="form-label">Last Name<sup
+                                        class="text-danger">*</sup></label>
+                                <div class="position-relative">
+                                    <input type="text" formControlName="lname" class="form-control datepicker"
+                                         id="fname" placeholder="Last name" >
+                                </div>
+                                <div *ngIf="isSubmittedMeb && f2['lname'].invalid" class="errFrm">
+                                    <div *ngIf="f2['lname'].errors && f2['lname'].errors['required']">Please enter last name.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="dob" class="form-label">Date of Birth</label>
+                                <div class="position-relative">
+                                    <input type="date" formControlName="dob" class="form-control"
+                                        id="dob"  placeholder="Date of birth" >
+                                </div>
+                                <div *ngIf="isSubmittedMeb && f2['dob'].invalid" class="errFrm">
+                                    <div *ngIf="f2['dob'].errors && f2['dob'].errors['required']">Please enter date of birth.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="gender" class="form-label">Select Gender<sup
+                                        class="text-danger">*</sup></label>
+                                        <select class="form-control" id="gender" placeholder="Select Blood Group" formControlName="gender">
+                                            <option value="">Select Gender</option>
+                                            <option value="A">Male</option>
+                                            <option value="AB" >Female</option>
+                                            <option value="B+">Other</option>
+                                        </select>
+                                        
+                                <div *ngIf="isSubmittedMeb && f2['gender'].invalid" class="errFrm">
+                                    <div *ngIf="f2['gender'].errors && f2['gender'].errors['required']">Please select gender.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="dob" class="form-label">Blood Group</label>
+                                <div class="position-relative">
+                                    <select class="form-control" id="bloodGroup" placeholder="Select Blood Group" formControlName="bloodGroup">
+                                        <option value="A">A</option>
+                                        <option value="AB" >AB</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="O+">O+</option>
+                                    </select>
+                                    
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+
 
                   
                 </div>

@@ -25,10 +25,18 @@ export class MembersListComponent implements OnInit {
   userId:any;
   members:any = [];
   isSubmitted:boolean = false
+  isSubmittedMeb:boolean = false
   successMsg:any;
   errmsg:any;
   imageSrc: string = '';
   isSubmittedVc:any;
+  memfName:any;
+  memmName:any;
+  memlName:any;
+  memBloodGroup:any;
+  memGender:any;
+  memDob:any;
+
 
   form = new FormGroup({
     fname: new FormControl('', [Validators.required]),
@@ -47,7 +55,7 @@ export class MembersListComponent implements OnInit {
     lname: new FormControl('', [Validators.required]),
     dob: new FormControl('', [Validators.required]),
     bloodGroup: new FormControl(''),
-    genderType: new FormControl('',[Validators.required]),
+    gender: new FormControl('',[Validators.required]),
   });
 
 
@@ -75,7 +83,25 @@ export class MembersListComponent implements OnInit {
     myModal.show();
   }
 
-  editMember() {
+  editMember(id:any) {
+    console.log(id);
+    var editMemData:any = [];
+
+    this.http.get(env.apiurl + 'member/edit/'+id, httpOptions).subscribe(data => {
+      editMemData = data;
+      this.editMemberfrm.patchValue({
+          'fname': editMemData.data.first_name,
+          'mname': editMemData.data.middle_name,
+          'lname': editMemData.data.last_name,
+          'dob': editMemData.data.dob,
+          'gender': editMemData.data.gender,
+          'bloodGroup': editMemData.data.blood_group
+      });
+
+
+    });
+
+
     var modalId = document.querySelector("#editMember");
     var myModal = new bootstrap.Modal(modalId!, {
       keyboard: false
@@ -110,7 +136,7 @@ export class MembersListComponent implements OnInit {
   }
 
   get f2(){
-    return this.form.controls;
+    return this.editMemberfrm.controls;
   }
 
   submit(){
@@ -139,12 +165,8 @@ export class MembersListComponent implements OnInit {
         setTimeout(()=>{                         
           location.reload();
       }, 2000);
-        //this.form.reset();
-        //this.router.navigate(['register-verify']);
       }else{
-        console.log('yes inside the error message');
         this.errmsg = data.message+data.data;
-        console.log(this.errmsg);
       }
     });
   }
@@ -154,8 +176,41 @@ export class MembersListComponent implements OnInit {
   getMembers(){
     this.http.get(env.apiurl + 'member', httpOptions).subscribe(data => {
         this.members = data;
-        console.log(this.members.data);
+        //console.log(this.members.data);
     });
+
+  }
+
+  //update memberprofile
+  editFrmSubmit(){
+    this.isSubmittedMeb = true;  
+    if (this.editMemberfrm.invalid) {  
+      return  
+    }
+
+     
+    var memberUpdateData = {
+      'fname': this.editMemberfrm.value.fname,
+      'mname': this.editMemberfrm.value.mname,
+      'lname': this.editMemberfrm.value.lname,
+      'dob': this.editMemberfrm.value.dob,
+      'gender': this.editMemberfrm.value.genderType,
+      'blood_group': this.editMemberfrm.value.bloodGroup,
+      "is_member" : 1,
+    }
+   
+    this.usrObj.addMember(memberUpdateData).subscribe((data:any)=>{
+      //this.isLoading = false; 
+      if (data.status){
+        this.successMsg = data.message;
+        setTimeout(()=>{                         
+          location.reload();
+      }, 2000);
+      }else{
+        this.errmsg = data.message+data.data;
+      }
+    });
+
 
   }
 

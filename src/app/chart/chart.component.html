@@ -4,6 +4,25 @@
 
   
     <div class="col-md-12 mx-auto" style="margin-top: 85px;">
+      <div class="instrctions">
+          <div class="row">
+              <div class="col-md-3 ">
+                  <div class="box dose-taken"></div> DOSE TAKEN
+              </div>
+              <div class="col-md-3">
+                <div class="box dose-overdue"></div> DOSE OVERDUE
+              </div>
+              <div class="col-md-3">
+                <div class="box dose-coming"></div> DOSE COMMING
+              </div>
+
+              <div class="col-md-3">
+                <div class="box dose-dueOn"></div> DOSE DUE ON 
+              </div>
+
+          </div>
+      </div>
+
       <div class="table-responsive">
         <table class="table table-bordered">
           <thead class="thead-light">
@@ -114,9 +133,7 @@
               type="file"
               class="form-control"
               (change)="onFileChange($event)">
-          <div *ngIf="isSubmitted && f['file'].invalid" class="errFrm">
-              <div *ngIf="f['file'].errors && f['file'].errors['required']">File is required.</div>
-          </div>
+          
           <!-- <img [src]="imageSrc" *ngIf="imageSrc" style="height: 300px; width:500px"> -->
       </div>
 

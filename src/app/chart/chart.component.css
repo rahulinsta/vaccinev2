@@ -39,6 +39,10 @@
 }
 
 
+.box{
+    height: 50px;
+    width: 50px;;
+}
 
 .table {
     border: 0;

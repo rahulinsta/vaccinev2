@@ -73,20 +73,14 @@ export class MainserviceComponent implements OnInit {
 
   // add member
   addMember(data:any = []){
-
     return this.http.post(env.apiurl+'member/store',data,httpOptions );
-    // return this.http.post(env.apiurl+'member/store',frmAr.httpOptions {
-    //   phone_no:frmAr.phone,
-    //   email:frmAr.email,
-    //   fname:frmAr.fname,
-    //   lname:frmAr.lname,
-    //   dob: frmAr.dob,
-    //   gender:frmAr.gender,
-    //   emergency_number: frmAr.emgNo,
-    //   blood_group: frmAr.bloodGroup,
-    //   "is_member" : 1
-    // }).pipe(rawData => {return rawData;});
   }
+
+  // update member
+  updateMember(data:any = []){
+    return this.http.put(env.apiurl+'member/update',data,httpOptions );
+  }
+
 
 
   ngOnInit(): void {
