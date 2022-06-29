@@ -17,6 +17,7 @@ import { NgOtpInputModule } from 'ng-otp-input';
 import { MembersListComponent } from './dashboard/members-list/members-list.component';
 import { QRCodeModule } from 'angular2-qrcode';
 import { PageLoaderComponent } from './elements/page-loader/page-loader.component';
+import { FormLoaderComponent } from './elements/form-loader/form-loader.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { PageLoaderComponent } from './elements/page-loader/page-loader.componen
     FooterComponent,
     VerifyOtpComponent,
     MembersListComponent,
-    PageLoaderComponent
+    PageLoaderComponent,
+    FormLoaderComponent
   ],
   imports: [
     BrowserModule,
