@@ -15,7 +15,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { VerifyOtpComponent } from './verify-otp/verify-otp.component';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { MembersListComponent } from './dashboard/members-list/members-list.component';
-import { QRCodeModule } from 'angular2-qrcode';
+import { QRCodeModule } from 'angular2-qrcode'; 
+import {DatePipe} from '@angular/common';
 
 
 @NgModule({
@@ -40,7 +41,7 @@ import { QRCodeModule } from 'angular2-qrcode';
     NgOtpInputModule,
     QRCodeModule,
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

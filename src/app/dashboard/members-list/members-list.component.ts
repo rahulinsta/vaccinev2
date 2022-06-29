@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment as env } from '../../../environments/environment';
 import { MainserviceComponent } from '../../services/mainservice/mainservice.component';
 import {Router} from "@angular/router"
+import { DatePipe } from '@angular/common';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
 
 var vcToken = localStorage.getItem('vctoken');
@@ -36,6 +37,8 @@ export class MembersListComponent implements OnInit {
   memBloodGroup:any;
   memGender:any;
   memDob:any;
+  memberId:any;
+  mesgClass:any = 'hide';
 
 
   form = new FormGroup({
@@ -59,7 +62,8 @@ export class MembersListComponent implements OnInit {
   });
 
 
-  constructor(private router: Router,private http: HttpClient,private usrObj:MainserviceComponent) {
+  constructor(private router: Router,private http: HttpClient,
+    private usrObj:MainserviceComponent,private datePipe: DatePipe) {
 
    }
 
@@ -84,21 +88,21 @@ export class MembersListComponent implements OnInit {
   }
 
   editMember(id:any) {
-    console.log(id);
+    this.memberId = id;
     var editMemData:any = [];
 
     this.http.get(env.apiurl + 'member/edit/'+id, httpOptions).subscribe(data => {
       editMemData = data;
+      var mdob = this.datePipe.transform(editMemData.data.dob,"yyyy-MM-dd");
+      console.log(mdob);
       this.editMemberfrm.patchValue({
           'fname': editMemData.data.first_name,
           'mname': editMemData.data.middle_name,
           'lname': editMemData.data.last_name,
-          'dob': editMemData.data.dob,
+          'dob': mdob,
           'gender': editMemData.data.gender,
           'bloodGroup': editMemData.data.blood_group
       });
-
-
     });
 
 
@@ -155,7 +159,7 @@ export class MembersListComponent implements OnInit {
       'gender': this.form.value.genderType,
       'blood_group': this.form.value.bloodGroup,
       "is_member" : 1,
-      'upload_file': this.form.value.file
+      'member_image': this.form.value.file
     }
    
     this.usrObj.addMember(memberData).subscribe((data:any)=>{
@@ -176,7 +180,8 @@ export class MembersListComponent implements OnInit {
   getMembers(){
     this.http.get(env.apiurl + 'member', httpOptions).subscribe(data => {
         this.members = data;
-        //console.log(this.members.data);
+        console.log('memebeers');
+        console.log(this.members.data);
     });
 
   }
@@ -194,12 +199,12 @@ export class MembersListComponent implements OnInit {
       'mname': this.editMemberfrm.value.mname,
       'lname': this.editMemberfrm.value.lname,
       'dob': this.editMemberfrm.value.dob,
-      'gender': this.editMemberfrm.value.genderType,
+      'gender': this.editMemberfrm.value.gender,
       'blood_group': this.editMemberfrm.value.bloodGroup,
       "is_member" : 1,
     }
    
-    this.usrObj.addMember(memberUpdateData).subscribe((data:any)=>{
+    this.usrObj.updateMember(memberUpdateData,this.memberId).subscribe((data:any)=>{
       //this.isLoading = false; 
       if (data.status){
         this.successMsg = data.message;
@@ -217,6 +222,22 @@ export class MembersListComponent implements OnInit {
   //delete member
   deleteMember(id:any){
       console.log(id);
+
+      this.usrObj.deleteMember(id).subscribe((data:any)=>{
+        //this.isLoading = false; 
+        console.log(data);
+
+        if (data.status){
+          this.successMsg = data.message;
+          this.mesgClass = 'show';
+          setTimeout(()=>{                         
+            location.reload();
+          }, 2000);
+        }else{
+          this.errmsg = data.message+data.data;
+        }
+      });
+
   }
 
 

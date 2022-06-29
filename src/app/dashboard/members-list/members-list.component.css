@@ -15,6 +15,12 @@
     color: red;
     text-align: left  !important;
 }
+.hide{
+    display: none;
+}
+.show{
+    display: block;
+}
 
 .header-text .user-name {
     font-size: 28px;
