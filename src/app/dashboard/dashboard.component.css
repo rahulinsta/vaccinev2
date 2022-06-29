@@ -310,16 +310,17 @@
 }
 
 .view-chart{
-border-radius: 25px;
-    line-height: 1;
-    border: 1px solid #427dfa;
-    padding: 6px 18px;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-    color: #ffffff;
-    cursor: pointer;
-    background: #427dfa;
+    border-radius: 25px;
+        line-height: 1;
+        border: 1px solid #427dfa;
+        padding: 10px 40px;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 500;
+        color: #ffffff;
+        cursor: pointer;
+        background: #427dfa;
+        display: inline-block
 }
 
 .view-chart a svg {

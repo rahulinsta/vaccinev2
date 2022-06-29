@@ -11,10 +11,9 @@
 <span class="legend"> Default Member </span>
         </div>
 <div class="col-md-4">
-    <label for="selectMember" class="form-label mb-1">Select Member </label>
-    <select class="form-select" formControlName="selectMember" id="selectMember" (change)="getMemberid($event)">
-        <option value="">Select member</option>
-        <option *ngFor=" let mem of members.data" value="{{mem.id}}" [attr.data-dob]="mem.dob" > {{mem.name}} </option>
+    <label for="selectMemberDef" class="form-label mb-1">Select Member </label>
+    <select class="form-select"  id="selectMemberDef" (change)="getMemberid($event)" >
+        <option *ngFor=" let mem of members.data" value="{{mem.id}}" [selected]="currMember==mem.id" [attr.data-dob]="mem.dob" > {{mem.name}} </option>
     </select>
 </div>
     </div>
@@ -184,8 +183,8 @@
                 <p>No vaccine record found.</p>
               </ng-template> -->
 
-              <span class="view-chart d-inline-block text-center" *ngIf="memberAge < 18">
-                <a [routerLink]="['/chart']" [queryParams]=
+              <span class="mt-5 d-inline-block" *ngIf="memberAge < 18">
+                <a class="view-chart" [routerLink]="['/chart']" [queryParams]=
                 "{user:memberId}"> 
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bar-chart-line"
                         viewBox="0 0 16 16">
