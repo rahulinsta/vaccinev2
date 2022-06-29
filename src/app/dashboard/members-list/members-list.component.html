@@ -30,8 +30,8 @@
                 <div class="col-md-8 text-start header-text">
                     <div class="row align-items-center mb-md-0 mb-3">
                         <div class="col-auto">
-                            <div class="avatar">{{member.name.charAt(0)}}</div>
-                            
+                            <div class="avatar" *ngIf="member.profile_image =='' || member.profile_image == null  "  >{{member.name.charAt(0)}}</div>
+                            <img  *ngIf="member.profile_image !='' || member.profile_image != null  " src="{{member.profile_image}}" />
                         </div>
                         <div class="col">
                             <h1 class="user-name">{{member.name}} <sup class="badge memDefault rounded-pill badge-sm bg-secondary" *ngIf="userId==member.id"> Default</sup> </h1>
