@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators} from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 import { MainserviceComponent } from '../services/mainservice/mainservice.component';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {environment as env} from '../../environments/environment';
@@ -18,9 +18,9 @@ export class LoginComponent implements OnInit {
   token:any
   formArr={email:'',password:''};
 
-  form = new FormGroup({
-    password: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email]),
+  form = new UntypedFormGroup({
+    password: new UntypedFormControl('', [Validators.required]),
+    email: new UntypedFormControl('', [Validators.required, Validators.email]),
     
   });
 

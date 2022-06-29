@@ -4,7 +4,7 @@ import {Router} from "@angular/router"
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment as env } from '../../environments/environment';
 import { MainserviceComponent } from '../services/mainservice/mainservice.component';
-import { FormGroup, FormControl, Validators} from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 
 var vcToken = localStorage.getItem('vctoken');
 const httpOptions = {
@@ -48,20 +48,21 @@ export class DashboardComponent implements OnInit {
   memberAge:any;
   cert_url:any;
   imageSrc:any;
+  pageLoader:boolean=false;
 
-  form = new FormGroup({
-    selectAge: new FormControl('', [Validators.required]),
-    selectMember: new FormControl('', [Validators.required]),
+  form = new UntypedFormGroup({
+    selectAge: new UntypedFormControl('', [Validators.required]),
+    selectMember: new UntypedFormControl('', [Validators.required]),
   });
 
-  addvcFrm = new FormGroup ({
-    diseaseId: new FormControl('', [Validators.required]),
-    vendorId: new FormControl('', [Validators.required]),
-    vaccine_date: new FormControl('', [Validators.required]),
-    vaccine_time: new FormControl('', [Validators.required]),
-    vaccine_location: new FormControl('', [Validators.required]),
-    file: new FormControl(''),
-    fileSource: new FormControl(''),
+  addvcFrm = new UntypedFormGroup ({
+    diseaseId: new UntypedFormControl('', [Validators.required]),
+    vendorId: new UntypedFormControl('', [Validators.required]),
+    vaccine_date: new UntypedFormControl('', [Validators.required]),
+    vaccine_time: new UntypedFormControl('', [Validators.required]),
+    vaccine_location: new UntypedFormControl('', [Validators.required]),
+    file: new UntypedFormControl(''),
+    fileSource: new UntypedFormControl(''),
   });
 
 
@@ -225,6 +226,7 @@ export class DashboardComponent implements OnInit {
   //get user profile data
 
   userProfile(){
+    this.pageLoader = true;
     this.http.get(env.apiurl + 'user-profile?userId='+this.userId, httpOptions).subscribe(data => {
       this.userData = data;
       this.userName = this.userData.data.first_name;
@@ -235,8 +237,10 @@ export class DashboardComponent implements OnInit {
       this.state = this.userData.data.state;
       this.pincode = this.userData.data.zipcode;
       this.fletter = this.userName.charAt(0);
-
-    });
+      this.pageLoader = false;
+    }
+    
+    );
   }
 
 

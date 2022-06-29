@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators} from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 import { MainserviceComponent } from '../services/mainservice/mainservice.component';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {environment as env} from '../../environments/environment';
@@ -22,17 +22,17 @@ export class SignupComponent implements OnInit {
   passErr2:any;
   formArr={phone:'',email:'', fname:'', lname:'',emgNo:'',dob:'',password:'',cpassword:'',bloodGroup:'',gender:''};
   
-  form = new FormGroup({
-    phone: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    fname: new FormControl('', [Validators.required]),
-    lname: new FormControl('', [Validators.required]),
-    dob: new FormControl('', [Validators.required]),
-    emgNo: new FormControl('', [Validators.required]),
-    bloodGroup: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required]),
-    cpassword: new FormControl('', [Validators.required]),
-    genderType: new FormControl('', [Validators.required])
+  form = new UntypedFormGroup({
+    phone: new UntypedFormControl('', [Validators.required]),
+    email: new UntypedFormControl('', [Validators.required, Validators.email]),
+    fname: new UntypedFormControl('', [Validators.required]),
+    lname: new UntypedFormControl('', [Validators.required]),
+    dob: new UntypedFormControl('', [Validators.required]),
+    emgNo: new UntypedFormControl('', [Validators.required]),
+    bloodGroup: new UntypedFormControl('', [Validators.required]),
+    password: new UntypedFormControl('', [Validators.required]),
+    cpassword: new UntypedFormControl('', [Validators.required]),
+    genderType: new UntypedFormControl('', [Validators.required])
     
   });
 

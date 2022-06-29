@@ -1,6 +1,7 @@
 <app-header></app-header>
 
-<div class="container dashboard-page">
+<app-page-loader *ngIf="pageLoader"></app-page-loader>
+<div *ngIf="!pageLoader"  class="container dashboard-page">
     <div class="col-md-12">
 
     <div class="mem-bg">

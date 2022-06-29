@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, NgZone, AfterViewInit} from '@angular/core';
 
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { FormGroup, FormControl, Validators} from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 import { environment as env } from '../../environments/environment';
 import {Router,ActivatedRoute} from "@angular/router"
 import { MainserviceComponent } from '../services/mainservice/mainservice.component';
@@ -33,6 +33,7 @@ export class ChartComponent implements OnInit {
   latitude : any;
   longitude: any;
   zoom: any;
+  pageLoader : boolean = false;
   private geoCoder:any;
   closeResult: string = '';
   imageSrc: string = '';
@@ -40,12 +41,12 @@ export class ChartComponent implements OnInit {
 
   formArr={vcdate:'',vctime:'', vclocation:'', img:''};
 
-  form = new FormGroup({
-    vcdate: new FormControl('', [Validators.required]),
-    vctime: new FormControl('', [Validators.required]),
-    vclocation: new FormControl('', [Validators.required]),
-    file: new FormControl(''),
-    fileSource: new FormControl(''),
+  form = new UntypedFormGroup({
+    vcdate: new UntypedFormControl('', [Validators.required]),
+    vctime: new UntypedFormControl('', [Validators.required]),
+    vclocation: new UntypedFormControl('', [Validators.required]),
+    file: new UntypedFormControl(''),
+    fileSource: new UntypedFormControl(''),
   });
 
 
@@ -204,6 +205,7 @@ export class ChartComponent implements OnInit {
 
 
   getChartdata() { 
+    this.pageLoader = true;
     var vcToken = localStorage.getItem('vctoken');
     const httpOptions = {
       headers: new HttpHeaders({
@@ -224,7 +226,7 @@ export class ChartComponent implements OnInit {
     
     //console.log('this.chartData');
     //console.log(this.chartData);
-
+      this.pageLoader = false;
     });
   }
 
@@ -281,7 +283,7 @@ export class ChartComponent implements OnInit {
         rows[rowIndex].children[cellIndex].setAttribute('data-time', chartData[index]?.vaccine_time);
         rows[rowIndex].children[cellIndex].setAttribute('data-vaccine', chartData[index]?.vaccine_name);
         rows[rowIndex].children[cellIndex].addEventListener('click',this.openPopup,false );
-        rows[rowIndex].children[cellIndex].innerHTML = chartData[index]?.vaccine_date +'<br>' + chartData[index]?.vaccine_time;
+        rows[rowIndex].children[cellIndex].innerHTML = chartData[index]?.vaccine_date + '<br>' + chartData[index]?.vaccine_time +  '<br> <i class="h3 bi bi-check2"></i>';
 
         if(chartData[index]?.DoseStatus == 'Taken'){
           cellData = 'cell dose-taken';
