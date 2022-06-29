@@ -22,9 +22,6 @@
         </div>
     
 <div class="row">
-    <div class="alert alert-success" [ngClass]='mesgClass' role="alert">Member has been deleted successfully.</div>
-<div class="col-lg-6 col-md-6 mb-4" *ngFor=" let member of members.data">
-    <main class="form-signin member-list">
 <div class="col-lg-6 col-md-6 mb-4" *ngFor="let member of members">
     <main class="form-signin member-list" [ngClass]="{'bg-light': userId==member.id}">
 
@@ -89,8 +86,10 @@
    
 
     </main>
+</div>
 
 
+</div>
     
 </div>
 
@@ -112,7 +111,6 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                
                                 <label for="fname" class="form-label">First Name<sup
                                         class="text-danger">*</sup></label>
                                 <div class="position-relative">
@@ -173,9 +171,9 @@
                                         class="text-danger">*</sup></label>
                                         <select class="form-control" id="gender" placeholder="Select Blood Group" formControlName="gender">
                                             <option value="">Select Gender</option>
-                                            <option value="Male">Male</option>
-                                            <option value="Female" >Female</option>
-                                            <option value="Other">Other</option>
+                                            <option value="A">Male</option>
+                                            <option value="AB" >Female</option>
+                                            <option value="B+">Other</option>
                                         </select>
                                         
                                 <div *ngIf="isSubmittedMeb && f2['gender'].invalid" class="errFrm">
@@ -245,6 +243,33 @@
 
             <div class="modal-body p-4">
             <form [formGroup]="form" (ngSubmit)="submit()" class="addmember-form"  >
+
+            <!-- <div class="form-row">
+                <div class="col">
+    
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="phone" placeholder="Phone Number" formControlName="phone">
+            <label for="floatingInput">Phone Number</label>
+
+            <div *ngIf="isSubmitted && f['phone'].invalid" class="errFrm">
+                <div *ngIf="f['phone'].errors && f['phone'].errors['required']">Phone is required.</div>
+            </div>
+
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="email" placeholder="Email" formControlName="email">
+            <label for="email">Email</label>
+          </div>
+
+
+          <div *ngIf="isSubmitted && f['email'].invalid" class="errFrm">
+                <div *ngIf="f['email'].errors && f['email'].errors['required']">Email is required.</div>
+                <div *ngIf="f['email'].errors && f['email'].errors['required']">Please, enter valid email address.</div>
+          </div>
+          </div>
+        </div> -->
 
         <div class="form-row">
         <div class="col">
