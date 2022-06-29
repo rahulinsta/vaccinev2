@@ -77,8 +77,13 @@ export class MainserviceComponent implements OnInit {
   }
 
   // update member
-  updateMember(data:any = []){
-    return this.http.put(env.apiurl+'member/update',data,httpOptions );
+  updateMember(data:any = [],mid:any){
+    return this.http.put(env.apiurl+'member/update/'+mid,data,httpOptions );
+  }
+
+  // delete member
+  deleteMember(id:any){
+    return this.http.delete(env.apiurl+'member/delete/'+id,httpOptions );
   }
 
 

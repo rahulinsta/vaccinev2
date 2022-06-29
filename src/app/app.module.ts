@@ -14,7 +14,8 @@ import { FooterComponent } from './footer/footer.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { VerifyOtpComponent } from './verify-otp/verify-otp.component';
 import { NgOtpInputModule } from 'ng-otp-input';
-import { MembersListComponent } from './dashboard/members-list/members-list.component';
+import { MembersListComponent } from './dashboard/members-list/members-list.component'; 
+import {DatePipe} from '@angular/common';
 import { QRCodeModule } from 'angular2-qrcode';
 import { PageLoaderComponent } from './elements/page-loader/page-loader.component';
 import { FormLoaderComponent } from './elements/form-loader/form-loader.component';
@@ -44,7 +45,7 @@ import { FormLoaderComponent } from './elements/form-loader/form-loader.componen
     NgOtpInputModule,
     QRCodeModule,
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
