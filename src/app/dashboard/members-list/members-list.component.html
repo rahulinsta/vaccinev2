@@ -26,7 +26,7 @@
     <main class="form-signin member-list" [ngClass]="{'bg-light': userId==member.id}">
 
         <div class="dashboard-header">
-            <div class="row align-items-center">
+            <div class="row align-items-center"> 
                 <div class="col-md-8 text-start header-text">
                     <div class="row align-items-center mb-md-0 mb-3">
                         <div class="col-auto">
@@ -199,6 +199,15 @@
                                 
                             </div>
                         </div>
+
+                        <div class="mb-3">
+                            <label for="file" class="form-label">Profile image</label>
+                            <div class="position-relative">
+                                <input type="file" class="form-control" formControlName="file" >
+                            </div>
+                            
+                        </div>
+
                     </div>
 
 

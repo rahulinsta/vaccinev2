@@ -51,6 +51,9 @@ export class DashboardComponent implements OnInit {
   cert_url:any;
   imageSrc:any;
   pageLoader:boolean=false;
+  fullName:any;
+  gender:any;
+  bloodGroup:any;
 
   form = new UntypedFormGroup({
     selectAge: new UntypedFormControl('', [Validators.required]),
@@ -235,9 +238,11 @@ export class DashboardComponent implements OnInit {
   //get user profile data
 
   userProfile(user_id=this.userId){
+    console.log('get user profile data');
     this.pageLoader = true;
     this.http.get(env.apiurl + 'user-profile?userId=' + user_id, httpOptions).subscribe(data => {
       this.userData = data;
+      console.log(data);
       this.userName = this.userData.data.first_name;
       this.dob = this.userData.data.dob;
       this.email = this.userData.data.email;
@@ -245,6 +250,9 @@ export class DashboardComponent implements OnInit {
       this.city = this.userData.data.city;
       this.state = this.userData.data.state;
       this.pincode = this.userData.data.zipcode;
+      this.fullName = this.userData.data.name;
+      this.gender = this.userData.data.gender;
+      this.bloodGroup = this.userData.data.blood_group;
       this.fletter = this.userName.charAt(0);
       this.pageLoader = false;
     }
@@ -258,7 +266,7 @@ export class DashboardComponent implements OnInit {
   getMembers(){
     this.http.get(env.apiurl + 'member', httpOptions).subscribe(data => {
         this.members = data;
-        console.log(this.members.data);
+        //console.log(this.members.data);
     });
 
   }
@@ -266,7 +274,7 @@ export class DashboardComponent implements OnInit {
   getDisease(){
     this.http.get(env.apiurl + 'get-disease', httpOptions).subscribe(data => {
         this.diseaseList = data;
-        console.log(this.diseaseList.data);
+        //console.log(this.diseaseList.data);
     });
   }
 
@@ -288,14 +296,13 @@ export class DashboardComponent implements OnInit {
 
     this.http.get(env.apiurl + 'member?age='+age, httpOptions).subscribe(data => {
       this.members = data;
-      console.log(this.members.data);
+      //console.log(this.members.data);
     });
 
   }
 
   //get member on chage
   getMemberid(e:any){
-    console.log(e);
     this.memberId = e.target.value;
     this.getVaccinebyMemberId(this.memberId);
     const [option] = e.target.selectedOptions
@@ -307,15 +314,15 @@ export class DashboardComponent implements OnInit {
     this.userProfile(e.target.value);
     this.currMember = '';
     this.currMember = e.target.value;
-    console.log(this.currMember)
+    //console.log(this.currMember)
     
   }
 
   getVaccine(vendorId:any){
     this.http.get(env.apiurl + 'get-vendor-by-disease?diseaseId='+vendorId, httpOptions).subscribe(data => {
         this.vaccineList = data;
-        console.log('vaccine list');
-        console.log(this.vaccineList.data);
+        //console.log('vaccine list');
+        //console.log(this.vaccineList.data);
     });
 
   }
@@ -333,8 +340,9 @@ export class DashboardComponent implements OnInit {
 
   //calculate age
   getAge(dateString:any) {
+      var newdate = dateString.split("-").reverse().join("-");
       var today = new Date();
-      var birthDate = new Date(dateString);
+      var birthDate = new Date(newdate);
       var age = today.getFullYear() - birthDate.getFullYear();
       var m = today.getMonth() - birthDate.getMonth();
       if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) 

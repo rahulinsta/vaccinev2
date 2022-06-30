@@ -85,17 +85,15 @@
                             <div class="card card-body mt-3">
                                 <div class="row text-start">
                                     <div class="col-md-4">
-                                        <p class="mb-md-0"><span>Address :</span> <br>
-                                            <!-- {{ userInfo?.street }},<br> -->
-                                            {{city}}, {{state}},<br>
-                                            {{pincode}}
+                                        <p class="mb-md-0"><span>Name :</span> <br>
+                                            {{fullName}}
                                         </p>
                                     </div>
-                                    <div class="col-md-4">
-                                        <p><span>Phone :</span> <br> {{phone}}</p>
+                                    <div class="col-md-4" *ngIf="gender != null " >
+                                        <p><span>Gender :</span> <br> {{gender}}</p>
                                     </div>
-                                    <div class="col-md-4">
-                                        <p><span>Email: </span> <br> {{email}} </p>
+                                    <div class="col-md-4" *ngIf="bloodGroup !='' || bloodGroup != null ">
+                                        <p><span>Blood Group: </span> <br> {{bloodGroup}} </p>
                                     </div>
                                     <!-- <a (click)="editProfileModel()" >Edit</a> -->
                                 </div>
@@ -244,7 +242,7 @@ aria-labelledby="vaccineLabel" aria-hidden="true">
                     </select> 
                     <div *ngIf="isSubmitted && f['selectAge'].invalid" class="errFrm">
                         <div *ngIf="f['selectAge'].errors && f['selectAge'].errors['required']">Please select age</div>
-                    </div>
+                    </div> 
                    
                 </div>
                 <div class="mb-3" id="selectAge">
