@@ -96,13 +96,14 @@ export class MembersListComponent implements OnInit {
 
     this.http.get(env.apiurl + 'member/edit/'+id, httpOptions).subscribe(data => {
       editMemData = data;
-      var mdob = this.datePipe.transform(editMemData.data.dob,"yyyy-MM-dd");
-      console.log(mdob);
+      var mebDob = editMemData.data.dob;
+      var newdate = mebDob.split("-").reverse().join("-");
+      var mdob = this.datePipe.transform(newdate,"yyyy-MM-dd");
       this.editMemberfrm.patchValue({
           'fname': editMemData.data.first_name,
           'mname': editMemData.data.middle_name,
           'lname': editMemData.data.last_name,
-          'dob': mdob,
+          'dob': newdate,
           'gender': editMemData.data.gender,
           'bloodGroup': editMemData.data.blood_group
       });
@@ -121,18 +122,13 @@ export class MembersListComponent implements OnInit {
     const reader = new FileReader();
      
     if(event.target.files && event.target.files.length) {
-      const [file] = event.target.files;
-      reader.readAsDataURL(file);
-     
-      reader.onload = () => {
-    
-        this.imageSrc = reader.result as string;
+      const file = event.target.files[0];
       
         this.form.patchValue({
-          fileSource: reader.result
+          fileSource: file
         });
     
-      };
+     
     
     }
   }
@@ -155,20 +151,19 @@ export class MembersListComponent implements OnInit {
       
     }  
 
+  
+    const formData = new FormData();
+    formData.append('member_image', this.form.value.fileSource);
+    formData.append('fname', this.form.value.fname);
+    formData.append('mname', this.form.value.mname);
+    formData.append('lname', this.form.value.lname);
+    formData.append('dob', this.form.value.dob);
+    formData.append('gender', this.form.value.genderType);
+    formData.append('blood_group', this.form.value.bloodGroup);
+    formData.append('is_member', '1');
     
-    
-    var memberData = {
-      'fname': this.form.value.fname,
-      'mname': this.form.value.mname,
-      'lname': this.form.value.lname,
-      'dob': this.form.value.dob,
-      'gender': this.form.value.genderType,
-      'blood_group': this.form.value.bloodGroup,
-      "is_member" : 1,
-      'member_image': this.form.value.file
-    }
    
-    this.usrObj.addMember(memberData).subscribe((data:any)=>{
+    this.usrObj.addMember(formData).subscribe((data:any)=>{
       //this.isLoading = false; 
       this.isSubmit = false;     
       if (data.status){
