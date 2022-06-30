@@ -13,9 +13,11 @@ import {Router} from "@angular/router"
 export class LoginComponent implements OnInit {
 
   isSubmitted:boolean = false
+  isSubmit:boolean = false
   successMsg:any;
   errmsg:any;
-  token:any
+  token:any;
+  
   formArr={email:'',password:''};
 
   form = new UntypedFormGroup({
@@ -41,12 +43,13 @@ export class LoginComponent implements OnInit {
   
   submit(){
     this.isSubmitted = true; 
-
+this.isSubmit = true;
     this.formArr.email = this.form.value.email;
     this.formArr.password = this.form.value.password;
 
     this.usrObj.login(this.formArr).subscribe((data:any)=>{
       //this.isLoading = false;
+      this.isSubmit = false;
       if (data.status){ 
          //this.redirectsAfterLogin(data);
         this.token = data.token;
@@ -65,7 +68,7 @@ export class LoginComponent implements OnInit {
       }
     },error=> {
       this.errmsg  = 'Internal Server Error.. Your login could not be completed.';
-      //this.isLoading = false;  
+      this.isSubmit = false;
     });
 
 
