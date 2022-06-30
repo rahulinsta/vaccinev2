@@ -95,13 +95,7 @@ export class DashboardComponent implements OnInit {
     e.classList.toggle('open')
   }
 
-  addVaccine() {
-    var modalId = document.querySelector("#addVaccineStep1");
-    var myModal = new bootstrap.Modal(modalId!, {
-      keyboard: false
-    })
-    myModal.show();
-  }
+ 
 
 
   showQrcode(certificateUrl:any) {
