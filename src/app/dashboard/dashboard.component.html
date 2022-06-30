@@ -233,7 +233,7 @@ aria-labelledby="vaccineLabel" aria-hidden="true">
             <h5 class="modal-title" id="vaccineLabel">Select Profile</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" #closeModal aria-label="Close"></button>
         </div>
-        <form  [formGroup]="form" (ngSubmit)="submit()" class="text-start">
+        <form  [formGroup]="form" (ngSubmit)="submit()" class="text-start formaddedit">
             <div class="modal-body">
                 <div class="mb-3">
                     <label for="selectAge" class="form-label">Select Age <sup class="text-danger">*</sup></label>
@@ -272,8 +272,7 @@ aria-labelledby="vaccineLabel" aria-hidden="true">
             <div class="modal-footer">
                 <button type="submit" class="btn btn-success">
                     Submit
-                    <!-- <span class="spinner-border spinner-border-sm ml-2" role="status" aria-hidden="true"
-                            *ngIf="submit"></span> -->
+                <div class="spinner-border form-loader ml-2" role="status" *ngIf="isSubmit"></div>
                 </button>
             </div>
         </form>
@@ -290,7 +289,7 @@ aria-labelledby="vaccineLabel" aria-hidden="true">
                 <h5 class="modal-title" id="vaccineLabel">Add Vaccine</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" #closeModal aria-label="Close"></button>
             </div>
-            <form [formGroup]="addvcFrm" (ngSubmit)="submitVcfrm()"  class="text-start">
+            <form [formGroup]="addvcFrm" (ngSubmit)="submitVcfrm()"  class="text-start formaddedit">
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="diseaseId" class="form-label">Disease <sup class="text-danger">*</sup></label>
@@ -367,8 +366,7 @@ aria-labelledby="vaccineLabel" aria-hidden="true">
                     <button type="button" class="btn btn-secondary">Cancel</button>
                     <button type="submit"  class="btn btn-success">
                         Submit
-                        <!-- <span class="spinner-border spinner-border-sm ml-2" role="status" aria-hidden="true"
-                            *ngIf="submit"></span> -->
+                    <div class="spinner-border form-loader ml-2" role="status" *ngIf="isSubmit"></div>
                     </button>
                 </div>
             </form>
@@ -400,7 +398,7 @@ aria-labelledby="vaccineLabel" aria-hidden="true">
                 <h5 class="modal-title" id="vaccineLabel">Edit Profile</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" #closeModal aria-label="Close"></button>
             </div>
-            <form [formGroup]="addvcFrm" (ngSubmit)="submitVcfrm()"  class="text-start">
+            <form [formGroup]="addvcFrm" (ngSubmit)="submitVcfrm()"  class="text-start formaddedit">
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="diseaseId" class="form-label">Disease <sup class="text-danger">*</sup></label>
@@ -477,8 +475,7 @@ aria-labelledby="vaccineLabel" aria-hidden="true">
                     <button type="button" class="btn btn-secondary">Cancel</button>
                     <button type="submit"  class="btn btn-success">
                         Submit
-                        <!-- <span class="spinner-border spinner-border-sm ml-2" role="status" aria-hidden="true"
-                            *ngIf="submit"></span> -->
+                        <div class="spinner-border form-loader ml-2" role="status" *ngIf="isSubmit"></div>
                     </button>
                 </div>
             </form>

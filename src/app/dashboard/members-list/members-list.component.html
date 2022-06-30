@@ -30,8 +30,10 @@
                 <div class="col-md-8 text-start header-text">
                     <div class="row align-items-center mb-md-0 mb-3">
                         <div class="col-auto">
-                            <div class="avatar" *ngIf="member.profile_image =='' || member.profile_image == null  "  >{{member.name.charAt(0)}}</div>
-                            <img  *ngIf="member.profile_image !='' || member.profile_image != null  " src="{{member.profile_image}}" />
+                            <div class="avatar" *ngIf="!member.profile_image">{{member.name.charAt(0)}}</div>
+                            <div class="img-avatar"  *ngIf="member.profile_image">
+                            <img  src="{{member.profile_image}}" />
+                            </div>
                         </div>
                         <div class="col">
                             <h1 class="user-name">{{member.name}} <sup class="badge memDefault rounded-pill badge-sm bg-secondary" *ngIf="userId==member.id"> Default</sup> </h1>
@@ -44,7 +46,7 @@
                             </div>
 
                             <div class="user-dob" *ngIf="member.gender" >
-                                Blood Group : {{member.gender}}
+                                Gender : {{member.gender}}
                             </div>
 
                         </div>
@@ -105,7 +107,7 @@
                 <h5 class="modal-title" id="vaccineLabel">Edit Member</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" #closeModal aria-label="Close"></button>
             </div>
-            <form [formGroup]="editMemberfrm" (ngSubmit)="editFrmSubmit()" class="text-start">
+            <form [formGroup]="editMemberfrm" (ngSubmit)="editFrmSubmit()" class="text-start formaddedit">
                 <div class="modal-body">
                     
                     <div class="row">
@@ -206,13 +208,13 @@
                     <button type="button" class="btn btn-secondary">Cancel</button>
                     <button type="submit"  class="btn btn-success">
                         Submit
-                        <!-- <span class="spinner-border spinner-border-sm ml-2" role="status" aria-hidden="true"
-                            *ngIf="submit"></span> -->
+                    <div class="spinner-border form-loader ml-2" role="status" *ngIf="isSubmit"></div>
                     </button>
                 </div>
             </form>
+<div class="col-md-12">
 
-            <ng-container *ngIf="errmsg">
+   <ng-container *ngIf="errmsg">
                 <div class="alert alert-danger" role="alert">
                   {{errmsg}}
                 </div>
@@ -223,7 +225,7 @@
                   {{successMsg}}
                 </div>
               </ng-container>
-
+</div>
         </div>
     </div>
 </div>
@@ -242,7 +244,7 @@
             </div>
 
             <div class="modal-body p-4">
-            <form [formGroup]="form" (ngSubmit)="submit()" class="addmember-form"  >
+            <form [formGroup]="form" (ngSubmit)="submit()" class="addmember-form">
 
             <!-- <div class="form-row">
                 <div class="col">
@@ -388,6 +390,7 @@
     
           <button class="w-100 btn btn-lg btn-primary" type="submit">
             Continue
+            <div class="spinner-border form-loader ml-2" role="status" *ngIf="isSubmit"></div>
           </button> 
           
       

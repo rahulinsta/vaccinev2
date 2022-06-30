@@ -65,4 +65,12 @@ body{
         border:1px solid  #1563b9;
          box-shadow: none !important;
     }
+
+    .addmember-form .form-loader, .formaddedit .form-loader{
+    width: 1.5rem;
+        height: 1.5rem;
+        vertical-align: -0.3em;
+        border: 0.2em solid currentColor;
+        border-right-color: transparent;
+    }
     

@@ -26,8 +26,8 @@ export class MembersListComponent implements OnInit {
   userId:any;
 
   members:any = [];
-  isSubmitted:boolean = false
-  isSubmittedMeb:boolean = false
+  isSubmitted:boolean = false;
+  isSubmittedMeb:boolean = false;
   successMsg:any;
   errmsg:any;
   imageSrc: string = '';
@@ -41,6 +41,7 @@ export class MembersListComponent implements OnInit {
   memberId:any;
   mesgClass:any = 'hide';
   pageLoader: boolean = false;
+  isSubmit: boolean = false;
 
 
   form = new UntypedFormGroup({
@@ -142,9 +143,12 @@ export class MembersListComponent implements OnInit {
   }
 
   submit(){
+    this.isSubmit = true;   
     this.isSubmitted = true;  
-    if (this.form.invalid) {  
-      return  
+    if (this.form.invalid) { 
+      this.isSubmit = false;   
+      return ;
+      
     }  
 
   
@@ -161,6 +165,7 @@ export class MembersListComponent implements OnInit {
    
     this.usrObj.addMember(formData).subscribe((data:any)=>{
       //this.isLoading = false; 
+      this.isSubmit = false;     
       if (data.status){
         this.successMsg = data.message;
         setTimeout(()=>{                         
@@ -175,11 +180,12 @@ export class MembersListComponent implements OnInit {
   // get members
 
   getMembers(){
+    this.pageLoader = true;
     this.http.get(env.apiurl + 'member', httpOptions).subscribe(data => {
         this.members = data;
         console.log('memebeers');
         console.log(this.members.data);
-    this.pageLoader = true;
+    
     this.http.get(env.apiurl + 'member', httpOptions).subscribe((data:any) => {
        
       
@@ -201,8 +207,10 @@ export class MembersListComponent implements OnInit {
 
   //update memberprofile
   editFrmSubmit(){
+    this.isSubmit = true;
     this.isSubmittedMeb = true;  
     if (this.editMemberfrm.invalid) {  
+      this.isSubmit = false;
       return  
     }
 
@@ -219,6 +227,7 @@ export class MembersListComponent implements OnInit {
    
     this.usrObj.updateMember(memberUpdateData,this.memberId).subscribe((data:any)=>{
       //this.isLoading = false; 
+      this.isSubmit = false;
       if (data.status){
         this.successMsg = data.message;
         setTimeout(()=>{                         
