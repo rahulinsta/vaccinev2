@@ -95,13 +95,14 @@ export class MembersListComponent implements OnInit {
 
     this.http.get(env.apiurl + 'member/edit/'+id, httpOptions).subscribe(data => {
       editMemData = data;
-      var mdob = this.datePipe.transform(editMemData.data.dob,"yyyy-MM-dd");
-      console.log(mdob);
+      var mebDob = editMemData.data.dob;
+      var newdate = mebDob.split("-").reverse().join("-");
+      var mdob = this.datePipe.transform(newdate,"yyyy-MM-dd");
       this.editMemberfrm.patchValue({
           'fname': editMemData.data.first_name,
           'mname': editMemData.data.middle_name,
           'lname': editMemData.data.last_name,
-          'dob': mdob,
+          'dob': newdate,
           'gender': editMemData.data.gender,
           'bloodGroup': editMemData.data.blood_group
       });
