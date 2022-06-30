@@ -11,6 +11,8 @@ import * as bootstrap from 'bootstrap';
 export class HeaderComponent implements OnInit {
 
   uname:any;
+  pageUrl:any = '';
+ 
 
   constructor(private usrObj:MainserviceComponent,private router: Router) { }
 
@@ -18,7 +20,8 @@ export class HeaderComponent implements OnInit {
     var e = document.getElementById("navbar");
     this.uname = localStorage.getItem('ufname');
     //console.log(this.uname);
-
+    this.pageUrl = this.router.url;
+    // console.log(this.router.url)
   }
 
   logout(){
@@ -36,6 +39,14 @@ export class HeaderComponent implements OnInit {
     new bootstrap.Collapse(myCollapse!, {
       toggle: false
     })
+  }
+
+  addVaccine() {
+    var modalId = document.querySelector("#addVaccineStep1");
+    var myModal = new bootstrap.Modal(modalId!, {
+      keyboard: false
+    })
+    myModal.show();
   }
 
  

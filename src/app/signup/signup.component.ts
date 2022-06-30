@@ -15,8 +15,9 @@ import {Router} from "@angular/router"
 export class SignupComponent implements OnInit {
 
   isSubmitted:boolean = false
-  successMsg:any;
-  errmsg:any;
+  isSubmit:boolean = false
+  successMsg:boolean = false;
+  errmsg:boolean  = false;
   emailErr:any;
   passErr1:any;
   passErr2:any;
@@ -51,8 +52,12 @@ export class SignupComponent implements OnInit {
   }
   
   submit(){
+    
+    this.isSubmit = true;  
     this.isSubmitted = true;  
-    if (this.form.invalid) {  
+    if (this.form.invalid) {
+      this.isSubmit = false;  
+
       return  
     }  
     
@@ -71,14 +76,24 @@ export class SignupComponent implements OnInit {
    
     this.usrObj.register(this.formArr).subscribe((data:any)=>{
       console.log('step-1');
-      //this.isLoading = false; 
+      this.isSubmit = false;  
       if (data.status){
+        this.successMsg = true;
         this.successMsg = data.message;
-        //this.form.reset();
+        this.form.reset();
+        setTimeout(() => {
+          this.successMsg = false;
+        }, 3000);
+
         //this.router.navigate(['register-verify']);
       }else{
         console.log('yes inside the error message');
+        this.errmsg = true;
         this.errmsg = data.message+data.data;
+        setTimeout(() => {
+          this.errmsg = false;
+        }, 3000);
+
         console.log(this.errmsg);
       }
     },
@@ -94,7 +109,8 @@ export class SignupComponent implements OnInit {
 
     
       //this.errmsg  = 'Internal Server Error.. You Registration could not be completed.';
-      //this.isLoading = false;
+      this.isSubmit = false;  
+
     });
 
     
