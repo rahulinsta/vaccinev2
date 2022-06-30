@@ -62,7 +62,7 @@ export class DashboardComponent implements OnInit {
 
   addvcFrm = new UntypedFormGroup ({
     diseaseId: new UntypedFormControl('', [Validators.required]),
-    vendorId: new UntypedFormControl('', [Validators.required]),
+    // vendorId: new UntypedFormControl('', [Validators.required]),
     vaccine_date: new UntypedFormControl('', [Validators.required]),
     vaccine_time: new UntypedFormControl('', [Validators.required]),
     vaccine_location: new UntypedFormControl('', [Validators.required]),
@@ -74,7 +74,7 @@ export class DashboardComponent implements OnInit {
   constructor(private router: Router,private http: HttpClient,private usrObj:MainserviceComponent 
     ) { }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {  
 
     this.userId = localStorage.getItem('userid');
     if(this.userId == null || this.userId == undefined ){
@@ -82,7 +82,11 @@ export class DashboardComponent implements OnInit {
     }
 
     this.uname = localStorage.getItem('ufname');
-
+    var dob = localStorage.getItem('userdob');
+    
+    this.memberAge =  this.getAge(dob);
+    console.log('memeber age');
+    console.log(this.memberAge);
     this.userProfile();
     this.getMembers();
     this.getDisease();
@@ -198,7 +202,7 @@ export class DashboardComponent implements OnInit {
     var vcdata = {
       'userId': this.memberId,
       'diseaseId': this.addvcFrm.value.diseaseId,
-      'vendorId': this.addvcFrm.value.vendorId,
+      // 'vendorId': this.addvcFrm.value.vendorId,
       'vaccine_date': this.addvcFrm.value.vaccine_date,
       'vaccine_time': this.addvcFrm.value.vaccine_time,
       'vaccine_location': this.addvcFrm.value.vaccine_location,

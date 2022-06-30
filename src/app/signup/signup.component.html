@@ -55,6 +55,7 @@
               <option value="">Select Gender</option>
               <option value="Male" >Male</option>
               <option value="Female" >Female</option>
+              <option value="Other" >Other</option>
             </select>
           <label for="gender">Select Gender</label>
 
@@ -79,9 +80,9 @@
             <input type="text" class="form-control" id="name" placeholder="Name" formControlName="emgNo">
             <label for="name">Emergency Phone Number</label>
 
-            <div *ngIf="isSubmitted && f['emgNo'].invalid" class="errFrm">
+            <!-- <div *ngIf="isSubmitted && f['emgNo'].invalid" class="errFrm">
                 <div *ngIf="f['emgNo'].errors && f['emgNo'].errors['required']">Emergency number is required.</div>
-          </div>
+            </div> -->
 
 
           </div>
@@ -96,9 +97,9 @@
             </select>
             <label for="bloodGroup">Select Blood Group</label>
 
-            <div *ngIf="isSubmitted && f['bloodGroup'].invalid" class="errFrm">
+            <!-- <div *ngIf="isSubmitted && f['bloodGroup'].invalid" class="errFrm">
                 <div *ngIf="f['bloodGroup'].errors && f['bloodGroup'].errors['required']">Blood group is required.</div>
-          </div>
+            </div> -->
 
           </div>
 

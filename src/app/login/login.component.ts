@@ -54,6 +54,7 @@ this.isSubmit = true;
          //this.redirectsAfterLogin(data);
         this.token = data.token;
         localStorage.setItem('userid', data.data.id);
+        localStorage.setItem('userdob', data.data.dob);
         localStorage.setItem('uname', data.data.uName);
         localStorage.setItem('vctoken', this.token);
         localStorage.setItem('ufname', data.data.first_name);

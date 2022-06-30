@@ -42,6 +42,7 @@ export class MembersListComponent implements OnInit {
   mesgClass:any = 'hide';
   pageLoader: boolean = false;
   isSubmit: boolean = false;
+  profileImage:any;
 
 
   form = new UntypedFormGroup({
@@ -97,6 +98,7 @@ export class MembersListComponent implements OnInit {
     this.http.get(env.apiurl + 'member/edit/'+id, httpOptions).subscribe(data => {
       editMemData = data;
       var mebDob = editMemData.data.dob;
+      this.profileImage = editMemData.data.profile_image;
       var newdate = mebDob.split("-").reverse().join("-");
       var mdob = this.datePipe.transform(newdate,"yyyy-MM-dd");
       this.editMemberfrm.patchValue({

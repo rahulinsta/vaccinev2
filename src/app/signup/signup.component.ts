@@ -29,8 +29,8 @@ export class SignupComponent implements OnInit {
     fname: new UntypedFormControl('', [Validators.required]),
     lname: new UntypedFormControl('', [Validators.required]),
     dob: new UntypedFormControl('', [Validators.required]),
-    emgNo: new UntypedFormControl('', [Validators.required]),
-    bloodGroup: new UntypedFormControl('', [Validators.required]),
+    emgNo: new UntypedFormControl(''),
+    bloodGroup: new UntypedFormControl(''),
     password: new UntypedFormControl('', [Validators.required]),
     cpassword: new UntypedFormControl('', [Validators.required]),
     genderType: new UntypedFormControl('', [Validators.required])
@@ -80,12 +80,12 @@ export class SignupComponent implements OnInit {
       if (data.status){
         this.successMsg = true;
         this.successMsg = data.message;
-        this.form.reset();
+        //this.form.reset();
         setTimeout(() => {
           this.successMsg = false;
-        }, 3000);
+        }, 2000);
 
-        //this.router.navigate(['register-verify']);
+        this.router.navigate(['/login']);
       }else{
         console.log('yes inside the error message');
         this.errmsg = true;
