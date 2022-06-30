@@ -6,7 +6,7 @@ import { MainserviceComponent } from '../../services/mainservice/mainservice.com
 import {Router} from "@angular/router"
 import { DatePipe } from '@angular/common';
 import { FormGroup, FormControl, UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
-
+declare var $: any;
 var vcToken = localStorage.getItem('vctoken');
 const httpOptions = {
   headers: new HttpHeaders({
@@ -25,6 +25,8 @@ export class MembersListComponent implements OnInit {
   uname: any;
   userId:any;
 
+  deleteId:any;
+  
   members:any = [];
   isSubmitted:boolean = false;
   isSubmittedMeb:boolean = false;
@@ -42,6 +44,9 @@ export class MembersListComponent implements OnInit {
   mesgClass:any = 'hide';
   pageLoader: boolean = false;
   isSubmit: boolean = false;
+
+  // set modalID
+  modalId = 'memDelModalPopup';
 
 
   form = new UntypedFormGroup({
@@ -169,7 +174,9 @@ export class MembersListComponent implements OnInit {
       if (data.status){
         this.successMsg = data.message;
         setTimeout(()=>{                         
-          location.reload();
+          // location.reload();
+          this.closeModal('addMember');
+          this.getMembers()
       }, 2000);
       }else{
         this.errmsg = data.message+data.data;
@@ -231,7 +238,8 @@ export class MembersListComponent implements OnInit {
       if (data.status){
         this.successMsg = data.message;
         setTimeout(()=>{                         
-          location.reload();
+          this.closeModal('editMember');
+          this.getMembers()
       }, 2000);
       }else{
         this.errmsg = data.message+data.data;
@@ -241,20 +249,39 @@ export class MembersListComponent implements OnInit {
 
   }
 
-  //delete member
-  deleteMember(id:any){
-      console.log(id);
+  
 
-      this.usrObj.deleteMember(id).subscribe((data:any)=>{
+  removeDataModl(id:any) {
+    var modalId = document.querySelector("#confirmDelete");
+    var myModal = new bootstrap.Modal(modalId!, {
+      keyboard: false
+    })
+    myModal.show();
+    this.deleteId = id; 
+  }
+
+  closeModal(id: any) {
+    var closeModalId = document.querySelector(`#${id}`);
+    var myModal = bootstrap.Modal.getOrCreateInstance(closeModalId!)
+    myModal.hide();
+  }
+  //delete member
+  deleteMember(){
+    // console.log(this.deleteId);
+    // this.closeModal('confirmDelete');
+    //  return;
+    this.usrObj.deleteMember(this.deleteId).subscribe((data:any)=>{
         //this.isLoading = false; 
-        console.log(data);
+        // console.log(data);
 
         if (data.status){
+          // debugger;
           this.successMsg = data.message;
-          this.mesgClass = 'show';
-          setTimeout(()=>{                         
-            location.reload();
-          }, 2000);
+          this.closeModal('confirmDelete');
+         this.getMembers();
+          this.deleteId = '';
+          // var modalId = document.querySelector("#confirmDelete");
+         
         }else{
           this.errmsg = data.message+data.data;
         }
