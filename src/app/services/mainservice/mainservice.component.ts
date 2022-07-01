@@ -4,13 +4,13 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import {environment as env} from '../../../environments/environment';
 
 
-var vcToken = localStorage.getItem('vctoken');
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Accept': 'application/json',
-        'Authorization': 'Bearer '+vcToken
-      })
-    }
+// var vcToken = localStorage.getItem('vctoken');
+//     const httpOptions = {
+//       headers: new HttpHeaders({
+//         'Accept': 'application/json',
+//         'Authorization': 'Bearer '+vcToken
+//       })
+//     }
 
 
 
@@ -27,7 +27,28 @@ var vcToken = localStorage.getItem('vctoken');
 })
 export class MainserviceComponent implements OnInit {
 
-  constructor(private http:HttpClient) { }
+httpOptions:any={};
+
+  constructor(private http:HttpClient) {
+    
+    if (this.getToken()) {
+      this.httpOptions = {
+        headers: new HttpHeaders({
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ' + this.getToken()
+        })
+      }
+    }
+
+   }
+
+  getToken() {
+    if (!!localStorage.getItem("vctoken")) {
+      return localStorage.getItem("vctoken")
+    } else {
+      return false;
+    }
+  }
 
 //user sign up
   register(frmAr:any = []){
@@ -46,6 +67,8 @@ export class MainserviceComponent implements OnInit {
   }
 
 
+
+
   //user login
 
   login(frmAr:any = []){
@@ -57,33 +80,33 @@ export class MainserviceComponent implements OnInit {
 
   //
   logout(){
-      this.http.post(env.apiurl+'logout', httpOptions);
+      this.http.post(env.apiurl+'logout', this.httpOptions);
   }
 
   //add vaccine from chart
 
   addVaccine(data:any){
-    return this.http.post(env.apiurl+'add-vaccine',data,httpOptions );
+    return this.http.post(env.apiurl + 'add-vaccine', data, this.httpOptions );
   }
 
   //add vaccine form dashboard
   addVaccineFromDashboard(data:any){
-    return this.http.post(env.apiurl+'store-vaccine-records',data,httpOptions );
+    return this.http.post(env.apiurl + 'store-vaccine-records', data, this.httpOptions );
   }
 
   // add member
   addMember(data:any = []){
-    return this.http.post(env.apiurl+'member/store',data,httpOptions );
+    return this.http.post(env.apiurl + 'member/store', data, this.httpOptions );
   }
 
   // update member
   updateMember(data:any = [],mid:any){
-    return this.http.put(env.apiurl+'member/update/'+mid,data,httpOptions );
+    return this.http.put(env.apiurl + 'member/update/' + mid, data, this.httpOptions );
   }
 
   // delete member
   deleteMember(id:any){
-    return this.http.delete(env.apiurl+'member/delete/'+id,httpOptions );
+    return this.http.delete(env.apiurl + 'member/delete/' + id, this.httpOptions );
   }
 
 

@@ -6,13 +6,7 @@ import { environment as env } from '../../environments/environment';
 import { MainserviceComponent } from '../services/mainservice/mainservice.component';
 import { UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 
-var vcToken = localStorage.getItem('vctoken');
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Accept': 'application/json',
-    'Authorization': 'Bearer '+vcToken
-  })
-}
+
 
 
 @Component({
@@ -51,6 +45,8 @@ export class DashboardComponent implements OnInit {
   cert_url:any;
   imageSrc:any;
   pageLoader:boolean=false;
+  httpOptions:any={};
+
 
   form = new UntypedFormGroup({
     selectAge: new UntypedFormControl('', [Validators.required]),
@@ -72,6 +68,15 @@ export class DashboardComponent implements OnInit {
     ) { }
 
   ngOnInit(): void { 
+    if (this.getToken()) {
+      this.httpOptions = {
+        headers: new HttpHeaders({
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ' + this.getToken()
+        })
+      } 
+    }
+    
 
     this.userId = localStorage.getItem('userid');
     if(this.userId == null || this.userId == undefined ){
@@ -86,6 +91,19 @@ export class DashboardComponent implements OnInit {
     this.getVaccinebyMemberId(this.userId);
 
     this.currMember = this.userId;
+
+
+
+    
+  }
+
+
+  getToken() {
+    if (!!localStorage.getItem("vctoken")) {
+      return localStorage.getItem("vctoken")
+    } else {
+      return false;
+    }
   }
 
   openInfo(e: any) {
@@ -230,7 +248,7 @@ export class DashboardComponent implements OnInit {
 
   userProfile(user_id=this.userId){
     this.pageLoader = true;
-    this.http.get(env.apiurl + 'user-profile?userId=' + user_id, httpOptions).subscribe(data => {
+    this.http.get(env.apiurl + 'user-profile?userId=' + user_id, this.httpOptions).subscribe(data => {
       this.userData = data;
       this.userName = this.userData.data.first_name;
       this.dob = this.userData.data.dob;
@@ -250,7 +268,7 @@ export class DashboardComponent implements OnInit {
   // get members
 
   getMembers(){
-    this.http.get(env.apiurl + 'member', httpOptions).subscribe(data => {
+    this.http.get(env.apiurl + 'member', this.httpOptions).subscribe(data => {
         this.members = data;
         console.log(this.members.data);
     });
@@ -258,7 +276,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getDisease(){
-    this.http.get(env.apiurl + 'get-disease', httpOptions).subscribe(data => {
+    this.http.get(env.apiurl + 'get-disease', this.httpOptions).subscribe(data => {
         this.diseaseList = data;
         console.log(this.diseaseList.data);
     });
@@ -280,7 +298,7 @@ export class DashboardComponent implements OnInit {
       age = 2;
     }
 
-    this.http.get(env.apiurl + 'member?age='+age, httpOptions).subscribe(data => {
+    this.http.get(env.apiurl + 'member?age=' + age, this.httpOptions).subscribe(data => {
       this.members = data;
       console.log(this.members.data);
     });
@@ -306,7 +324,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getVaccine(vendorId:any){
-    this.http.get(env.apiurl + 'get-vendor-by-disease?diseaseId='+vendorId, httpOptions).subscribe(data => {
+    this.http.get(env.apiurl + 'get-vendor-by-disease?diseaseId=' + vendorId, this.httpOptions).subscribe(data => {
         this.vaccineList = data;
         console.log('vaccine list');
         console.log(this.vaccineList.data);
@@ -316,7 +334,7 @@ export class DashboardComponent implements OnInit {
 
 
   getVaccinebyMemberId(memberId:any){
-    this.http.get(env.apiurl + 'vaccine-data?userId='+memberId, httpOptions).subscribe(data => {
+    this.http.get(env.apiurl + 'vaccine-data?userId=' + memberId, this.httpOptions).subscribe(data => {
         this.memberVaccineList = data;
         console.log('member vaccine list');
         console.log(this.memberVaccineList.data);
