@@ -31,7 +31,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void { 
     var userId = localStorage.getItem('userid');
-    console.log(userId);
+    // console.log(userId);
+    console.log(localStorage.getItem('vctoken'));
+
     if(userId){
       this.router.navigate(['/dashboard']);
     }

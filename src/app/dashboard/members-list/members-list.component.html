@@ -99,16 +99,19 @@
 <!-- delete modal -->
 <div class="modal fade" id="confirmDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content formaddedit">
 
             <div class="modal-body text-center">
-                <i class="bi bi-x-circle"></i>
-                <h4 class="mt-3 mb-2">Are you sure?</h4>
+                <i class="bi h1 text-danger bi-x-circle"></i>
+                <h4 class="mt-2 mb-2">Are you sure?</h4>
                 <p class="fs-12">You will not be able to recover this data.</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <a (click)="deleteMember()" class="btn btn-primary">Delete</a>
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button (click)="deleteMember()" class="btn btn-sm btn-primary">
+                    Delete
+<div class="spinner-border form-loader ml-2" role="status" *ngIf="isSubmit"></div>
+                </button>
             </div>
         </div>
     </div>

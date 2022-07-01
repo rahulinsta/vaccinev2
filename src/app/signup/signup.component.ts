@@ -80,10 +80,14 @@ export class SignupComponent implements OnInit {
       if (data.status){
         this.successMsg = true;
         this.successMsg = data.message;
-        //this.form.reset();
+        this.form.reset();
+        this.isSubmitted = false;  
+
+
         setTimeout(() => {
           this.successMsg = false;
-        }, 2000);
+          this.router.navigate(['/login']);
+        }, 3000);
 
         this.router.navigate(['/login']);
       }else{

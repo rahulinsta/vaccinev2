@@ -7,13 +7,13 @@ import {Router} from "@angular/router"
 import { DatePipe } from '@angular/common';
 import { FormGroup, FormControl, UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 declare var $: any;
-var vcToken = localStorage.getItem('vctoken');
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Accept': 'application/json',
-    'Authorization': 'Bearer '+vcToken
-  })
-}
+// var vcToken = localStorage.getItem('vctoken');
+// const httpOptions = {
+//   headers: new HttpHeaders({
+//     'Accept': 'application/json',
+//     'Authorization': 'Bearer '+vcToken
+//   })
+// }
 
 @Component({
   selector: 'app-members-list',
@@ -44,11 +44,10 @@ export class MembersListComponent implements OnInit {
   mesgClass:any = 'hide';
   pageLoader: boolean = false;
   isSubmit: boolean = false;
-  profileImage:any;
+  httpOptions:any={};
 
   // set modalID
   modalId = 'memDelModalPopup';
-
 
   form = new UntypedFormGroup({
     fname: new UntypedFormControl('', [Validators.required]),
@@ -79,6 +78,16 @@ export class MembersListComponent implements OnInit {
    }
 
   ngOnInit(): void {
+
+    if (this.getToken()) {
+      this.httpOptions = {
+        headers: new HttpHeaders({
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ' + this.getToken()
+        })
+      }
+    }
+
     this.uname = localStorage.getItem('ufname');
 
     this.userId = localStorage.getItem('userid');
@@ -88,6 +97,16 @@ export class MembersListComponent implements OnInit {
 
     this.getMembers();
 
+  }
+
+
+  // get token function
+  getToken() {
+    if (!!localStorage.getItem("vctoken")) {
+      return localStorage.getItem("vctoken")
+    } else {
+      return false;
+    }
   }
 
   addMember() {
@@ -102,7 +121,7 @@ export class MembersListComponent implements OnInit {
     this.memberId = id;
     var editMemData:any = []; 
 
-    this.http.get(env.apiurl + 'member/edit/'+id, httpOptions).subscribe(data => {
+    this.http.get(env.apiurl + 'member/edit/'+id, this.httpOptions).subscribe(data => {
       editMemData = data;
       var mebDob = editMemData.data.dob;
       this.profileImage = editMemData.data.profile_image;
@@ -187,10 +206,13 @@ export class MembersListComponent implements OnInit {
       this.isSubmit = false;     
       if (data.status){
         this.successMsg = data.message;
+        this.form.reset();
+        this.isSubmitted = false;  
         setTimeout(()=>{                         
           // location.reload();
+          this.successMsg=false;
           this.closeModal('addMember');
-          this.getMembers()
+          this.getMembers();
       }, 2000);
       }else{
         this.errmsg = data.message+data.data;
@@ -202,12 +224,8 @@ export class MembersListComponent implements OnInit {
 
   getMembers(){
     this.pageLoader = true;
-    this.http.get(env.apiurl + 'member', httpOptions).subscribe(data => {
-        this.members = data;
-        console.log('memebeers');
-        console.log(this.members.data);
     
-    this.http.get(env.apiurl + 'member', httpOptions).subscribe((data:any) => {
+    this.http.get(env.apiurl + 'member', this.httpOptions).subscribe((data:any) => {
        
       
       this.members = data.data.sort((a: any, b: any) => {
@@ -222,7 +240,7 @@ export class MembersListComponent implements OnInit {
         //console.log(this.members.data);
       this.pageLoader = false;
     });
-    });
+  
 
   }
 
@@ -266,7 +284,8 @@ export class MembersListComponent implements OnInit {
       this.isSubmit = false;
       if (data.status){
         this.successMsg = data.message;
-        setTimeout(()=>{                         
+        setTimeout(()=>{ 
+          this.successMsg = false;                        
           this.closeModal('editMember');
           this.getMembers()
       }, 2000);
@@ -296,11 +315,12 @@ export class MembersListComponent implements OnInit {
   }
   //delete member
   deleteMember(){
+    this.isSubmit = true; 
     // console.log(this.deleteId);
     // this.closeModal('confirmDelete');
     //  return;
     this.usrObj.deleteMember(this.deleteId).subscribe((data:any)=>{
-        //this.isLoading = false; 
+        this.isSubmit = false; 
         // console.log(data);
 
         if (data.status){
@@ -309,6 +329,8 @@ export class MembersListComponent implements OnInit {
           this.closeModal('confirmDelete');
          this.getMembers();
           this.deleteId = '';
+          this.successMsg = false;                        
+
           // var modalId = document.querySelector("#confirmDelete");
          
         }else{
