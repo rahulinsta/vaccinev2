@@ -44,6 +44,7 @@ export class MembersListComponent implements OnInit {
   mesgClass:any = 'hide';
   pageLoader: boolean = false;
   isSubmit: boolean = false;
+  profileImage:any;
   httpOptions:any={};
 
   // set modalID
@@ -254,7 +255,7 @@ export class MembersListComponent implements OnInit {
     }
 
     //console.log(this.editMemberfrm.value);
-    //return;
+   // return;
 
      
     var memberUpdateData = {
