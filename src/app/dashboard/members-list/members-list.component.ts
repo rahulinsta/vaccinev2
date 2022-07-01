@@ -6,7 +6,7 @@ import { MainserviceComponent } from '../../services/mainservice/mainservice.com
 import {Router} from "@angular/router"
 import { DatePipe } from '@angular/common';
 import { FormGroup, FormControl, UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
-
+declare var $: any;
 var vcToken = localStorage.getItem('vctoken');
 const httpOptions = {
   headers: new HttpHeaders({
@@ -25,6 +25,8 @@ export class MembersListComponent implements OnInit {
   uname: any;
   userId:any;
 
+  deleteId:any;
+  
   members:any = [];
   isSubmitted:boolean = false;
   isSubmittedMeb:boolean = false;
@@ -43,6 +45,9 @@ export class MembersListComponent implements OnInit {
   pageLoader: boolean = false;
   isSubmit: boolean = false;
   profileImage:any;
+
+  // set modalID
+  modalId = 'memDelModalPopup';
 
 
   form = new UntypedFormGroup({
@@ -63,6 +68,8 @@ export class MembersListComponent implements OnInit {
     dob: new UntypedFormControl('', [Validators.required]),
     bloodGroup: new UntypedFormControl(''),
     gender: new UntypedFormControl('',[Validators.required]),
+    file: new UntypedFormControl(''),
+    fileSource: new UntypedFormControl(''),
   });
 
 
@@ -93,7 +100,7 @@ export class MembersListComponent implements OnInit {
 
   editMember(id:any) {
     this.memberId = id;
-    var editMemData:any = [];
+    var editMemData:any = []; 
 
     this.http.get(env.apiurl + 'member/edit/'+id, httpOptions).subscribe(data => {
       editMemData = data;
@@ -107,6 +114,7 @@ export class MembersListComponent implements OnInit {
           'lname': editMemData.data.last_name,
           'dob': newdate,
           'gender': editMemData.data.gender,
+          'member_image' : editMemData.data.profile_image,
           'bloodGroup': editMemData.data.blood_group
       });
     });
@@ -129,9 +137,18 @@ export class MembersListComponent implements OnInit {
         this.form.patchValue({
           fileSource: file
         });
-    
+    }
+  }
+
+  oneditFileChange(event:any) {
+    const reader = new FileReader();
      
-    
+    if(event.target.files && event.target.files.length) {
+      const file = event.target.files[0];
+      
+        this.editMemberfrm.patchValue({
+          fileSource: file
+        });
     }
   }
 
@@ -171,7 +188,9 @@ export class MembersListComponent implements OnInit {
       if (data.status){
         this.successMsg = data.message;
         setTimeout(()=>{                         
-          location.reload();
+          // location.reload();
+          this.closeModal('addMember');
+          this.getMembers()
       }, 2000);
       }else{
         this.errmsg = data.message+data.data;
@@ -216,6 +235,9 @@ export class MembersListComponent implements OnInit {
       return  
     }
 
+    //console.log(this.editMemberfrm.value);
+    //return;
+
      
     var memberUpdateData = {
       'fname': this.editMemberfrm.value.fname,
@@ -225,7 +247,19 @@ export class MembersListComponent implements OnInit {
       'gender': this.editMemberfrm.value.gender,
       'blood_group': this.editMemberfrm.value.bloodGroup,
       "is_member" : 1,
+      'member_image': this.editMemberfrm.value.fileSource
     }
+
+    // const formData = new FormData();
+    // formData.append('member_image', this.editMemberfrm.value.fileSource);
+    // formData.append('fname', this.editMemberfrm.value.fname);
+    // formData.append('mname', this.editMemberfrm.value.mname);
+    // formData.append('lname', this.editMemberfrm.value.lname);
+    // formData.append('dob', this.editMemberfrm.value.dob);
+    // formData.append('gender', this.editMemberfrm.value.genderType);
+    // formData.append('blood_group', this.editMemberfrm.value.bloodGroup);
+    // formData.append('is_member', '1');
+
    
     this.usrObj.updateMember(memberUpdateData,this.memberId).subscribe((data:any)=>{
       //this.isLoading = false; 
@@ -233,7 +267,8 @@ export class MembersListComponent implements OnInit {
       if (data.status){
         this.successMsg = data.message;
         setTimeout(()=>{                         
-          location.reload();
+          this.closeModal('editMember');
+          this.getMembers()
       }, 2000);
       }else{
         this.errmsg = data.message+data.data;
@@ -243,20 +278,39 @@ export class MembersListComponent implements OnInit {
 
   }
 
-  //delete member
-  deleteMember(id:any){
-      console.log(id);
+  
 
-      this.usrObj.deleteMember(id).subscribe((data:any)=>{
+  removeDataModl(id:any) {
+    var modalId = document.querySelector("#confirmDelete");
+    var myModal = new bootstrap.Modal(modalId!, {
+      keyboard: false
+    })
+    myModal.show();
+    this.deleteId = id; 
+  }
+
+  closeModal(id: any) {
+    var closeModalId = document.querySelector(`#${id}`);
+    var myModal = bootstrap.Modal.getOrCreateInstance(closeModalId!)
+    myModal.hide();
+  }
+  //delete member
+  deleteMember(){
+    // console.log(this.deleteId);
+    // this.closeModal('confirmDelete');
+    //  return;
+    this.usrObj.deleteMember(this.deleteId).subscribe((data:any)=>{
         //this.isLoading = false; 
-        console.log(data);
+        // console.log(data);
 
         if (data.status){
+          // debugger;
           this.successMsg = data.message;
-          this.mesgClass = 'show';
-          setTimeout(()=>{                         
-            location.reload();
-          }, 2000);
+          this.closeModal('confirmDelete');
+         this.getMembers();
+          this.deleteId = '';
+          // var modalId = document.querySelector("#confirmDelete");
+         
         }else{
           this.errmsg = data.message+data.data;
         }
