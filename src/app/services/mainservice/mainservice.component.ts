@@ -101,7 +101,7 @@ httpOptions:any={};
 
   // update member
   updateMember(data:any = [],mid:any){
-    return this.http.put(env.apiurl + 'member/update/' + mid, data, this.httpOptions );
+    return this.http.post(env.apiurl + 'member/update/' + mid, data, this.httpOptions );
   }
 
   // delete member

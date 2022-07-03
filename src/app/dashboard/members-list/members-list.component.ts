@@ -169,6 +169,16 @@ export class MembersListComponent implements OnInit {
         this.editMemberfrm.patchValue({
           fileSource: file
         });
+
+        reader.onload = () => {
+
+          this.profileImage = reader.result as string;
+     
+        }
+     
+        reader.readAsDataURL(file)
+
+
     }
   }
 
@@ -258,29 +268,30 @@ export class MembersListComponent implements OnInit {
    // return;
 
      
-    var memberUpdateData = {
-      'fname': this.editMemberfrm.value.fname,
-      'mname': this.editMemberfrm.value.mname,
-      'lname': this.editMemberfrm.value.lname,
-      'dob': this.editMemberfrm.value.dob,
-      'gender': this.editMemberfrm.value.gender,
-      'blood_group': this.editMemberfrm.value.bloodGroup,
-      "is_member" : 1,
-      'member_image': this.editMemberfrm.value.fileSource
-    }
+    // var memberUpdateData = {
+    //   'fname': this.editMemberfrm.value.fname,
+    //   'mname': this.editMemberfrm.value.mname,
+    //   'lname': this.editMemberfrm.value.lname,
+    //   'dob': this.editMemberfrm.value.dob,
+    //   'gender': this.editMemberfrm.value.gender,
+    //   'blood_group': this.editMemberfrm.value.bloodGroup,
+    //   "is_member" : 1,
+    //   'member_image': this.editMemberfrm.value.fileSource
+    // }
 
-    // const formData = new FormData();
-    // formData.append('member_image', this.editMemberfrm.value.fileSource);
-    // formData.append('fname', this.editMemberfrm.value.fname);
-    // formData.append('mname', this.editMemberfrm.value.mname);
-    // formData.append('lname', this.editMemberfrm.value.lname);
-    // formData.append('dob', this.editMemberfrm.value.dob);
-    // formData.append('gender', this.editMemberfrm.value.genderType);
-    // formData.append('blood_group', this.editMemberfrm.value.bloodGroup);
-    // formData.append('is_member', '1');
+    const formData = new FormData();
+    formData.append('member_image', this.editMemberfrm.value.fileSource);
+    formData.append('fname', this.editMemberfrm.value.fname);
+    formData.append('mname', this.editMemberfrm.value.mname);
+    formData.append('lname', this.editMemberfrm.value.lname);
+    formData.append('dob', this.editMemberfrm.value.dob);
+    formData.append('gender', this.editMemberfrm.value.genderType);
+    formData.append('blood_group', this.editMemberfrm.value.bloodGroup);
+    formData.append('is_member', '1');
+    formData.append('_method', 'PUT');
 
    
-    this.usrObj.updateMember(memberUpdateData,this.memberId).subscribe((data:any)=>{
+    this.usrObj.updateMember(formData,this.memberId).subscribe((data:any)=>{
       //this.isLoading = false; 
       this.isSubmit = false;
       if (data.status){
