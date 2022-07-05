@@ -37,6 +37,7 @@ export class ChartComponent implements OnInit {
   private geoCoder:any;
   closeResult: string = '';
   imageSrc: string = '';
+  httpOptions: any = {};
   
 
   formArr={vcdate:'',vctime:'', vclocation:'', img:''};
@@ -54,6 +55,16 @@ export class ChartComponent implements OnInit {
     private el: ElementRef,private router: Router,private route: ActivatedRoute,private modalService: NgbModal) { }
 
   ngOnInit(): void {
+
+    if (this.getToken()) {
+      this.httpOptions = {
+        headers: new HttpHeaders({
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ' + this.getToken()
+        })
+      }
+    }
+
     this.userId = localStorage.getItem('userid');
     if(this.userId == null || this.userId == undefined ){
       this.router.navigate(['/login']);
@@ -73,6 +84,14 @@ export class ChartComponent implements OnInit {
     this.getChartdata();
   }
 
+
+  getToken() {
+    if (!!localStorage.getItem("vctoken")) {
+      return localStorage.getItem("vctoken")
+    } else {
+      return false;
+    }
+  }
 
 
   onFileChange(event:any) {
@@ -206,15 +225,16 @@ export class ChartComponent implements OnInit {
 
   getChartdata() { 
     this.pageLoader = true;
-    var vcToken = localStorage.getItem('vctoken');
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Accept': 'application/json',
-        'Authorization': 'Bearer '+vcToken
-      })
-    }
 
-    this.http.get(env.apiurl + 'charts?userId='+this.userId, httpOptions).subscribe(data => {
+    // var vcToken = localStorage.getItem('vctoken');
+    // const httpOptions = {
+    //   headers: new HttpHeaders({
+    //     'Accept': 'application/json',
+    //     'Authorization': 'Bearer '+vcToken
+    //   })
+    // }
+
+    this.http.get(env.apiurl + 'charts?userId='+this.userId, this.httpOptions).subscribe(data => {
       this.vcData = data;
       //console.log(this.vcData.data);
 

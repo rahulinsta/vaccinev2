@@ -256,7 +256,7 @@ export class DashboardComponent implements OnInit {
   userProfile(user_id=this.userId){
     console.log('get user profile data');
     this.pageLoader = true;
-    this.http.get(env.apiurl + 'user-profile?userId=' + user_id, this.httpOptions).subscribe(data => {
+    this.http.get(env.apiurl + 'user-profile?userId=' + user_id, this.httpOptions).subscribe((data:any) => {
       this.userData = data;
       console.log(data);
       this.userName = this.userData.data.first_name;
@@ -270,6 +270,7 @@ export class DashboardComponent implements OnInit {
       this.gender = this.userData.data.gender;
       this.bloodGroup = this.userData.data.blood_group;
       this.fletter = this.userName.charAt(0);
+      this.memberAge = this.getAge(this.userData.data.dob);
       this.pageLoader = false;
     }
     
@@ -319,18 +320,20 @@ export class DashboardComponent implements OnInit {
 
   //get member on chage
   getMemberid(e:any){
+    // console.log(e);
     this.memberId = e.target.value;
-    this.getVaccinebyMemberId(this.memberId);
-    const [option] = e.target.selectedOptions
-    var dob = option.dataset.dob;
-    console.log('dob'+ dob);
-    this.memberAge =  this.getAge(dob);
-    console.log('memeber age');
-    console.log(this.memberAge);
     this.userProfile(e.target.value);
+    this.getVaccinebyMemberId(this.memberId);
+    // const [option] = e.target.selectedOptions
+    // var dob = option.dataset.dob;
+    // console.log('dob'+ dob);
+    // this.memberAge =  this.getAge(dob);
+    // console.log('memeber age');
+    // console.log(this.memberAge);
+    
     this.currMember = '';
     this.currMember = e.target.value;
-    //console.log(this.currMember)
+    // console.log(this.currMember)
     
   }
 
@@ -345,8 +348,9 @@ export class DashboardComponent implements OnInit {
 
 
   getVaccinebyMemberId(memberId:any){
-    this.http.get(env.apiurl + 'vaccine-data?userId=' + memberId, this.httpOptions).subscribe(data => {
+    this.http.get(env.apiurl + 'vaccine-data?userId=' + memberId, this.httpOptions).subscribe((data:any) => {
         this.memberVaccineList = data;
+       
         console.log('member vaccine list');
         console.log(this.memberVaccineList.data);
     });
