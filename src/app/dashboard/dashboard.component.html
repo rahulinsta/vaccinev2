@@ -318,7 +318,7 @@ aria-labelledby="vaccineLabel" aria-hidden="true">
                                         class="text-danger">*</sup></label>
                                 <div class="position-relative">
                                     <input type="date" formControlName="vaccine_date" class="form-control datepicker"
-                                         id="vaccine_date" placeholder="mm-dd-yyyy">
+                                         id="vaccine_date" max="{{maxDate}}"  placeholder="mm-dd-yyyy">
                                 </div>
                                 <div *ngIf="isSubmittedVc && f2['vaccine_date'].invalid" class="errFrm">
                                     <div *ngIf="f2['vaccine_date'].errors && f2['vaccine_date'].errors['required']">Please enter vaccine date.</div>
@@ -428,7 +428,7 @@ aria-labelledby="vaccineLabel" aria-hidden="true">
                                         class="text-danger">*</sup></label>
                                 <div class="position-relative">
                                     <input type="date" formControlName="vaccine_date" class="form-control datepicker"
-                                         id="vaccine_date" placeholder="mm-dd-yyyy">
+                                         id="vaccine_date" max="{{maxDate}}" placeholder="mm-dd-yyyy">
                                 </div>
                                 <div *ngIf="isSubmittedVc && f2['vaccine_date'].invalid" class="errFrm">
                                     <div *ngIf="f2['vaccine_date'].errors && f2['vaccine_date'].errors['required']">Please enter vaccine date.</div>

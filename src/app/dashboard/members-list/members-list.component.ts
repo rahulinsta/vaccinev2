@@ -7,13 +7,7 @@ import {Router} from "@angular/router"
 import { DatePipe } from '@angular/common';
 import { FormGroup, FormControl, UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 declare var $: any;
-// var vcToken = localStorage.getItem('vctoken');
-// const httpOptions = {
-//   headers: new HttpHeaders({
-//     'Accept': 'application/json',
-//     'Authorization': 'Bearer '+vcToken
-//   })
-// }
+
 
 @Component({
   selector: 'app-members-list',
@@ -46,6 +40,7 @@ export class MembersListComponent implements OnInit {
   isSubmit: boolean = false;
   profileImage:any;
   httpOptions:any={};
+  maxDate:any;
 
   // set modalID
   modalId = 'memDelModalPopup';
@@ -80,6 +75,8 @@ export class MembersListComponent implements OnInit {
 
   ngOnInit(): void {
 
+    console.log(this.maxDate);
+
     if (this.getToken()) {
       this.httpOptions = {
         headers: new HttpHeaders({
@@ -97,9 +94,9 @@ export class MembersListComponent implements OnInit {
     }
 
     this.getMembers();
+    this.getmaxDate();
 
   }
-
 
   // get token function
   getToken() {
@@ -347,6 +344,24 @@ export class MembersListComponent implements OnInit {
         }
       });
 
+  }
+
+//calculate maxdate
+
+  getmaxDate(){
+    var dtToday = new Date();
+  
+    var month:any = dtToday.getMonth() + 1;
+    var day:any = dtToday.getDate();
+    var year:any = dtToday.getFullYear();
+  
+    if(month < 10)
+        month = '0' + month.toString();
+    if(day < 10)
+        day = '0' + day.toString();
+  
+     this.maxDate = year + '-' + month + '-' + day;    
+    
   }
 
 

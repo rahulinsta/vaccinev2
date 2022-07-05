@@ -38,6 +38,7 @@ export class ChartComponent implements OnInit {
   closeResult: string = '';
   imageSrc: string = '';
   httpOptions: any = {};
+  maxDate:any;
   
 
   formArr={vcdate:'',vctime:'', vclocation:'', img:''};
@@ -80,8 +81,8 @@ export class ChartComponent implements OnInit {
       }
     )
 
-
     this.getChartdata();
+    this.getmaxDate();
   }
 
 
@@ -328,6 +329,26 @@ export class ChartComponent implements OnInit {
     }
 
   }
+
+
+  //calculate maxdate
+
+  getmaxDate(){
+    var dtToday = new Date();
+  
+    var month:any = dtToday.getMonth() + 1;
+    var day:any = dtToday.getDate();
+    var year:any = dtToday.getFullYear();
+  
+    if(month < 10)
+        month = '0' + month.toString();
+    if(day < 10)
+        day = '0' + day.toString();
+  
+     this.maxDate = year + '-' + month + '-' + day;    
+    
+  }
+
 
   
 }

@@ -79,9 +79,9 @@ httpOptions:any={};
   }
 
   //logout user
-  
+
   logout(){
-      return this.http.post(env.apiurl+'logout', this.httpOptions);
+      return this.http.post(env.apiurl+ 'logout', this.httpOptions);
   }
 
   //add vaccine from chart

@@ -49,6 +49,7 @@ export class DashboardComponent implements OnInit {
   gender:any;
   bloodGroup:any;
   httpOptions:any={};
+  maxDate:any;
 
 
   form = new UntypedFormGroup({
@@ -90,18 +91,12 @@ export class DashboardComponent implements OnInit {
     var dob = localStorage.getItem('userdob');
     
     this.memberAge =  this.getAge(dob);
-    console.log('memeber age');
-    console.log(this.memberAge);
     this.userProfile();
     this.getMembers();
     this.getDisease();
     this.getVaccinebyMemberId(this.userId);
-
-    this.currMember = this.userId;
-
-
-
-    
+    this.getmaxDate();
+    this.currMember = this.userId;    
   }
 
 
@@ -324,13 +319,6 @@ export class DashboardComponent implements OnInit {
     this.memberId = e.target.value;
     this.userProfile(e.target.value);
     this.getVaccinebyMemberId(this.memberId);
-    // const [option] = e.target.selectedOptions
-    // var dob = option.dataset.dob;
-    // console.log('dob'+ dob);
-    // this.memberAge =  this.getAge(dob);
-    // console.log('memeber age');
-    // console.log(this.memberAge);
-    
     this.currMember = '';
     this.currMember = e.target.value;
     // console.log(this.currMember)
@@ -370,6 +358,24 @@ export class DashboardComponent implements OnInit {
           age--;
       }
       return age;
+  }
+
+  //calculate maxdate
+
+  getmaxDate(){
+    var dtToday = new Date();
+  
+    var month:any = dtToday.getMonth() + 1;
+    var day:any = dtToday.getDate();
+    var year:any = dtToday.getFullYear();
+  
+    if(month < 10)
+        month = '0' + month.toString();
+    if(day < 10)
+        day = '0' + day.toString();
+  
+     this.maxDate = year + '-' + month + '-' + day;    
+    
   }
 
 
