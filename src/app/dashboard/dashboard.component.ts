@@ -271,7 +271,7 @@ export class DashboardComponent implements OnInit {
   getMembers(){
     this.http.get(env.apiurl + 'member', this.httpOptions).subscribe(data => {
         this.members = data;
-        console.log(this.members.data);
+        // console.log(this.members.data);
     });
 
   }
@@ -279,7 +279,7 @@ export class DashboardComponent implements OnInit {
   getDisease(){
     this.http.get(env.apiurl + 'get-disease', this.httpOptions).subscribe(data => {
         this.diseaseList = data;
-        console.log(this.diseaseList.data);
+        // console.log(this.diseaseList.data);
     });
   }
 
