@@ -268,6 +268,8 @@ aria-labelledby="vaccineLabel" aria-hidden="true">
                     </ng-container> -->
             </div>
             <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+
                 <button type="submit" class="btn btn-success">
                     Submit
                 <div class="spinner-border form-loader ml-2" role="status" *ngIf="isSubmit"></div>
@@ -352,6 +354,7 @@ aria-labelledby="vaccineLabel" aria-hidden="true">
 
                         <div class="col-md-6">
                             <div class="mb-3">
+                                <label for="vaccine_location" class="form-label">Upload File </label>
                                 <input formControlName="file" id="file" type="file" class="form-control"
                                 (change)="onFileChange($event)">
                             </div>
@@ -361,7 +364,7 @@ aria-labelledby="vaccineLabel" aria-hidden="true">
                     
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary">Cancel</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="submit"  class="btn btn-success">
                         Submit
                     <div class="spinner-border form-loader ml-2" role="status" *ngIf="isSubmit"></div>
