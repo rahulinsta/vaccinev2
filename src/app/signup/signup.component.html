@@ -74,44 +74,17 @@
     
             </div>
           </div>
-<<<<<<< HEAD
           <div class="col-md-6">
             <div class="form-floating mb-3">
               <input type="date" class="form-control" id="dob" placeholder="DOB" formControlName="dob">
               <label for="name">Date of Birth</label>
     
               <div *ngIf="isSubmitted && f['dob'].invalid" class="errFrm">
-=======
-
-          <div class="form-floating mb-3">
-
-            <select class="form-control" id="gender" placeholder="Select Gender" formControlName="genderType">
-              <option value="">Select Gender</option>
-              <option value="Male" >Male</option>
-              <option value="Female" >Female</option>
-              <option value="Other" >Other</option>
-            </select>
-          <label for="gender">Select Gender</label>
-
-          <div *ngIf="isSubmitted && f['genderType'].invalid" class="errFrm">
-              <div *ngIf="f['genderType'].errors && f['genderType'].errors['required']">Gender is required.</div>
-          </div>
-
-          </div>
-
-
-          <div class="form-floating mb-3">
-            <input type="date" class="form-control" id="dob" placeholder="DOB" formControlName="dob">
-            <label for="name">Date of Birth</label>
-
-            <div *ngIf="isSubmitted && f['dob'].invalid" class="errFrm">
->>>>>>> 3e63d95cc148c82e7beb04662b99fc85cf462582
                 <div *ngIf="f['dob'].errors && f['dob'].errors['required']">Date of birth is required.</div>
               </div>
     
             </div>
           </div>
-<<<<<<< HEAD
           <div class="col-md-6">
             <div class="form-floating mb-3">
               <input type="text" class="form-control" id="name" placeholder="Name" formControlName="emgNo">
@@ -127,30 +100,11 @@
           <div class="col-md-6">
             <div class="form-floating mb-3">
               <select class="form-control" id="bloodGroup" placeholder="Select Blood Group" formControlName="bloodGroup">
-=======
-
-          </div>
-
-          <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="name" placeholder="Name" formControlName="emgNo">
-            <label for="name">Emergency Phone Number</label>
-
-            <!-- <div *ngIf="isSubmitted && f['emgNo'].invalid" class="errFrm">
-                <div *ngIf="f['emgNo'].errors && f['emgNo'].errors['required']">Emergency number is required.</div>
-            </div> -->
-
-
-          </div>
-
-          <div class="form-floating mb-3">
-            <select class="form-control" id="bloodGroup" placeholder="Select Blood Group" formControlName="bloodGroup">
->>>>>>> 3e63d95cc148c82e7beb04662b99fc85cf462582
                 <option value="A">A</option>
                 <option value="AB">AB</option>
                 <option value="B+">B+</option>
                 <option value="B-">B-</option>
                 <option value="O+">O+</option>
-<<<<<<< HEAD
               </select>
               <label for="bloodGroup">Select Blood Group</label>
     
@@ -182,15 +136,6 @@
               </div>
     
             </div>
-=======
-            </select>
-            <label for="bloodGroup">Select Blood Group</label>
-
-            <!-- <div *ngIf="isSubmitted && f['bloodGroup'].invalid" class="errFrm">
-                <div *ngIf="f['bloodGroup'].errors && f['bloodGroup'].errors['required']">Blood group is required.</div>
-            </div> -->
-
->>>>>>> 3e63d95cc148c82e7beb04662b99fc85cf462582
           </div>
         </div>
 
