@@ -45,6 +45,9 @@ export class DashboardComponent implements OnInit {
   cert_url:any;
   imageSrc:any;
   pageLoader:boolean=false;
+  fullName:any;
+  gender:any;
+  bloodGroup:any;
   httpOptions:any={};
 
 
@@ -55,7 +58,7 @@ export class DashboardComponent implements OnInit {
 
   addvcFrm = new UntypedFormGroup ({
     diseaseId: new UntypedFormControl('', [Validators.required]),
-    vendorId: new UntypedFormControl('', [Validators.required]),
+    // vendorId: new UntypedFormControl('', [Validators.required]),
     vaccine_date: new UntypedFormControl('', [Validators.required]),
     vaccine_time: new UntypedFormControl('', [Validators.required]),
     vaccine_location: new UntypedFormControl('', [Validators.required]),
@@ -84,7 +87,11 @@ export class DashboardComponent implements OnInit {
     }
 
     this.uname = localStorage.getItem('ufname');
-
+    var dob = localStorage.getItem('userdob');
+    
+    this.memberAge =  this.getAge(dob);
+    console.log('memeber age');
+    console.log(this.memberAge);
     this.userProfile();
     this.getMembers();
     this.getDisease();
@@ -213,7 +220,7 @@ export class DashboardComponent implements OnInit {
     var vcdata = {
       'userId': this.memberId,
       'diseaseId': this.addvcFrm.value.diseaseId,
-      'vendorId': this.addvcFrm.value.vendorId,
+      // 'vendorId': this.addvcFrm.value.vendorId,
       'vaccine_date': this.addvcFrm.value.vaccine_date,
       'vaccine_time': this.addvcFrm.value.vaccine_time,
       'vaccine_location': this.addvcFrm.value.vaccine_location,
@@ -247,9 +254,11 @@ export class DashboardComponent implements OnInit {
   //get user profile data
 
   userProfile(user_id=this.userId){
+    console.log('get user profile data');
     this.pageLoader = true;
     this.http.get(env.apiurl + 'user-profile?userId=' + user_id, this.httpOptions).subscribe((data:any) => {
       this.userData = data;
+      console.log(data);
       this.userName = this.userData.data.first_name;
       this.dob = this.userData.data.dob;
       this.email = this.userData.data.email;
@@ -257,6 +266,9 @@ export class DashboardComponent implements OnInit {
       this.city = this.userData.data.city;
       this.state = this.userData.data.state;
       this.pincode = this.userData.data.zipcode;
+      this.fullName = this.userData.data.name;
+      this.gender = this.userData.data.gender;
+      this.bloodGroup = this.userData.data.blood_group;
       this.fletter = this.userName.charAt(0);
       this.memberAge = this.getAge(this.userData.data.dob);
       this.pageLoader = false;
@@ -271,7 +283,11 @@ export class DashboardComponent implements OnInit {
   getMembers(){
     this.http.get(env.apiurl + 'member', this.httpOptions).subscribe(data => {
         this.members = data;
+<<<<<<< HEAD
+        //console.log(this.members.data);
+=======
         // console.log(this.members.data);
+>>>>>>> 62beba8c985006f3e3cf20fa09abb84afe3e0390
     });
 
   }
@@ -279,7 +295,11 @@ export class DashboardComponent implements OnInit {
   getDisease(){
     this.http.get(env.apiurl + 'get-disease', this.httpOptions).subscribe(data => {
         this.diseaseList = data;
+<<<<<<< HEAD
+        //console.log(this.diseaseList.data);
+=======
         // console.log(this.diseaseList.data);
+>>>>>>> 62beba8c985006f3e3cf20fa09abb84afe3e0390
     });
   }
 
@@ -301,7 +321,7 @@ export class DashboardComponent implements OnInit {
 
     this.http.get(env.apiurl + 'member?age=' + age, this.httpOptions).subscribe(data => {
       this.members = data;
-      console.log(this.members.data);
+      //console.log(this.members.data);
     });
 
   }
@@ -328,8 +348,8 @@ export class DashboardComponent implements OnInit {
   getVaccine(vendorId:any){
     this.http.get(env.apiurl + 'get-vendor-by-disease?diseaseId=' + vendorId, this.httpOptions).subscribe(data => {
         this.vaccineList = data;
-        console.log('vaccine list');
-        console.log(this.vaccineList.data);
+        //console.log('vaccine list');
+        //console.log(this.vaccineList.data);
     });
 
   }
@@ -348,8 +368,9 @@ export class DashboardComponent implements OnInit {
 
   //calculate age
   getAge(dateString:any) {
+      var newdate = dateString.split("-").reverse().join("-");
       var today = new Date();
-      var birthDate = new Date(dateString);
+      var birthDate = new Date(newdate);
       var age = today.getFullYear() - birthDate.getFullYear();
       var m = today.getMonth() - birthDate.getMonth();
       if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) 

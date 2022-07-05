@@ -44,6 +44,7 @@ export class MembersListComponent implements OnInit {
   mesgClass:any = 'hide';
   pageLoader: boolean = false;
   isSubmit: boolean = false;
+  profileImage:any;
   httpOptions:any={};
 
   // set modalID
@@ -67,6 +68,8 @@ export class MembersListComponent implements OnInit {
     dob: new UntypedFormControl('', [Validators.required]),
     bloodGroup: new UntypedFormControl(''),
     gender: new UntypedFormControl('',[Validators.required]),
+    file: new UntypedFormControl(''),
+    fileSource: new UntypedFormControl(''),
   });
 
 
@@ -117,11 +120,12 @@ export class MembersListComponent implements OnInit {
 
   editMember(id:any) {
     this.memberId = id;
-    var editMemData:any = [];
+    var editMemData:any = []; 
 
     this.http.get(env.apiurl + 'member/edit/'+id, this.httpOptions).subscribe(data => {
       editMemData = data;
       var mebDob = editMemData.data.dob;
+      this.profileImage = editMemData.data.profile_image;
       var newdate = mebDob.split("-").reverse().join("-");
       var mdob = this.datePipe.transform(newdate,"yyyy-MM-dd");
       this.editMemberfrm.patchValue({
@@ -130,6 +134,7 @@ export class MembersListComponent implements OnInit {
           'lname': editMemData.data.last_name,
           'dob': newdate,
           'gender': editMemData.data.gender,
+          'member_image' : editMemData.data.profile_image,
           'bloodGroup': editMemData.data.blood_group
       });
     });
@@ -152,9 +157,28 @@ export class MembersListComponent implements OnInit {
         this.form.patchValue({
           fileSource: file
         });
-    
+    }
+  }
+
+  oneditFileChange(event:any) {
+    const reader = new FileReader();
      
-    
+    if(event.target.files && event.target.files.length) {
+      const file = event.target.files[0];
+      
+        this.editMemberfrm.patchValue({
+          fileSource: file
+        });
+
+        reader.onload = () => {
+
+          this.profileImage = reader.result as string;
+     
+        }
+     
+        reader.readAsDataURL(file)
+
+
     }
   }
 
@@ -176,11 +200,15 @@ export class MembersListComponent implements OnInit {
       
     }  
 
+    var mName = this.form.value.mname;
+    if(mName == 'null' || mName == null){
+      mName = '';
+    }
   
     const formData = new FormData();
     formData.append('member_image', this.form.value.fileSource);
     formData.append('fname', this.form.value.fname);
-    formData.append('mname', this.form.value.mname);
+    formData.append('mname', mName);
     formData.append('lname', this.form.value.lname);
     formData.append('dob', this.form.value.dob);
     formData.append('gender', this.form.value.genderType);
@@ -240,18 +268,27 @@ export class MembersListComponent implements OnInit {
       return  
     }
 
-     
-    var memberUpdateData = {
-      'fname': this.editMemberfrm.value.fname,
-      'mname': this.editMemberfrm.value.mname,
-      'lname': this.editMemberfrm.value.lname,
-      'dob': this.editMemberfrm.value.dob,
-      'gender': this.editMemberfrm.value.gender,
-      'blood_group': this.editMemberfrm.value.bloodGroup,
-      "is_member" : 1,
+    //console.log(this.editMemberfrm.value);
+    //return;
+
+    var mName = this.editMemberfrm.value.mname;
+    if(mName == 'null' || mName == null){
+      mName = '';
     }
    
-    this.usrObj.updateMember(memberUpdateData,this.memberId).subscribe((data:any)=>{
+    const formData = new FormData();
+    formData.append('member_image', this.editMemberfrm.value.fileSource);
+    formData.append('fname', this.editMemberfrm.value.fname);
+    formData.append('mname',  mName);
+    formData.append('lname', this.editMemberfrm.value.lname);
+    formData.append('dob', this.editMemberfrm.value.dob);
+    formData.append('gender', this.editMemberfrm.value.genderType);
+    formData.append('blood_group', this.editMemberfrm.value.bloodGroup);
+    formData.append('is_member', '1');
+    formData.append('_method', 'PUT');
+
+   
+    this.usrObj.updateMember(formData,this.memberId).subscribe((data:any)=>{
       //this.isLoading = false; 
       this.isSubmit = false;
       if (data.status){

@@ -85,17 +85,15 @@
                             <div class="card card-body mt-3">
                                 <div class="row text-start">
                                     <div class="col-md-4">
-                                        <p class="mb-md-0"><span>Address :</span> <br>
-                                            <!-- {{ userInfo?.street }},<br> -->
-                                            {{city}}, {{state}},<br>
-                                            {{pincode}}
+                                        <p class="mb-md-0"><span>Name :</span> <br>
+                                            {{fullName}}
                                         </p>
                                     </div>
-                                    <div class="col-md-4">
-                                        <p><span>Phone :</span> <br> {{phone}}</p>
+                                    <div class="col-md-4" *ngIf="gender != null " >
+                                        <p><span>Gender :</span> <br> {{gender}}</p>
                                     </div>
-                                    <div class="col-md-4">
-                                        <p><span>Email: </span> <br> {{email}} </p>
+                                    <div class="col-md-4" *ngIf="bloodGroup !='' || bloodGroup != null ">
+                                        <p><span>Blood Group: </span> <br> {{bloodGroup}} </p>
                                     </div>
                                     <!-- <a (click)="editProfileModel()" >Edit</a> -->
                                 </div>
@@ -244,7 +242,7 @@ aria-labelledby="vaccineLabel" aria-hidden="true">
                     </select> 
                     <div *ngIf="isSubmitted && f['selectAge'].invalid" class="errFrm">
                         <div *ngIf="f['selectAge'].errors && f['selectAge'].errors['required']">Please select age</div>
-                    </div>
+                    </div> 
                    
                 </div>
                 <div class="mb-3" id="selectAge">
@@ -294,16 +292,16 @@ aria-labelledby="vaccineLabel" aria-hidden="true">
             <form [formGroup]="addvcFrm" (ngSubmit)="submitVcfrm()"  class="text-start formaddedit">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="diseaseId" class="form-label">Disease <sup class="text-danger">*</sup></label>
+                        <label for="diseaseId" class="form-label">Vaccine Name <sup class="text-danger">*</sup></label>
                         <select class="form-select" formControlName="diseaseId" id="diseaseId" (change)="getDiseaseId($event)">
                             <option value="">name</option>
                             <option *ngFor="let disease of diseaseList.data" value="{{disease.id}}" >{{disease.name}}</option>
                         </select>
                         <div *ngIf="isSubmittedVc && f2['diseaseId'].invalid" class="errFrm">
-                            <div *ngIf="f2['diseaseId'].errors && f2['diseaseId'].errors['required']">Please select disease name.</div>
+                            <div *ngIf="f2['diseaseId'].errors && f2['diseaseId'].errors['required']">Please select vaccine name.</div>
                         </div>
                     </div>
-                    <div class="mb-3">
+                    <!-- <div class="mb-3">
                         <label for="vendorId" class="form-label">Vaccine Name <sup class="text-danger">*</sup></label>
                         <select class="form-select" formControlName="vendorId" id="vendorId">
                             <option value="">name</option>
@@ -312,7 +310,7 @@ aria-labelledby="vaccineLabel" aria-hidden="true">
                         <div *ngIf="isSubmittedVc && f2['vendorId'].invalid" class="errFrm">
                             <div *ngIf="f2['vendorId'].errors && f2['vendorId'].errors['required']">Please select vaccine name.</div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">

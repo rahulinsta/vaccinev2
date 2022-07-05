@@ -26,7 +26,7 @@
     <main class="form-signin member-list" [ngClass]="{'bg-light': userId==member.id}">
 
         <div class="dashboard-header">
-            <div class="row align-items-center">
+            <div class="row align-items-center"> 
                 <div class="col-md-8 text-start header-text">
                     <div class="row align-items-center mb-md-0 mb-3">
                         <div class="col-auto">
@@ -135,7 +135,7 @@
                                 <label for="fname" class="form-label">First Name<sup
                                         class="text-danger">*</sup></label>
                                 <div class="position-relative">
-                                    <input type="text" formControlName="fname" class="form-control datepicker"
+                                    <input type="text" formControlName="fname" class="form-control"
                                          id="fname" placeholder="First name" >
                                 </div>
                                 <div *ngIf="isSubmittedMeb && f2['fname'].invalid" class="errFrm">
@@ -192,9 +192,9 @@
                                         class="text-danger">*</sup></label>
                                         <select class="form-control" id="gender" placeholder="Select Blood Group" formControlName="gender">
                                             <option value="">Select Gender</option>
-                                            <option value="A">Male</option>
-                                            <option value="AB" >Female</option>
-                                            <option value="B+">Other</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female" >Female</option>
+                                            <option value="Other">Other</option>
                                         </select>
                                         
                                 <div *ngIf="isSubmittedMeb && f2['gender'].invalid" class="errFrm">
@@ -218,6 +218,17 @@
                                 
                             </div>
                         </div>
+
+                        <div class="mb-3">
+                            <label for="file" class="form-label">Profile image</label>
+                            <div class="position-relative">
+                                <input type="file" class="form-control"  (change)="oneditFileChange($event)" formControlName="file" >
+                            </div>
+                            
+                            <img *ngIf="profileImage"  src="{{profileImage}}" height="50px" width="50px" />
+
+                        </div>
+
                     </div>
 
 
