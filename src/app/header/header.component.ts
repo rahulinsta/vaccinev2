@@ -26,9 +26,11 @@ export class HeaderComponent implements OnInit {
 
   logout(){
     //console.log('yes logout');
-    this.usrObj.logout();
-    localStorage.clear();
-    this.router.navigate(['/login']);
+    this.usrObj.logout().subscribe((data:any)=>{
+    console.log(data);
+  });
+    //localStorage.clear();
+    //this.router.navigate(['/login']);
   }
   toggleMenu(e: any) {
     // console.log(e.currentTarget);

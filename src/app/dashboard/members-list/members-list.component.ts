@@ -200,11 +200,15 @@ export class MembersListComponent implements OnInit {
       
     }  
 
+    var mName = this.form.value.mname;
+    if(mName == 'null' || mName == null){
+      mName = '';
+    }
   
     const formData = new FormData();
     formData.append('member_image', this.form.value.fileSource);
     formData.append('fname', this.form.value.fname);
-    formData.append('mname', this.form.value.mname);
+    formData.append('mname', mName);
     formData.append('lname', this.form.value.lname);
     formData.append('dob', this.form.value.dob);
     formData.append('gender', this.form.value.genderType);
@@ -265,24 +269,17 @@ export class MembersListComponent implements OnInit {
     }
 
     //console.log(this.editMemberfrm.value);
-   // return;
+    //return;
 
-     
-    // var memberUpdateData = {
-    //   'fname': this.editMemberfrm.value.fname,
-    //   'mname': this.editMemberfrm.value.mname,
-    //   'lname': this.editMemberfrm.value.lname,
-    //   'dob': this.editMemberfrm.value.dob,
-    //   'gender': this.editMemberfrm.value.gender,
-    //   'blood_group': this.editMemberfrm.value.bloodGroup,
-    //   "is_member" : 1,
-    //   'member_image': this.editMemberfrm.value.fileSource
-    // }
-
+    var mName = this.editMemberfrm.value.mname;
+    if(mName == 'null' || mName == null){
+      mName = '';
+    }
+   
     const formData = new FormData();
     formData.append('member_image', this.editMemberfrm.value.fileSource);
     formData.append('fname', this.editMemberfrm.value.fname);
-    formData.append('mname', this.editMemberfrm.value.mname);
+    formData.append('mname',  mName);
     formData.append('lname', this.editMemberfrm.value.lname);
     formData.append('dob', this.editMemberfrm.value.dob);
     formData.append('gender', this.editMemberfrm.value.genderType);
