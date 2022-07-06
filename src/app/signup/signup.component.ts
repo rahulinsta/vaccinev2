@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators} from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MainserviceComponent } from '../services/mainservice/mainservice.component';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {environment as env} from '../../environments/environment';
-import {Router} from "@angular/router";
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { environment as env } from '../../environments/environment';
+import { Router } from "@angular/router";
 import { passwordMatch } from './confirm-password.validator';
+import firebase from 'firebase';
 
 @Component({
   selector: 'app-signup',
@@ -14,18 +15,21 @@ import { passwordMatch } from './confirm-password.validator';
 
 export class SignupComponent implements OnInit {
 
-  isSubmitted:boolean = false
-  isSubmit:boolean = false
-  successMsg:boolean = false;
-  errmsg:boolean  = false;
-  emailErr:any;
-  passErr1:any;
-  passErr2:any;
-  emailRegex ='^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
-  // formArr={phone:'',email:'', fname:'', lname:'',emgNo:'',dob:'',password:'',cpassword:'',bloodGroup:'',gender:''};
-  
+  isSubmitted: boolean = false
+  isSubmit: boolean = false
+  successMsg: boolean = false;
+  errmsg: boolean = false;
+  emailErr: any;
+  passErr1: any;
+  passErr2: any;
+  emailRegex = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
+  reCaptchaVerifier:any;
+  isSendMOTP: boolean = false;
+  isSendEOTP: boolean = false;
+  formArr={};
+
   form = new FormGroup({
-    phone: new FormControl('', [Validators.required,  Validators.pattern("^[0-9]*$"),Validators.minLength(10)]),
+    phone: new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(10)]),
     email: new FormControl('', [Validators.required, Validators.pattern(this.emailRegex)]),
     fname: new FormControl('', [Validators.required]),
     lname: new FormControl('', [Validators.required]),
@@ -34,33 +38,76 @@ export class SignupComponent implements OnInit {
     bloodGroup: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
     cpassword: new FormControl('', [Validators.required]),
-    genderType: new FormControl('', [Validators.required])    
+    genderType: new FormControl('', [Validators.required])
   },
-  [passwordMatch('password', 'cpassword')]
-);
+    [passwordMatch('password', 'cpassword')]
+  );
 
-  constructor(private usrObj:MainserviceComponent,private http:HttpClient,private router: Router) { }
+  constructor(private usrObj: MainserviceComponent, private http: HttpClient, private router: Router) {
+    // localStorage.removeItem('regData');
+    localStorage.removeItem('verificationId');
+    localStorage.removeItem('isVerifyP');
+  }
 
   ngOnInit(): void {
     var userId = localStorage.getItem('userid');
-    if(userId){
+    if (userId) {
       this.router.navigate(['/login']);
     }
-
+    if (!firebase.apps.length) {
+      firebase.initializeApp(env.firebase);
+    }
+    this.formArr = JSON.parse(localStorage.getItem('regData') || '{}');
+    if(this.formArr){
+      this.form.patchValue(this.formArr);
+    }
+    this.reCaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {size: 'invisible'})
   }
 
-  get f(){
+  get f() {
     return this.form.controls;
   }
-  
-  submit(){    
-    this.isSubmit = true;  
-    this.isSubmitted = true;  
+
+  submit() {
+    this.isSubmit = true;
+    this.isSubmitted = true;
     if (this.form.invalid) {
-      this.isSubmit = false;  
-      return  
-    }  
-    console.log(this.form.value);
+      this.isSubmit = false;
+      return
+    }
+    // console.log(this.form.value);
+    localStorage.setItem('regData', JSON.stringify(this.form.value));
+    if (this.form.value.phone) {
+      const num = env.DEF_CCODE + this.form.value.phone;
+      firebase.auth().signInWithPhoneNumber(num, this.reCaptchaVerifier).then(result => {
+        localStorage.setItem('verificationId', JSON.stringify(result.verificationId));
+        this.isSendMOTP = true;
+        this.sendToVerify()
+      })
+        .catch(error => {
+          console.error('Error :', error);
+          this.isSendEOTP = false;
+          this.sendToVerify()
+        });
+    }
+
+    if (this.form.value.email) {
+      const formData = {
+        "email" : this.form.value.email
+      }
+      // console.log(formData);
+      this.usrObj.sendEmailOtp(formData).subscribe((res:any) => {
+      //   console.log(result);
+        if(res.status){
+          this.isSendEOTP = true;
+        }
+        this.sendToVerify()
+      })
+      
+    }
+
+   
+
     
 
     // this.formArr.phone = this.form.value.phone;
@@ -74,7 +121,7 @@ export class SignupComponent implements OnInit {
     // this.formArr.cpassword = this.form.value.cpassword;
     // this.formArr.gender = this.form.value.genderType;
 
-   
+
     // this.usrObj.register(this.formArr).subscribe((data:any)=>{
     //   console.log('step-1');
     //   this.isSubmit = false;  
@@ -106,21 +153,30 @@ export class SignupComponent implements OnInit {
     //   if(error.error.errors.email){
     //     this.emailErr =error.error.errors.email[0]; 
     //   }
-      
+
     //   if(error.error.errors.password){
     //     this.passErr1 =error.error.errors.password[0]; 
     //     this.passErr2 =error.error.errors.password[1]; 
     //   }
 
-    
+
     //   //this.errmsg  = 'Internal Server Error.. You Registration could not be completed.';
     //   this.isSubmit = false;  
 
     // });
 
-    
 
-    
+
+
+  }
+
+  sendToVerify(){
+    if (this.isSendEOTP && this.isSendMOTP) {     
+      localStorage.setItem('isVerifyP', 'true');
+      this.isSubmit = false;
+      this.router.navigate(['verify-otp']);
+
+    }
   }
 
 

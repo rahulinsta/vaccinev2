@@ -1,5 +1,6 @@
-<div class="container login-page">
-    <div class="col-lg-5 col-md-8 mx-auto">
+<app-page-loader *ngIf="pageLoader" [msg]="pageMsg"></app-page-loader>
+<div class="container login-page" >
+    <div class="col-lg-5 col-md-8 mx-auto" *ngIf="!pageLoader">
         <main class="form-signin text-center">
             <!-- <div class="apploader loading" *ngIf="resendLoader">
                 <div class="loader">
@@ -7,14 +8,36 @@
                     <span class="d-block mt-3">Sending OTP...</span>
                 </div>
             </div> -->
-            <form>
+            <form  #f="ngForm" (ngSubmit)="onSubmit(f)">
                 <div class="logo-img">
                     <a href=""><img class="img-fluid" src="assets/img/logo.jpg" alt=""></a>
                 </div>
-                <h1 class="mb-2 mt-4">OTP Verification</h1>
+                <ng-container *ngIf="regData.email">
+                    <div class="h2 mb-2 mt-4">Email Verification</div>
+                    <p class="mb-4 fw-normal text-muted">
+                        The verification OTP is sent on Email Address
+                        <br><b>{{ regData.email }}</b>
+                        <a [routerLink]="['/']">
+                            <svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="fa-w-16">
+                                <path fill="currentColor"
+                                    d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"
+                                    class=""></path>
+                            </svg>
+                        </a>
+                    </p>
+                    <div class="form-floating mb-3">
+                        <ng-otp-input #emailInput [config]="config"></ng-otp-input>
+                    </div>
+                    <p class="mt-4 fw-normal text-muted">Didn't receive the code <a class="link-text resend" (click)="resendEOTP()">Resend OTP</a>
+                    </p>
+                </ng-container>
+                <ng-container *ngIf="regData.phone">
+                <hr class="mt-4">
+                <div class="h2 mb-2 mt-3">Mobile Verification</div>
                 <p class="mb-4 fw-normal text-muted">
-                    An OTP has been sent to<br>loginID
-                    <a [routerLink]="['/login']">
+                    The verification OTP is sent on Mobile Number
+                    <br><b>{{ regData.phone }}</b>
+                    <a [routerLink]="['/']">
                         <svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="fa-w-16">
                             <path fill="currentColor"
                                 d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"
@@ -25,30 +48,28 @@
 
 
                 <div class="form-floating mb-3">
-                    <ng-otp-input #ngOtpInput (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
+                    <ng-otp-input #mobileInput [config]="config2"></ng-otp-input>
                 </div>
-                <p class="mt-4 fw-normal text-muted">Didn't receive the code<br>
-                    <a class="link-text resend">Resend OTP</a>
+                <p class="mt-4 fw-normal text-muted">Didn't receive the code <a class="link-text resend" (click)="resendMOTP()">Resend OTP</a>
                 </p>
-                <!-- <ng-container *ngIf="showSucc">
-                    <div class="alert alert-success" role="alert">
-                        {{succMsg[0]}}
+
+             </ng-container>
+                
+                <ng-container *ngIf="message?.msg?.length > 0">
+                    <div class="alert" [ngClass]="{'alert-danger': !message?.status, 'alert-success': message?.status}" role="alert">
+                        {{message?.msg[0]}}
                     </div>
                 </ng-container>
-                <ng-container *ngIf="showErr">
-                    <div class="alert alert-danger" role="alert">
-                        {{errMsg[0]}}
-                    </div>
-                </ng-container> -->
 
-                <button class="w-100 btn btn-lg btn-primary" type="submit">
-                    Next
+                <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="isSubmit">
+                    Submit OTP
                     
-                    <!-- <span class="spinner-border spinner-border-sm ml-2" role="status" 
-                        aria-hidden="true"></span> -->
+                    <span class="spinner-border spinner-border-sm ml-2" role="status" 
+                        aria-hidden="true" *ngIf="isSubmit"></span>
                 </button>
-                <div id="sign-in-button"></div>
+               
             </form>
         </main>
     </div>
+    <div id="recaptcha-container"></div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-page-loader',
@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class PageLoaderComponent implements OnInit {
 
   constructor() { }
-
+  @Input() msg:string = 'Please Wait While data is loading.';
   ngOnInit(): void {
   }
 
