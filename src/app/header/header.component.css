@@ -11,9 +11,14 @@
      background-color: #000d34;
 }
 
-.navbar-fixed.navbar-white {
+.navbar-fixed.navbar-white { 
     background-color: #fff;
     padding: 0px;
+}
+
+.errFrm{
+    color: red;
+    text-align: left  !important;
 }
 
 .navbar-fixed * {

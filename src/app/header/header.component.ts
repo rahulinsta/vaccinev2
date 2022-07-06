@@ -32,6 +32,7 @@ export class HeaderComponent implements OnInit {
   maxDate: any;
   imageSrc: any;
   memberId: any;
+  strTime:any;
  
  
 
@@ -47,6 +48,7 @@ export class HeaderComponent implements OnInit {
     vaccine_date: new UntypedFormControl('', [Validators.required]),
     vaccine_time: new UntypedFormControl('', [Validators.required]),
     vaccine_location: new UntypedFormControl('', [Validators.required]),
+    dose: new UntypedFormControl('', [Validators.required]),
     file: new UntypedFormControl(''),
     fileSource: new UntypedFormControl(''),
   });
@@ -72,6 +74,7 @@ export class HeaderComponent implements OnInit {
     // console.log(this.router.url)
     this.getDisease();
     this.getmaxDate();
+    this.getCurrentTime();
   }
 
   getToken() {
@@ -112,6 +115,11 @@ export class HeaderComponent implements OnInit {
 
 
   addVaccineStep2() {
+    console.log(this.maxDate);
+    this.addvcFrm.patchValue({
+      'vaccine_date': this.maxDate,
+      'vaccine_time': this.strTime
+    })
     var modalId = document.querySelector("#addVaccineStep2");
     var myModal = new bootstrap.Modal(modalId!, {
       keyboard: false
@@ -208,6 +216,7 @@ export class HeaderComponent implements OnInit {
       'vaccine_date': this.addvcFrm.value.vaccine_date,
       'vaccine_time': this.addvcFrm.value.vaccine_time,
       'vaccine_location': this.addvcFrm.value.vaccine_location,
+      'dose': this.addvcFrm.value.dose,
       'upload_file': this.addvcFrm.value.file,
       'lat': 48.89899,
       'long': 68.49590,
@@ -273,7 +282,7 @@ export class HeaderComponent implements OnInit {
   //calculate maxdate
 
   getmaxDate() {
-    var dtToday = new Date();
+     var dtToday = new Date();
 
     var month: any = dtToday.getMonth() + 1;
     var day: any = dtToday.getDate();
@@ -285,7 +294,21 @@ export class HeaderComponent implements OnInit {
       day = '0' + day.toString();
 
     this.maxDate = year + '-' + month + '-' + day;
-
   }
+
+  // get current time
+
+   getCurrentTime() {
+    var dtToday = new Date();
+    var hours:any = dtToday.getHours();
+    var minutes:any = dtToday.getMinutes();
+    var ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    this.strTime = hours + ':' + minutes + ' ' + ampm;
+    //console.log(this.strTime);
+  }
+  
 
 }
