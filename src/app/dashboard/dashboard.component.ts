@@ -4,7 +4,7 @@ import {Router} from "@angular/router"
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment as env } from '../../environments/environment';
 import { MainserviceComponent } from '../services/mainservice/mainservice.component';
-import { UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
+
 
 
 
@@ -18,55 +18,41 @@ export class DashboardComponent implements OnInit {
 
   userId:any;
   uname:any;
-  userName:any;
-  dob:any;
-  pincode:any;
-  city:any;
-  state:any;
-  country:any;
-  email:any;
-  phone:any;
   currMember:any;
   userData :any = [];
   members:any = [];
   fletter:any;
-  isSubmitted:boolean= false;
-  isSubmit:boolean= false;
-  isSubmittedVc:boolean= false;
-  age:any;
+  
   //memberid:any;
   diseaseList:any = [];
   vaccineList:any = [];
   memberVaccineList:any = [];
-  successMsg:any;
-  errmsg:any;
+  
+// users List
+  userName: any;
+  dob: any;
+  pincode: any;
+  city: any;
+  state: any;
+  country: any;
+  email: any;
+  phone: any;
+  fullName: any;
+  gender: any;
+  bloodGroup: any;
+  
+
   memberId:any;
   memberAge:any;
   cert_url:any;
   imageSrc:any;
   pageLoader:boolean=false;
-  fullName:any;
-  gender:any;
-  bloodGroup:any;
-  httpOptions:any={};
-  maxDate:any;
+
+  httpOptions: any = {};
 
 
-  form = new UntypedFormGroup({
-    selectAge: new UntypedFormControl('', [Validators.required]),
-    selectMember: new UntypedFormControl('', [Validators.required]),
-  });
 
-  addvcFrm = new UntypedFormGroup ({
-    diseaseId: new UntypedFormControl('', [Validators.required]),
-    // vendorId: new UntypedFormControl('', [Validators.required]),
-    vaccine_date: new UntypedFormControl('', [Validators.required]),
-    vaccine_time: new UntypedFormControl('', [Validators.required]),
-    vaccine_location: new UntypedFormControl('', [Validators.required]),
-    file: new UntypedFormControl(''),
-    fileSource: new UntypedFormControl(''),
-  });
-
+  
 
   constructor(private router: Router,private http: HttpClient,private usrObj:MainserviceComponent 
     ) { }
@@ -93,9 +79,8 @@ export class DashboardComponent implements OnInit {
     this.memberAge =  this.getAge(dob);
     this.userProfile();
     this.getMembers();
-    this.getDisease();
     this.getVaccinebyMemberId(this.userId);
-    this.getmaxDate();
+    
     this.currMember = this.userId;    
   }
 
@@ -137,114 +122,7 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  addVaccineStep2() {
-    var modalId = document.querySelector("#addVaccineStep2");
-    var myModal = new bootstrap.Modal(modalId!, {
-      keyboard: false
-    })
-    myModal.show();
-  }
-
-  hideVaccineModlefirst(){
-    var modalId = document.querySelector("#addVaccineStep1");
-    var myModal = new bootstrap.Modal(modalId!, {
-      keyboard: false
-    })
-    myModal.hide();
-  }
-
-
-  onFileChange(event:any) {
-    const reader = new FileReader();
-     
-    if(event.target.files && event.target.files.length) {
-      const [file] = event.target.files;
-      reader.readAsDataURL(file);
-     
-      reader.onload = () => {
-    
-        this.imageSrc = reader.result as string;
-      
-        this.form.patchValue({
-          fileSource: reader.result
-        });
-    
-      };
-    
-    }
-  }
-
-
-
-  get f(){
-    return this.form.controls;
-  }
-
-  submit(){
-    this.isSubmit = true;  
-    this.isSubmitted = true;  
-    
-    if (this.form.invalid) {  
-      this.isSubmit = false;  
-      return  
-    }
-    this.age = this.form.value.selectAge;
-    if(this.age == 18){
-      this.hideVaccineModlefirst();
-      window.location.href = '/chart?user='+this.memberId;
-      //this.router.navigate(['/chart?user', 87]);
-    }else{
-      this.addVaccineStep2();
-      this.isSubmit = false;
-    }
-
-  }
-
-  get f2(){
-    return this.addvcFrm.controls;
-  }
-
-  submitVcfrm(){
-    this.isSubmit = true;
-    this.isSubmittedVc = true;  
-    if (this.addvcFrm.invalid) {  
-      this.isSubmit = false;
-      return  
-    }
-
-    var vcdata = {
-      'userId': this.memberId,
-      'diseaseId': this.addvcFrm.value.diseaseId,
-      // 'vendorId': this.addvcFrm.value.vendorId,
-      'vaccine_date': this.addvcFrm.value.vaccine_date,
-      'vaccine_time': this.addvcFrm.value.vaccine_time,
-      'vaccine_location': this.addvcFrm.value.vaccine_location,
-      'upload_file': this.addvcFrm.value.file,
-      'lat': 48.89899,
-      'long': 68.49590,
-      
-    }
-
-    this.usrObj.addVaccineFromDashboard(vcdata).subscribe((data:any)=>{
-      //this.isLoading = false; 
-      this.isSubmit = false;
-      if (data.status){
-        this.successMsg = data.message;
-        setTimeout(()=>{                         
-          location.reload();
-      }, 2000);
-        //this.form.reset();
-        //this.router.navigate(['register-verify']);
-      }else{
-        this.errmsg = data.message;
-      }
-    });
-
-
-
-    
-
-  }
+  
 
   //get user profile data
 
@@ -283,12 +161,7 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  getDisease(){
-    this.http.get(env.apiurl + 'get-disease', this.httpOptions).subscribe(data => {
-        this.diseaseList = data;
-        // console.log(this.diseaseList.data);
-    });
-  }
+
 
 
   getDiseaseId(e:any){
@@ -360,23 +233,7 @@ export class DashboardComponent implements OnInit {
       return age;
   }
 
-  //calculate maxdate
-
-  getmaxDate(){
-    var dtToday = new Date();
   
-    var month:any = dtToday.getMonth() + 1;
-    var day:any = dtToday.getDate();
-    var year:any = dtToday.getFullYear();
-  
-    if(month < 10)
-        month = '0' + month.toString();
-    if(day < 10)
-        day = '0' + day.toString();
-  
-     this.maxDate = year + '-' + month + '-' + day;    
-    
-  }
 
 
 
