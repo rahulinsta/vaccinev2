@@ -19,6 +19,7 @@ import {DatePipe} from '@angular/common';
 import { QRCodeModule } from 'angular2-qrcode';
 import { PageLoaderComponent } from './elements/page-loader/page-loader.component';
 import { ConfirmDeleteComponent } from './elements/confirm-delete/confirm-delete.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { ConfirmDeleteComponent } from './elements/confirm-delete/confirm-delete
     VerifyOtpComponent,
     MembersListComponent,
     PageLoaderComponent,
-    ConfirmDeleteComponent
+    ConfirmDeleteComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,

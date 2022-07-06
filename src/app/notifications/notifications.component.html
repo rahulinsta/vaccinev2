@@ -1,0 +1,70 @@
+<app-header></app-header>
+
+<app-page-loader *ngIf="pageLoader"></app-page-loader>
+<div *ngIf="!pageLoader" class="container dashboard-page">
+    <div class="col-md-12">
+
+        <div class="mem-bg mt-5">
+            <div class="row row align-items-center">
+                <div class="col-md-8">
+                    <h3>Welcome, {{uname}} </h3>
+                    <span class="legend"> Default Member </span>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12 col-md-12 mx-auto">
+        <main class="form-signin mt-3">
+
+            <div class="dashboard-header">
+                <ul class="list-group text-left list-group-flush">
+                    <li href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="w-100">
+                            <small>December 12, 2019</small>
+                            <h5 class="mt-1 mb-2">List group item heading</h5>
+                            
+                        </div>
+                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
+                        </p>
+                    </li>
+
+                    <li href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="w-100">
+                            <small>December 12, 2019</small>
+                            <h5 class=" mt-1 mb-2">List group item heading</h5>
+                    
+                        </div>
+                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
+                        </p>
+                    </li>
+
+                    <li href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="w-100">
+                            <small>December 12, 2019</small>
+                            <h5 class="mt-1 mb-2">List group item heading</h5>
+                    
+                        </div>
+                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
+                        </p>
+                    </li>
+                    
+                    
+                </ul>
+            </div>
+
+
+            
+
+       
+        
+
+        </main>
+    </div>
+</div>
+
+
+
+
+<app-footer></app-footer>

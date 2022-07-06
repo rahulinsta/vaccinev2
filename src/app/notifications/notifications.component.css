@@ -1,0 +1,33 @@
+.dashboard-page {
+    margin-top: 90px;
+}
+
+.mem-bg {
+    border: 1px solid #dee1e6;
+    background: #fff;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    text-align: left;
+    padding: 20px;
+    position: relative;
+}
+.mem-bg h3 {
+    font-size: 24px;
+    margin: 0px;
+    font-weight: 700;
+}
+.mem-bg span {
+    font-size: 13px;
+    font-weight: 500;
+    background: #40455d;
+    display: inline-block;
+    color: #fff;
+    width: auto;
+    padding: 4px 12px;
+    border-radius: 17px;
+    line-height: 1;
+    margin-top: 5px;
+}
+.form-signin{
+    padding: 30px;
+}

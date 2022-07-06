@@ -6,6 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChartComponent } from './chart/chart.component';
 import { VerifyOtpComponent } from './verify-otp/verify-otp.component';
 import { MembersListComponent } from './dashboard/members-list/members-list.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 const routes: Routes = [
   {path: '', component: SignupComponent},
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'chart' , component: ChartComponent},
   { path: 'verify-otp', component: VerifyOtpComponent },
   { path: 'dashboard/members-list', component: MembersListComponent },
+  { path: 'dashboard/notifications', component: NotificationsComponent },
 ];
 
 @NgModule({
