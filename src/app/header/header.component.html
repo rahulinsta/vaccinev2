@@ -21,7 +21,7 @@
                     <li class="nav-item">
                         <a [routerLink]="['/dashboard/members-list']" class="nav-link">Member List</a>
                     </li>
-                    <li class="nav-item" *ngIf="pageUrl === '/dashboard'">
+                    <li class="nav-item">
                         <a class="nav-link" (click)="addVaccine()">Add Vaccine</a>
                     </li> 
                     <li class="nav-item">
@@ -69,3 +69,172 @@
         </div>
     </nav>
 </header>
+
+<div class="modal fade" id="addVaccineStep1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="vaccineLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="vaccineLabel">Select Profile</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" #closeModal aria-label="Close"></button>
+            </div>
+            <form [formGroup]="form" (ngSubmit)="submit()" class="text-start formaddedit">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="selectAge" class="form-label">Select Age <sup class="text-danger">*</sup></label>
+                        <select class="form-select" formControlName="selectAge" id="selectAge"
+                            (change)="onAgechange($event)">
+                            <option value=""> Select Age </option>
+                            <option id="selectAge18" value="18+"> Select 18+ </option>
+                            <option id="BerthTo18" value="18"> Berth to 18 </option>
+                        </select>
+                        <div *ngIf="isSubmitted && f['selectAge'].invalid" class="errFrm">
+                            <div *ngIf="f['selectAge'].errors && f['selectAge'].errors['required']">Please select age
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="mb-3" id="selectAge">
+                        <label for="selectMember" class="form-label">Select Member <sup
+                                class="text-danger">*</sup></label>
+                        <select class="form-select" formControlName="selectMember" id="selectMember"
+                            (change)="getMemberid($event)">
+                            <option value=""> Select Member </option>
+                            <option *ngFor=" let member of members.data" value="{{member.id}}"> {{member.name}}
+                            </option>
+                        </select>
+                        <div *ngIf="isSubmitted && f['selectMember'].invalid" class="errFrm">
+                            <div *ngIf="f['selectMember'].errors && f['selectMember'].errors['required']">Please select
+                                member</div>
+                        </div>
+                    </div>
+
+                    <!-- <ng-container *ngIf="showMsg">
+                        <div class="alert alert-success mb-0 mt-2" role="alert">
+                            {{showMsg}}
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="showErr">
+                        <div class="alert alert-danger mb-0 mt-2" role="alert">
+                            {{errMsg[0]}}
+                        </div>
+                    </ng-container> -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+
+                    <button type="submit" class="btn btn-success">
+                        Submit
+                        <div class="spinner-border form-loader ml-2" role="status" *ngIf="isSubmit"></div>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addVaccineStep2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="vaccineLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="vaccineLabel">Add Vaccine</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" #closeModal aria-label="Close"></button>
+            </div>
+            <form [formGroup]="addvcFrm" (ngSubmit)="submitVcfrm()" class="text-start formaddedit">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="diseaseId" class="form-label">Vaccine Name <sup class="text-danger">*</sup></label>
+                        <select class="form-select" formControlName="diseaseId" id="diseaseId"
+                            (change)="getDiseaseId($event)">
+                            <option value="">name</option>
+                            <option *ngFor="let disease of diseaseList.data" value="{{disease.id}}">{{disease.name}}
+                            </option>
+                        </select>
+                        <div *ngIf="isSubmittedVc && f2['diseaseId'].invalid" class="errFrm">
+                            <div *ngIf="f2['diseaseId'].errors && f2['diseaseId'].errors['required']">Please select
+                                vaccine name.</div>
+                        </div>
+                    </div>
+                  
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="vaccine_date" class="form-label">Vaccine Date<sup
+                                        class="text-danger">*</sup></label>
+                                <div class="position-relative">
+                                    <input type="date" formControlName="vaccine_date" class="form-control datepicker"
+                                        id="vaccine_date" max="{{maxDate}}" placeholder="mm-dd-yyyy">
+                                </div>
+                                <div *ngIf="isSubmittedVc && f2['vaccine_date'].invalid" class="errFrm">
+                                    <div *ngIf="f2['vaccine_date'].errors && f2['vaccine_date'].errors['required']">
+                                        Please enter vaccine date.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="vaccine_time" class="form-label">Vaccine Time</label>
+                                <div class="position-relative">
+                                    <input type="time" formControlName="vaccine_time" class="form-control timepicker"
+                                        id="vaccine_time" placeholder="hh:mm">
+                                </div>
+                                <div *ngIf="isSubmittedVc && f2['vaccine_time'].invalid" class="errFrm">
+                                    <div *ngIf="f2['vaccine_time'].errors && f2['vaccine_time'].errors['required']">
+                                        Please enter vaccine time.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="vaccine_location" class="form-label">Vaccine Location <sup
+                                        class="text-danger">*</sup></label>
+                                <input type="text" formControlName="vaccine_location" class="form-control"
+                                    id="vaccine_location">
+                                <div *ngIf="isSubmittedVc && f2['vaccine_location'].invalid" class="errFrm">
+                                    <div
+                                        *ngIf="f2['vaccine_location'].errors && f2['vaccine_location'].errors['required']">
+                                        Please enter vaccine location.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="vaccine_location" class="form-label">Upload File </label>
+                                <input formControlName="file" id="file" type="file" class="form-control"
+                                    (change)="onFileChange($event)">
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">
+                        Submit
+                        <div class="spinner-border form-loader ml-2" role="status" *ngIf="isSubmit"></div>
+                    </button>
+                </div>
+            </form>
+
+            <ng-container *ngIf="errmsg">
+                <div class="alert alert-danger" role="alert">
+                    {{errmsg}}
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="successMsg">
+                <div class="alert alert-success" role="alert">
+                    {{successMsg}}
+                </div>
+            </ng-container>
+
+        </div>
+    </div>
+</div>
