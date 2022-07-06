@@ -40,6 +40,8 @@ httpOptions:any={};
       }
     }
 
+
+
    }
 
   getToken() {
@@ -110,8 +112,24 @@ httpOptions:any={};
     return this.http.delete(env.apiurl + 'member/delete/' + id, this.httpOptions );
   }
 
-
-
+  // send otp on email
+  sendEmailOtp(formData:any){
+    return this.http.post<any>(env.apiurl + 'send-otp', formData, {
+      headers: new HttpHeaders({
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      })
+    });
+  }
+  // verfiy email's otp
+  verifyOtp(formData:any){
+    return this.http.post<any>(env.apiurl + 'verify-otp', formData, {
+      headers: new HttpHeaders({
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      })
+    });
+  }
   ngOnInit(): void {
   }
 

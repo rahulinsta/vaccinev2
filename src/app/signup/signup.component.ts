@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MainserviceComponent } from '../services/mainservice/mainservice.component';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {environment as env} from '../../environments/environment';
-import {Router} from "@angular/router"
-
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { environment as env } from '../../environments/environment';
+import { Router } from "@angular/router";
+import { passwordMatch } from './confirm-password.validator';
+import firebase from 'firebase';
 
 @Component({
   selector: 'app-signup',
@@ -14,112 +15,168 @@ import {Router} from "@angular/router"
 
 export class SignupComponent implements OnInit {
 
-  isSubmitted:boolean = false
-  isSubmit:boolean = false
-  successMsg:boolean = false;
-  errmsg:boolean  = false;
-  emailErr:any;
-  passErr1:any;
-  passErr2:any;
-  formArr={phone:'',email:'', fname:'', lname:'',emgNo:'',dob:'',password:'',cpassword:'',bloodGroup:'',gender:''};
-  
-  form = new UntypedFormGroup({
-    phone: new UntypedFormControl('', [Validators.required]),
-    email: new UntypedFormControl('', [Validators.required, Validators.email]),
-    fname: new UntypedFormControl('', [Validators.required]),
-    lname: new UntypedFormControl('', [Validators.required]),
-    dob: new UntypedFormControl('', [Validators.required]),
-    emgNo: new UntypedFormControl(''),
-    bloodGroup: new UntypedFormControl(''),
-    password: new UntypedFormControl('', [Validators.required]),
-    cpassword: new UntypedFormControl('', [Validators.required]),
-    genderType: new UntypedFormControl('', [Validators.required])
-    
-  });
+  isSubmitted: boolean = false
+  isSubmit: boolean = false
+  successMsg: boolean = false;
+  errmsg: boolean = false;
+  emailErr: any;
+  passErr1: any;
+  passErr2: any;
+  emailRegex = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
+  reCaptchaVerifier:any;
+  isSendMOTP: boolean = false;
+  isSendEOTP: boolean = false;
+  formArr={};
 
-  constructor(private usrObj:MainserviceComponent,private http:HttpClient,private router: Router) { }
+  form = new FormGroup({
+    phone: new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(10)]),
+    email: new FormControl('', [Validators.required, Validators.pattern(this.emailRegex)]),
+    fname: new FormControl('', [Validators.required]),
+    lname: new FormControl('', [Validators.required]),
+    dob: new FormControl('', [Validators.required]),
+    emgNo: new FormControl('', [Validators.required]),
+    bloodGroup: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required]),
+    cpassword: new FormControl('', [Validators.required]),
+    genderType: new FormControl('', [Validators.required])
+  },
+    [passwordMatch('password', 'cpassword')]
+  );
+
+  constructor(private usrObj: MainserviceComponent, private http: HttpClient, private router: Router) {
+    // localStorage.removeItem('regData');
+    localStorage.removeItem('verificationId');
+    localStorage.removeItem('isVerifyP');
+  }
 
   ngOnInit(): void {
     var userId = localStorage.getItem('userid');
-    if(userId){
+    if (userId) {
       this.router.navigate(['/login']);
     }
-
+    if (!firebase.apps.length) {
+      firebase.initializeApp(env.firebase);
+    }
+    this.formArr = JSON.parse(localStorage.getItem('regData') || '{}');
+    if(this.formArr){
+      this.form.patchValue(this.formArr);
+    }
+    this.reCaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {size: 'invisible'})
   }
 
-  get f(){
+  get f() {
     return this.form.controls;
   }
-  
-  submit(){
-    
-    this.isSubmit = true;  
-    this.isSubmitted = true;  
+
+  submit() {
+    this.isSubmit = true;
+    this.isSubmitted = true;
     if (this.form.invalid) {
-      this.isSubmit = false;  
+      this.isSubmit = false;
+      return
+    }
+    // console.log(this.form.value);
+    localStorage.setItem('regData', JSON.stringify(this.form.value));
+    if (this.form.value.phone) {
+      const num = env.DEF_CCODE + this.form.value.phone;
+      firebase.auth().signInWithPhoneNumber(num, this.reCaptchaVerifier).then(result => {
+        localStorage.setItem('verificationId', JSON.stringify(result.verificationId));
+        this.isSendMOTP = true;
+        this.sendToVerify()
+      })
+        .catch(error => {
+          console.error('Error :', error);
+          this.isSendEOTP = false;
+          this.sendToVerify()
+        });
+    }
 
-      return  
-    }  
-    
-
-    this.formArr.phone = this.form.value.phone;
-    this.formArr.email = this.form.value.email;
-    this.formArr.fname = this.form.value.fname;
-    this.formArr.lname = this.form.value.lname;
-    this.formArr.dob = this.form.value.dob;
-    this.formArr.emgNo = this.form.value.emgNo;
-    this.formArr.bloodGroup = this.form.value.bloodGroup;
-    this.formArr.password = this.form.value.password;
-    this.formArr.cpassword = this.form.value.cpassword;
-    this.formArr.gender = this.form.value.genderType;
+    if (this.form.value.email) {
+      const formData = {
+        "email" : this.form.value.email
+      }
+      // console.log(formData);
+      this.usrObj.sendEmailOtp(formData).subscribe((res:any) => {
+      //   console.log(result);
+        if(res.status){
+          this.isSendEOTP = true;
+        }
+        this.sendToVerify()
+      })
+      
+    }
 
    
-    this.usrObj.register(this.formArr).subscribe((data:any)=>{
-      console.log('step-1');
-      this.isSubmit = false;  
-      if (data.status){
-        this.successMsg = true;
-        this.successMsg = data.message;
-        this.form.reset();
-        this.isSubmitted = false;  
-
-
-        setTimeout(() => {
-          this.successMsg = false;
-          this.router.navigate(['/login']);
-        }, 3000);
-
-        this.router.navigate(['/login']);
-      }else{
-        console.log('yes inside the error message');
-        this.errmsg = true;
-        this.errmsg = data.message+data.data;
-        setTimeout(() => {
-          this.errmsg = false;
-        }, 3000);
-
-        console.log(this.errmsg);
-      }
-    },
-    error=> {
-      if(error.error.errors.email){
-        this.emailErr =error.error.errors.email[0]; 
-      }
-      
-      if(error.error.errors.password){
-        this.passErr1 =error.error.errors.password[0]; 
-        this.passErr2 =error.error.errors.password[1]; 
-      }
-
-    
-      //this.errmsg  = 'Internal Server Error.. You Registration could not be completed.';
-      this.isSubmit = false;  
-
-    });
 
     
 
-    
+    // this.formArr.phone = this.form.value.phone;
+    // this.formArr.email = this.form.value.email;
+    // this.formArr.fname = this.form.value.fname;
+    // this.formArr.lname = this.form.value.lname;
+    // this.formArr.dob = this.form.value.dob;
+    // this.formArr.emgNo = this.form.value.emgNo;
+    // this.formArr.bloodGroup = this.form.value.bloodGroup;
+    // this.formArr.password = this.form.value.password;
+    // this.formArr.cpassword = this.form.value.cpassword;
+    // this.formArr.gender = this.form.value.genderType;
+
+
+    // this.usrObj.register(this.formArr).subscribe((data:any)=>{
+    //   console.log('step-1');
+    //   this.isSubmit = false;  
+    //   if (data.status){
+    //     this.successMsg = true;
+    //     this.successMsg = data.message;
+    //     this.form.reset();
+    //     this.isSubmitted = false;  
+
+
+    //     setTimeout(() => {
+    //       this.successMsg = false;
+    //       this.router.navigate(['/login']);
+    //     }, 3000);
+
+    //     //this.router.navigate(['register-verify']);
+    //   }else{
+    //     console.log('yes inside the error message');
+    //     this.errmsg = true;
+    //     this.errmsg = data.message+data.data;
+    //     setTimeout(() => {
+    //       this.errmsg = false;
+    //     }, 3000);
+
+    //     console.log(this.errmsg);
+    //   }
+    // },
+    // error=> {
+    //   if(error.error.errors.email){
+    //     this.emailErr =error.error.errors.email[0]; 
+    //   }
+
+    //   if(error.error.errors.password){
+    //     this.passErr1 =error.error.errors.password[0]; 
+    //     this.passErr2 =error.error.errors.password[1]; 
+    //   }
+
+
+    //   //this.errmsg  = 'Internal Server Error.. You Registration could not be completed.';
+    //   this.isSubmit = false;  
+
+    // });
+
+
+
+
+  }
+
+  sendToVerify(){
+    if (this.isSendEOTP && this.isSendMOTP) {     
+      localStorage.setItem('isVerifyP', 'true');
+      this.isSubmit = false;
+      this.router.navigate(['verify-otp']);
+
+    }
   }
 
 

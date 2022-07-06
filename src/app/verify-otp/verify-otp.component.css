@@ -1,5 +1,13 @@
 .fa-w-16 {
-    width: 16px;
+    width: 15px;
+    margin-left: 5px;
+    vertical-align: -1px;
+}
+
+.h2{
+    color: #1b63ab;
+    font-size: 28px;
+    font-weight: 600;
 }
 
 .resend {
