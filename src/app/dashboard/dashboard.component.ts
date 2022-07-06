@@ -211,9 +211,7 @@ export class DashboardComponent implements OnInit {
   getVaccinebyMemberId(memberId:any){
     this.http.get(env.apiurl + 'vaccine-data?userId=' + memberId, this.httpOptions).subscribe((data:any) => {
         this.memberVaccineList = data;
-       
-        console.log('member vaccine list');
-        console.log(this.memberVaccineList.data);
+   
     });
 
   }

@@ -141,6 +141,11 @@
     background: transparent;
 }
 
+.errFrm {
+    color: red;
+    text-align: left !important;
+}
+
 
 @media screen and (min-width: 576px) {
 .app-header .dropdown .dropdown-menu {

@@ -13,6 +13,7 @@ import { environment as env } from '../../environments/environment';
 })
 export class HeaderComponent implements OnInit {
 
+  userId: any;
   uname:any;
   pageUrl:any = '';
 
@@ -32,6 +33,7 @@ export class HeaderComponent implements OnInit {
   maxDate: any;
   imageSrc: any;
   memberId: any;
+  currMember: any;
  
  
 
@@ -65,6 +67,8 @@ export class HeaderComponent implements OnInit {
       }
     }
 
+    this.userId = localStorage.getItem('userid');
+
     var e = document.getElementById("navbar");
     this.uname = localStorage.getItem('ufname');
     //console.log(this.uname);
@@ -72,6 +76,7 @@ export class HeaderComponent implements OnInit {
     // console.log(this.router.url)
     this.getDisease();
     this.getmaxDate();
+    this.currMember = this.userId; 
   }
 
   getToken() {
@@ -198,6 +203,12 @@ export class HeaderComponent implements OnInit {
     return this.addvcFrm.controls;
   }
 
+  closeModal(id: any) {
+    var closeModalId = document.querySelector(`#${id}`);
+    var myModal = bootstrap.Modal.getOrCreateInstance(closeModalId!)
+    myModal.hide();
+  }
+
   submitVcfrm() {
     this.isSubmit = true;
     this.isSubmittedVc = true;
@@ -224,8 +235,13 @@ export class HeaderComponent implements OnInit {
       this.isSubmit = false;
       if (data.status) {
         this.successMsg = data.message;
+        this.closeModal('addVaccineStep2');
+        this.closeModal('addVaccineStep1');
+        this.getVaccinebyMemberId(this.userId);
         setTimeout(() => {
-          location.reload();
+          this.router.navigate(['/dashboard']);
+          // location.reload();
+
         }, 2000);
         //this.form.reset();
         //this.router.navigate(['register-verify']);
@@ -270,6 +286,14 @@ export class HeaderComponent implements OnInit {
       this.vaccineList = data;
       //console.log('vaccine list');
       //console.log(this.vaccineList.data);
+    });
+
+  }
+
+  getVaccinebyMemberId(memberId: any) {
+    this.http.get(env.apiurl + 'vaccine-data?userId=' + memberId, this.httpOptions).subscribe((data: any) => {
+      this.memberVaccineList = data;
+
     });
 
   }
