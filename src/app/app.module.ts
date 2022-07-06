@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SignupComponent } from './signup/signup.component';
@@ -20,7 +20,6 @@ import { QRCodeModule } from 'angular2-qrcode';
 import { PageLoaderComponent } from './elements/page-loader/page-loader.component';
 import { ConfirmDeleteComponent } from './elements/confirm-delete/confirm-delete.component';
 import { NotificationsComponent } from './notifications/notifications.component';
-
 
 @NgModule({
   declarations: [
@@ -46,6 +45,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
     NgbModule,
     NgOtpInputModule,
     QRCodeModule,
+    FormsModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

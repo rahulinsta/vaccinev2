@@ -156,11 +156,10 @@ export class DashboardComponent implements OnInit {
   getMembers(){
     this.http.get(env.apiurl + 'member', this.httpOptions).subscribe(data => {
         this.members = data;
-        // console.log(this.members.data);
+        //console.log(this.members.data);
     });
 
   }
-
 
 
 

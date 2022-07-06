@@ -108,6 +108,9 @@ export class MembersListComponent implements OnInit {
   }
 
   addMember() {
+    this.form.patchValue({
+      'dob': this.maxDate
+    })
     var modalId = document.querySelector("#addMember");
     var myModal = new bootstrap.Modal(modalId!, {
       keyboard: false
