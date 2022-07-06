@@ -278,11 +278,7 @@ export class DashboardComponent implements OnInit {
   getMembers(){
     this.http.get(env.apiurl + 'member', this.httpOptions).subscribe(data => {
         this.members = data;
-<<<<<<< HEAD
-        // console.log(this.members.data);
-=======
         //console.log(this.members.data);
->>>>>>> efb21efc03a6c75a7e358c5b3188e2ceac49256b
     });
 
   }
@@ -290,11 +286,7 @@ export class DashboardComponent implements OnInit {
   getDisease(){
     this.http.get(env.apiurl + 'get-disease', this.httpOptions).subscribe(data => {
         this.diseaseList = data;
-<<<<<<< HEAD
-        // console.log(this.diseaseList.data);
-=======
         //console.log(this.diseaseList.data);
->>>>>>> efb21efc03a6c75a7e358c5b3188e2ceac49256b
     });
   }
 

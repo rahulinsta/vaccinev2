@@ -11,5 +11,5 @@ export const environment = {
     appId: "1:199153932759:web:47323bf0556fe8857e9392",
     measurementId: "G-Z0JSRQ70RK"
   },
-  DEF_CCODE : '+1'
+  DEF_CCODE : '+91'
 };

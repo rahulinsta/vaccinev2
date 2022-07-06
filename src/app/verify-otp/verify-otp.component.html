@@ -56,8 +56,8 @@
              </ng-container>
                 
                 <ng-container *ngIf="message?.msg?.length > 0">
-                    <div class="alert" [ngClass]="{'alert-danger': !message?.status, 'alert-success': message?.status}" role="alert">
-                        {{message?.msg[0]}}
+                    <div class="alert" [ngClass]="{'alert-danger': !message?.status, 'alert-success': message?.status}" role="alert" *ngFor="let errMsg of message?.msg">
+                        {{errMsg}}
                     </div>
                 </ng-container>
 
