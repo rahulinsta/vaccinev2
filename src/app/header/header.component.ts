@@ -82,13 +82,18 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  logout(){
-    //console.log('yes logout');
+  onLogout(){
+    // console.log(this.usrObj.getToken());
     this.usrObj.logout().subscribe((data:any)=>{
-    console.log(data);
+      console.log(data);
+      if (data.status){
+        localStorage.clear();
+        this.router.navigate(['/login']);
+      }
+     
   });
-    localStorage.clear();
-    this.router.navigate(['/login']);
+   
+    
   }
   toggleMenu(e: any) {
     // console.log(e.currentTarget);
