@@ -93,7 +93,6 @@ export class HeaderComponent implements OnInit {
   onLogout(){
     // console.log(this.usrObj.getToken());
     this.usrObj.logout().subscribe((data:any)=>{
-      console.log(data);
       if (data.status){
         localStorage.clear();
         this.router.navigate(['/login']);
@@ -246,9 +245,10 @@ export class HeaderComponent implements OnInit {
         this.successMsg = data.message;
         this.closeModal('addVaccineStep2');
         this.closeModal('addVaccineStep1');
-        this.getVaccinebyMemberId(this.userId);
         setTimeout(() => {
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/dashboard']).then(() => {
+            window.location.reload();
+          });
           // location.reload();
 
         }, 2000);
@@ -299,13 +299,7 @@ export class HeaderComponent implements OnInit {
 
   }
 
-  getVaccinebyMemberId(memberId: any) {
-    this.http.get(env.apiurl + 'vaccine-data?userId=' + memberId, this.httpOptions).subscribe((data: any) => {
-      this.memberVaccineList = data;
-
-    });
-
-  }
+  
 
 
   //calculate maxdate
