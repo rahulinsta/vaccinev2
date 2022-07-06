@@ -56,6 +56,8 @@ export class VerifyOtpComponent implements OnInit {
 
   onSubmit(f: NgForm) {
     this.isSubmit = true;
+    this.isVerEOTP = false;
+    this.isVerMOTP = false;
     this.message = { status: true, msg: [] }
     if (!this.emailInput.currentVal) {
       this.isSubmit = false;
@@ -80,7 +82,7 @@ export class VerifyOtpComponent implements OnInit {
       } else {
         this.isSubmit = false;
         this.isVerEOTP = false;
-        this.message = { status: true, msg: [] }
+        this.message.msg.push(res.message); this.message.status = false;
       }
     },(err:any)=>{
       let errData = err.error.errors;
@@ -106,8 +108,9 @@ export class VerifyOtpComponent implements OnInit {
 
   sendToVerify(){
     if (this.isVerEOTP && this.isVerMOTP) {
+      console.log('inner');
      this.mainService.register(this.regData).subscribe((res:any)=>{
-     
+      console.log('subscribe');
       if (res.status){
         this.message.status = true;
         this.message.msg.push(res.message);
