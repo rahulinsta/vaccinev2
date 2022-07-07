@@ -89,6 +89,8 @@
   <button class="btn btn-lg btn-outline-primary" [hidden]="true"  (click)="open(mymodal)" id="m1" #cmodel>Open My Modal</button>
    
   <ng-template #mymodal let-modal>
+    <p [hidden]="true"> <span id="hiddenspn">spn</span> </p>
+    <form [formGroup]="form" (ngSubmit)="submit()" class="formaddedit">
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Add vaccine</h4>
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')" #closeBtn>
@@ -97,8 +99,7 @@
     </div>
     <div class="modal-body">
 
-      <p [hidden]= "true" > <span id="hiddenspn">spn</span> </p>
-      <form [formGroup]="form" (ngSubmit)="submit()">
+     
         <div class="form-floating mb-3">
           <input type="date" class="form-control" id="phone" max="{{maxDate}}" placeholder="Vaccine Date" formControlName="vcdate" >
           <label for="floatingInput">Vaccine Date</label>
@@ -138,19 +139,16 @@
       </div>
 
 
-        <button class="w-100 btn btn-lg btn-primary" type="submit">
-          Add
-        </button> 
+   
 
-
-      </form>
+     
       
       <ng-container *ngIf="errmsg">
         <div class="alert alert-danger" role="alert">
           {{errmsg}}
         </div>
       </ng-container>
-
+      
       <ng-container *ngIf="successMsg">
         <div class="alert alert-success" role="alert">
           {{successMsg}}
@@ -161,8 +159,11 @@
 
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
-    </div>
+<button type="button" (click)="modal.dismiss('Cross click')" #closeBtn
+    class="btn btn-secondary">Cancel</button>
+    <button type="submit" class="btn btn-success">    ADD <div class="spinner-border form-loader ml-2" role="status" *ngIf="isSubmit"></div> </button>
+</div>   
+</form>
   </ng-template>
   
 
