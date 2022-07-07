@@ -6,10 +6,7 @@ import { environment as env } from '../../environments/environment';
 import { MainserviceComponent } from '../services/mainservice/mainservice.component';
 
 
-
-
-
-@Component({
+@Component({ 
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']

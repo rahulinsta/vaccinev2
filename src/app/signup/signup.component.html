@@ -36,7 +36,7 @@
           </div>
 
 
-          <div class="col-md-6">
+          <div class="col-md-4">
             <div class="form-floating mb-3">
               <input type="text" class="form-control" id="fname" placeholder="Name" formControlName="fname">
               <label for="name">First Name</label>
@@ -47,7 +47,16 @@
     
             </div>
           </div>
-          <div class="col-md-6">
+
+          <div class="col-md-4">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="mname" placeholder="Middle Name" formControlName="mname">
+              <label for="mname">Middle Name</label>
+    
+            </div>
+          </div>
+
+          <div class="col-md-4">
             <div class="form-floating mb-3">
               <input type="text" class="form-control" id="lname" placeholder="Last name" formControlName="lname">
               <label for="name">Last Name</label>
@@ -76,7 +85,7 @@
           </div>
           <div class="col-md-6">
             <div class="form-floating mb-3">
-              <input type="date" class="form-control" id="dob" placeholder="DOB" formControlName="dob">
+              <input type="date" class="form-control" id="dob" max="{{maxDate}}" placeholder="DOB" formControlName="dob">
               <label for="name">Date of Birth</label>
     
               <div *ngIf="isSubmitted && f['dob'].invalid" class="errFrm">

@@ -27,15 +27,17 @@ export class SignupComponent implements OnInit {
   isSendMOTP: boolean = false;
   isSendEOTP: boolean = false;
   formArr={};
+  maxDate:any;
 
   form = new FormGroup({
     phone: new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(10)]),
-    email: new FormControl('', [Validators.required, Validators.pattern(this.emailRegex)]),
+    email: new FormControl(''),
     fname: new FormControl('', [Validators.required]),
     lname: new FormControl('', [Validators.required]),
+    mname: new FormControl(''),
     dob: new FormControl('', [Validators.required]),
-    emgNo: new FormControl('', [Validators.required]),
-    bloodGroup: new FormControl('', [Validators.required]),
+    emgNo: new FormControl(''),
+    bloodGroup: new FormControl(''),
     password: new FormControl('', [Validators.required]),
     cpassword: new FormControl('', [Validators.required]),
     genderType: new FormControl('', [Validators.required])
@@ -51,6 +53,11 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {
     var userId = localStorage.getItem('userid');
+    this.getmaxDate();
+    this.form.patchValue({
+      'dob': this.maxDate
+    });
+
     if (userId) {
       this.router.navigate(['/login']);
     }
@@ -177,6 +184,24 @@ export class SignupComponent implements OnInit {
       this.router.navigate(['verify-otp']);
 
     }
+  }
+
+  //calculate maxdate
+
+  getmaxDate(){
+    var dtToday = new Date();
+  
+    var month:any = dtToday.getMonth() + 1;
+    var day:any = dtToday.getDate();
+    var year:any = dtToday.getFullYear();
+  
+    if(month < 10)
+        month = '0' + month.toString();
+    if(day < 10)
+        day = '0' + day.toString();
+  
+     this.maxDate = year + '-' + month + '-' + day;    
+    
   }
 
 

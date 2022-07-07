@@ -39,7 +39,7 @@
                                 <div class="avatar">{{fletter}}</div>
                             </div>
                             <div class="col">
-                                <h1 class="user-name">{{userName}}</h1>
+                                <h1 class="user-name">{{fullName}}</h1>
                                 <div class="user-dob">
                                     DOB : {{dob}}
                                 </div>
@@ -107,11 +107,11 @@
             <!-- separator -->
             <div class="separator"></div>
 
-            <div class="vaccine-data">
+            <div class="vaccine-data" *ngIf="memberVaccineList.data !='' && memberAge > 18">
                 <div class="data-header">
                     <h2 class="title text-start">My Vaccine Details</h2>
                 </div>
-                <div class="data-body" *ngIf="memberVaccineList.data !='' && memberAge > 18" >
+                <div class="data-body">
                     <ng-container *ngFor="let vacc of memberVaccineList.data">
                         <fieldset>
                             <div class="dose-data">
