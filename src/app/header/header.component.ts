@@ -115,10 +115,8 @@ export class HeaderComponent implements OnInit {
 
 
   addVaccineStep2() {
-    console.log(this.maxDate);
     this.addvcFrm.patchValue({
       'vaccine_date': this.maxDate,
-      'vaccine_time': this.strTime
     })
     var modalId = document.querySelector("#addVaccineStep2");
     var myModal = new bootstrap.Modal(modalId!, {
@@ -302,12 +300,17 @@ export class HeaderComponent implements OnInit {
     var dtToday = new Date();
     var hours:any = dtToday.getHours();
     var minutes:any = dtToday.getMinutes();
-    var ampm = hours >= 12 ? 'pm' : 'am';
-    hours = hours % 12;
+    //var ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 24;
     hours = hours ? hours : 12; // the hour '0' should be '12'
+    if(hours < 9){
+      hours = '0'+hours;
+    }
     minutes = minutes < 10 ? '0'+minutes : minutes;
-    this.strTime = hours + ':' + minutes + ' ' + ampm;
-    //console.log(this.strTime);
+    //this.strTime = hours + ':' + minutes +' '+ ampm;
+    this.strTime = hours + ':' + minutes;
+    console.log('currrent time');
+    console.log(this.strTime);
   }
   
 

@@ -175,10 +175,10 @@
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="vaccine_time" class="form-label">Vaccine Time</label>
+                                <label for="vctime" class="form-label">Vaccine Time</label>
                                 <div class="position-relative">
                                     <input type="time" formControlName="vaccine_time" class="form-control timepicker"
-                                        id="vaccine_time" value="{{strTime}}" placeholder="hh:mm">
+                                        id="vctime" [(ngModel)]="strTime" >
                                 </div>
                                 <div *ngIf="isSubmittedVc && f2['vaccine_time'].invalid" class="errFrm">
                                     <div *ngIf="f2['vaccine_time'].errors && f2['vaccine_time'].errors['required']">

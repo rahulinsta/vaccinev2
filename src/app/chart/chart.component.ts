@@ -39,6 +39,7 @@ export class ChartComponent implements OnInit {
   imageSrc: string = '';
   httpOptions: any = {};
   maxDate:any;
+  strTime:any;
   
 
   formArr={vcdate:'',vctime:'', vclocation:'', img:''};
@@ -83,6 +84,7 @@ export class ChartComponent implements OnInit {
 
     this.getChartdata();
     this.getmaxDate();
+    this.getCurrentTime();
   }
 
 
@@ -199,8 +201,9 @@ export class ChartComponent implements OnInit {
 
   open(content:any) {
 
-    //console.log(this.chartData);
-    //console.log(this.record_id);
+    this.form.patchValue({
+      'vcdate': this.maxDate,
+    })
 
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -347,6 +350,24 @@ export class ChartComponent implements OnInit {
   
      this.maxDate = year + '-' + month + '-' + day;    
     
+  }
+
+  //calculate current time
+  getCurrentTime() {
+    var dtToday = new Date();
+    var hours:any = dtToday.getHours();
+    var minutes:any = dtToday.getMinutes();
+    //var ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 24;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    if(hours < 9){
+      hours = '0'+hours;
+    }
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    //this.strTime = hours + ':' + minutes +' '+ ampm;
+    this.strTime = hours + ':' + minutes;
+    console.log('currrent time');
+    console.log(this.strTime);
   }
 
 

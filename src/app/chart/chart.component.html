@@ -100,7 +100,7 @@
       <p [hidden]= "true" > <span id="hiddenspn">spn</span> </p>
       <form [formGroup]="form" (ngSubmit)="submit()">
         <div class="form-floating mb-3">
-          <input type="date" class="form-control" id="phone" max="{{maxDate}}" placeholder="Vaccine Date" formControlName="vcdate" >
+          <input type="date" class="form-control" id="vcdate" max="{{maxDate}}" placeholder="Vaccine Date" formControlName="vcdate" >
           <label for="floatingInput">Vaccine Date</label>
           <div *ngIf="isSubmitted && f['vcdate'].invalid" class="errFrm">
             <div *ngIf="f['vcdate'].errors && f['vcdate'].errors['required']">Vaccine date is required.</div>
@@ -108,7 +108,7 @@
         </div>
 
         <div class="form-floating mb-3">
-          <input type="time" class="form-control" id="phone" placeholder="Vaccine Time" formControlName="vctime" >
+          <input type="time" class="form-control" id="time" [(ngModel)]="strTime" placeholder="Vaccine Time" formControlName="vctime" >
           <label for="floatingInput">Vaccine Time</label>
 
           <div *ngIf="isSubmitted && f['vctime'].invalid" class="errFrm">
