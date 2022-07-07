@@ -20,6 +20,7 @@ export class ChartComponent implements OnInit {
   vcData: any = [];
   chartData: any = [];
   isSubmitted:boolean= false;
+  isSubmit: boolean = false;
   userId:any;
   memberId:any;
   successMsg:any;
@@ -125,7 +126,9 @@ export class ChartComponent implements OnInit {
 
   submit(){
     this.isSubmitted = true;  
+    this.isSubmit = true; 
     if (this.form.invalid) {  
+      this.isSubmit = false; 
       return  
     }
     
@@ -151,7 +154,7 @@ export class ChartComponent implements OnInit {
 
     
     this.usrObj.addVaccine(vcdata).subscribe((data:any)=>{
-      //this.isLoading = false; 
+      this.isSubmit = false; 
       if (data.status){
         this.successMsg = data.message;
         setTimeout(()=>{                         

@@ -13,6 +13,7 @@ import { environment as env } from '../../environments/environment';
 })
 export class HeaderComponent implements OnInit {
 
+  userId: any;
   uname:any;
   pageUrl:any = '';
 
@@ -32,6 +33,7 @@ export class HeaderComponent implements OnInit {
   maxDate: any;
   imageSrc: any;
   memberId: any;
+  currMember: any;
   strTime:any;
  
  
@@ -67,6 +69,8 @@ export class HeaderComponent implements OnInit {
       }
     }
 
+    this.userId = localStorage.getItem('userid');
+
     var e = document.getElementById("navbar");
     this.uname = localStorage.getItem('ufname');
     //console.log(this.uname);
@@ -74,6 +78,7 @@ export class HeaderComponent implements OnInit {
     // console.log(this.router.url)
     this.getDisease();
     this.getmaxDate();
+    this.currMember = this.userId; 
     this.getCurrentTime();
   }
 
@@ -85,13 +90,17 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  logout(){
-    //console.log('yes logout');
+  onLogout(){
+    // console.log(this.usrObj.getToken());
     this.usrObj.logout().subscribe((data:any)=>{
-    console.log(data);
+      if (data.status){
+        localStorage.clear();
+        this.router.navigate(['/login']);
+      }
+     
   });
-    localStorage.clear();
-    this.router.navigate(['/login']);
+   
+    
   }
   toggleMenu(e: any) {
     // console.log(e.currentTarget);
@@ -199,6 +208,12 @@ export class HeaderComponent implements OnInit {
     return this.addvcFrm.controls;
   }
 
+  closeModal(id: any) {
+    var closeModalId = document.querySelector(`#${id}`);
+    var myModal = bootstrap.Modal.getOrCreateInstance(closeModalId!)
+    myModal.hide();
+  }
+
   submitVcfrm() {
     this.isSubmit = true;
     this.isSubmittedVc = true;
@@ -226,8 +241,14 @@ export class HeaderComponent implements OnInit {
       this.isSubmit = false;
       if (data.status) {
         this.successMsg = data.message;
+        this.closeModal('addVaccineStep2');
+        this.closeModal('addVaccineStep1');
         setTimeout(() => {
-          location.reload();
+          this.router.navigate(['/dashboard']).then(() => {
+            window.location.reload();
+          });
+          // location.reload();
+
         }, 2000);
         //this.form.reset();
         //this.router.navigate(['register-verify']);
@@ -275,6 +296,8 @@ export class HeaderComponent implements OnInit {
     });
 
   }
+
+  
 
 
   //calculate maxdate

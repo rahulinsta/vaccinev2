@@ -282,7 +282,7 @@ export class MembersListComponent implements OnInit {
     formData.append('mname',  mName);
     formData.append('lname', this.editMemberfrm.value.lname);
     formData.append('dob', this.editMemberfrm.value.dob);
-    formData.append('gender', this.editMemberfrm.value.genderType);
+    formData.append('gender', this.editMemberfrm.value.gender);
     formData.append('blood_group', this.editMemberfrm.value.bloodGroup);
     formData.append('is_member', '1');
     formData.append('_method', 'PUT');

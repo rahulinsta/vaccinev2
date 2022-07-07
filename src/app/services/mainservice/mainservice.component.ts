@@ -31,19 +31,28 @@ httpOptions:any={};
 
   constructor(private http:HttpClient) {
     
-    if (this.getToken()) {
-      this.httpOptions = {
-        headers: new HttpHeaders({
-          'Accept': 'application/json',
-          'Authorization': 'Bearer ' + this.getToken()
-        })
-      }
-    }
+    
 
 
 
    }
 
+   getHeader(){
+     if (this.getToken()) {
+      return {
+         headers: new HttpHeaders({
+           'Accept': 'application/json',
+           'Authorization': 'Bearer ' + this.getToken()
+         })
+       }
+     } else{
+       return {
+         headers: new HttpHeaders({
+           'Accept': 'application/json'
+         })
+       }
+     }
+   }
   getToken() {
     if (!!localStorage.getItem("vctoken")) {
       return localStorage.getItem("vctoken")
@@ -83,33 +92,33 @@ httpOptions:any={};
   //logout user
 
   logout(){
-      return this.http.post(env.apiurl+ 'logout', this.httpOptions);
+    return this.http.post(env.apiurl + 'logout', '', this.getHeader());
   }
 
   //add vaccine from chart
 
   addVaccine(data:any){
-    return this.http.post(env.apiurl + 'add-vaccine', data, this.httpOptions );
+    return this.http.post(env.apiurl + 'add-vaccine', data, this.getHeader() );
   }
 
   //add vaccine form dashboard
   addVaccineFromDashboard(data:any){
-    return this.http.post(env.apiurl + 'store-vaccine-records', data, this.httpOptions );
+    return this.http.post(env.apiurl + 'store-vaccine-records', data, this.getHeader() );
   }
 
   // add member
   addMember(data:any = []){
-    return this.http.post(env.apiurl + 'member/store', data, this.httpOptions );
+    return this.http.post(env.apiurl + 'member/store', data, this.getHeader() );
   }
 
   // update member
   updateMember(data:any = [],mid:any){
-    return this.http.post(env.apiurl + 'member/update/' + mid, data, this.httpOptions );
+    return this.http.post(env.apiurl + 'member/update/' + mid, data, this.getHeader() );
   }
 
   // delete member
   deleteMember(id:any){
-    return this.http.delete(env.apiurl + 'member/delete/' + id, this.httpOptions );
+    return this.http.delete(env.apiurl + 'member/delete/' + id, this.getHeader() );
   }
 
   // send otp on email

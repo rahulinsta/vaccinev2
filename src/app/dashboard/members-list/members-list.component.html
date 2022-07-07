@@ -220,12 +220,19 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="file" class="form-label">Profile image</label>
-                            <div class="position-relative">
-                                <input type="file" class="form-control"  (change)="oneditFileChange($event)" formControlName="file" >
+                           <div class="row">
+                            <div class="col-md-2 pr-0" *ngIf="profileImage">
+                            <img  src="{{profileImage}}" class="rounded img-fluid" />
+
                             </div>
+                            <div class="col-md-10">
+                                <label for="file" class="form-label">Profile image</label>
+                                <div class="position-relative">
+                                    <input type="file" class="form-control" (change)="oneditFileChange($event)" formControlName="file">
+                                </div>
+                            </div>
+                           </div>
                             
-                            <img *ngIf="profileImage"  src="{{profileImage}}" height="50px" width="50px" />
 
                         </div>
 
