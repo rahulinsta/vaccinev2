@@ -284,4 +284,17 @@
         padding: 5px 0px 0;
     }
     /* header end */
+
+
+.notifications {
+    max-height: 270px;
+ }
+
+ .navbar-fixed.navbar-light .navbar-nav .icon{
+    text-align: left;
+ }
+ .pulse{
+    text-align: center;
+ }
+
 }
