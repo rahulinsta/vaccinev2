@@ -151,14 +151,43 @@
     text-align: left !important;
 }
 
+.notifications{
+    max-height: 400px;
+    overflow-y:scroll ;
+    margin: 0;
+    padding: 0px;
+}
 
+.notifications .text-head{
+    font-weight: 500;
+    
+}
+
+
+.notifications .noti-text{
+        font-size: 14px;
+            line-height: 18px;
+            color: #3e3e3e;
+}
+ ul.notifications::-webkit-scrollbar {
+    width: 10px;
+}
+
+ ul.notifications::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+ ul.notifications::-webkit-scrollbar-track {
+    background: transparent
+}
 @media screen and (min-width: 576px) {
 .app-header .dropdown .dropdown-menu {
     width: auto;
     right: 0;
 }
 .app-header .dropdown-list {
-    width: 20rem !important;
+    width: 25rem !important;
 }
 }
 
