@@ -41,6 +41,7 @@ export class MembersListComponent implements OnInit {
   profileImage:any;
   httpOptions:any={};
   maxDate:any;
+  showcls:any='none';
 
   // set modalID
   modalId = 'memDelModalPopup';
@@ -65,6 +66,9 @@ export class MembersListComponent implements OnInit {
     gender: new UntypedFormControl('',[Validators.required]),
     file: new UntypedFormControl(''),
     fileSource: new UntypedFormControl(''),
+    phone: new UntypedFormControl(''),
+    email: new UntypedFormControl(''),
+
   });
 
 
@@ -121,10 +125,16 @@ export class MembersListComponent implements OnInit {
   editMember(id:any) {
     this.memberId = id;
     var editMemData:any = []; 
+    if(this.userId == id){
+      this.showcls = "block";
+    }else{
+      this.showcls = "none";
+    }
 
     this.http.get(env.apiurl + 'member/edit/'+id, this.httpOptions).subscribe(data => {
       editMemData = data;
       var mebDob = editMemData.data.dob;
+      console.log(editMemData);
       this.profileImage = editMemData.data.profile_image;
       var newdate = mebDob.split("-").reverse().join("-");
       var mdob = this.datePipe.transform(newdate,"yyyy-MM-dd");
@@ -135,7 +145,10 @@ export class MembersListComponent implements OnInit {
           'dob': newdate,
           'gender': editMemData.data.gender,
           'member_image' : editMemData.data.profile_image,
-          'bloodGroup': editMemData.data.blood_group
+          'bloodGroup': editMemData.data.blood_group,
+          'phone': editMemData.data.phone_no,
+          'email': editMemData.data.email
+
       });
     });
 
@@ -284,6 +297,8 @@ export class MembersListComponent implements OnInit {
     formData.append('dob', this.editMemberfrm.value.dob);
     formData.append('gender', this.editMemberfrm.value.gender);
     formData.append('blood_group', this.editMemberfrm.value.bloodGroup);
+    formData.append('phone_no', this.editMemberfrm.value.phone);
+    formData.append('email', this.editMemberfrm.value.email);
     formData.append('is_member', '1');
     formData.append('_method', 'PUT');
 
@@ -356,7 +371,7 @@ export class MembersListComponent implements OnInit {
   
     var month:any = dtToday.getMonth() + 1;
     var day:any = dtToday.getDate();
-    var year:any = dtToday.getFullYear();
+    var year:any = dtToday.getFullYear(); 
   
     if(month < 10)
         month = '0' + month.toString();
