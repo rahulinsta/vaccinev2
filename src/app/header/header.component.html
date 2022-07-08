@@ -30,33 +30,21 @@
                     <li class="position-relative">
                 <a  id="alertsDropdown" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false" class="nav-link icon nav-link-bg">
                     <i class="bi bi-bell"></i><span
-                        class="pulse bg-danger">21</span>
+                        class="pulse bg-danger">{{totalUnreadNotification}}</span>
                    
                 </a>
                 <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
                     <h6 class="dropdown-header">
                         Notifications
                     </h6>
-                    <li class="dropdown-item d-flex align-items-center">
+                    <li class="dropdown-item d-flex align-items-center" *ngFor="let notification of unreadNotifications.data" >
                 
                         <div>
-                            <div class="small text-gray-500">December 12, 2019</div>
-                            <span class="text-success">Dose Taken</span>
+                            <div class="small text-gray-500">{{notification.data.title}}</div>
+                            <span class="text-success">{{notification.data.body}}</span>
                         </div>
                     </li>
-                    <li class="dropdown-item d-flex align-items-center">
-                
-                        <div>
-                            <div class="small text-gray-500">July 7, 2022</div>
-                        Dose Coming 
-                        </div>
-                    </li>
-                    <li class="dropdown-item d-flex align-items-center">
-                
-                        <div>
-                            <div class="small text-gray-500">June 2, 2022</div>
-<span class="text-danger">Dose Overdue</span>                         </div>
-                    </li>
+                    
                     <a class="dropdown-item show-all text-center small" [routerLink]="['/dashboard/notifications']">Show All Notifications</a>
                 </div>
             </li>
@@ -159,7 +147,7 @@
                     </div>
                   
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6"> 
                             <div class="mb-3">
                                 <label for="vaccine_date" class="form-label">Vaccine Date<sup
                                         class="text-danger">*</sup></label>

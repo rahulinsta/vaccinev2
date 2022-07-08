@@ -11,7 +11,7 @@
                     <span class="legend"> Default Member </span>
                 </div>
                 
-            </div>
+            </div> 
         </div>
     </div>
 
@@ -20,35 +20,16 @@
 
             <div class="dashboard-header">
                 <ul class="list-group text-left list-group-flush">
-                    <li href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <li *ngFor="let notification of allNotifcations.data"  href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="w-100">
-                            <small>December 12, 2019</small>
-                            <h5 class="mt-1 mb-2">List group item heading</h5>
+                            <!-- <small>December 12, 2019</small> -->
+                            <h5 class="mt-1 mb-2">{{notification.data.title}}</h5>
                             
                         </div>
-                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
+                        <p class="mb-1"> {{notification.data.body}}
                         </p>
                     </li>
 
-                    <li href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="w-100">
-                            <small>December 12, 2019</small>
-                            <h5 class=" mt-1 mb-2">List group item heading</h5>
-                    
-                        </div>
-                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
-                        </p>
-                    </li>
-
-                    <li href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="w-100">
-                            <small>December 12, 2019</small>
-                            <h5 class="mt-1 mb-2">List group item heading</h5>
-                    
-                        </div>
-                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
-                        </p>
-                    </li>
                     
                     
                 </ul>

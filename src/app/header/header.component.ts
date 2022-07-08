@@ -35,6 +35,8 @@ export class HeaderComponent implements OnInit {
   memberId: any;
   currMember: any;
   strTime:any;
+  unreadNotifications:any=[];
+  totalUnreadNotification:any;
  
  
 
@@ -80,6 +82,7 @@ export class HeaderComponent implements OnInit {
     this.getmaxDate();
     this.currMember = this.userId; 
     this.getCurrentTime();
+    this.getUnreadNotifications();
   }
 
   getToken() {
@@ -119,7 +122,7 @@ export class HeaderComponent implements OnInit {
     var myModal = new bootstrap.Modal(modalId!, {
       keyboard: false
     })
-    myModal.show();
+    myModal.show(); 
   }
 
 
@@ -336,5 +339,14 @@ export class HeaderComponent implements OnInit {
     console.log(this.strTime);
   }
   
+  //get unread notifications
+  getUnreadNotifications() {
+    this.http.get(env.apiurl + 'notification/un-read', this.httpOptions).subscribe(data => {
+      this.unreadNotifications = data;
+       console.log(this.unreadNotifications.data);
+       this.totalUnreadNotification = this.unreadNotifications.data.length;
+    });
+  }
+
 
 }
