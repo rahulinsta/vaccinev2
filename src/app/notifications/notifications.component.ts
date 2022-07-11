@@ -42,9 +42,11 @@ export class NotificationsComponent implements OnInit {
 
   //get all notifications
   getAllNotifications() {
+    this.pageLoader = true;
     this.http.get(env.apiurl + 'notification/un-read', this.httpOptions).subscribe(data => {
       this.allNotifcations = data;
        console.log(this.allNotifcations.data);
+      this.pageLoader = false;
     });
   }
 
