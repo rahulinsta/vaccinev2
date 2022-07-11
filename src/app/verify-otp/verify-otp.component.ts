@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import firebase from 'firebase';
@@ -10,7 +11,7 @@ import { MainserviceComponent } from '../services/mainservice/mainservice.compon
   styleUrls: ['./verify-otp.component.css']
 })
 export class VerifyOtpComponent implements OnInit {
-  constructor(private route: Router, private mainService: MainserviceComponent) { }
+  constructor(private route: Router, private mainService: MainserviceComponent, private location: Location) { }
 
   @ViewChild('emailInput', { static: false }) emailInput: any;
   @ViewChild('mobileInput', { static: false }) mobileInput: any;
@@ -197,6 +198,11 @@ export class VerifyOtpComponent implements OnInit {
         this.message.status = false;
         this.isSubmit = false;  
       });
+  }
+
+  // back to previous page
+  editForm(){
+    this.location.back();
   }
   
 }

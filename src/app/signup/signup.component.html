@@ -167,30 +167,12 @@
         
 
        
-
-
-        <ng-container *ngIf="emailErr">
-          <div class="alert alert-danger" role="alert">
-            {{emailErr}}
+        <ng-container *ngIf="message?.msg?.length > 0">
+          <div class="alert" [ngClass]="{'alert-danger': !message?.status, 'alert-success': message?.status}" role="alert" *ngFor="let errMsg of message?.msg">
+              {{errMsg}}
           </div>
-        </ng-container>
+      </ng-container>
 
-        <ng-container *ngIf="passErr1">
-          <div class="alert alert-danger" role="alert">
-            {{passErr1}}
-          </div>
-        </ng-container>
-        <ng-container *ngIf="passErr2">
-          <div class="alert alert-danger" role="alert">
-            {{passErr2}}
-          </div>
-        </ng-container>
-
-        <ng-container *ngIf="successMsg">
-          <div class="alert alert-success" role="alert">
-            {{successMsg}}
-          </div>
-        </ng-container>
 
 
 
