@@ -124,11 +124,11 @@ export class DashboardComponent implements OnInit {
   //get user profile data
 
   userProfile(user_id=this.userId){
-    console.log('get user profile data');
+    // console.log('get user profile data');
     this.pageLoader = true;
     this.http.get(env.apiurl + 'user-profile?userId=' + user_id, this.httpOptions).subscribe((data:any) => {
       this.userData = data;
-      console.log(data);
+      // console.log(data);
       this.userName = this.userData.data.first_name;
       this.dob = this.userData.data.dob;
       this.email = this.userData.data.email;

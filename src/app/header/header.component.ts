@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MainserviceComponent } from '../services/mainservice/mainservice.component';
-import {Router} from "@angular/router"
+import { Router } from "@angular/router"
 import * as bootstrap from 'bootstrap';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment as env } from '../../environments/environment';
+import { MessagingService } from '../services/messaging.service';
 
 @Component({
   selector: 'app-header',
@@ -14,15 +15,15 @@ import { environment as env } from '../../environments/environment';
 export class HeaderComponent implements OnInit {
 
   userId: any;
-  uname:any;
-  pageUrl:any = '';
+  uname: any;
+  pageUrl: any = '';
 
   members: any = [];
   diseaseList: any = [];
   vaccineList: any = [];
   memberVaccineList: any = [];
   // forms
- 
+
   isSubmitted: boolean = false;
   isSubmit: boolean = false;
   isSubmittedVc: boolean = false;
@@ -34,11 +35,11 @@ export class HeaderComponent implements OnInit {
   imageSrc: any;
   memberId: any;
   currMember: any;
-  strTime:any;
-  unreadNotifications:any=[];
-  totalUnreadNotification:any;
- 
- 
+  strTime: any;
+  unreadNotifications: any = [];
+  totalUnreadNotification: any;
+
+  toastMsg: any;
 
   // form data
   form = new UntypedFormGroup({
@@ -58,7 +59,7 @@ export class HeaderComponent implements OnInit {
   });
 
 
-  constructor(private usrObj: MainserviceComponent, private router: Router, private http: HttpClient) { }
+  constructor(private usrObj: MainserviceComponent, private router: Router, private http: HttpClient, private msgService: MessagingService) { }
 
   ngOnInit(): void {
 
@@ -80,9 +81,27 @@ export class HeaderComponent implements OnInit {
     // console.log(this.router.url)
     this.getDisease();
     this.getmaxDate();
-    this.currMember = this.userId; 
+    this.currMember = this.userId;
     this.getCurrentTime();
     this.getUnreadNotifications();
+    this.msgService.getPermission();
+    this.msgService.receiveMessage();
+    this.msgService.currentMessaging.subscribe((res: any) => {
+      if (res) {
+        this.getUnreadNotifications();
+        this.toastMsg = res;
+        setTimeout(() => {
+          const toastLive = document.getElementById('liveToast');
+          if (toastLive) {
+            const toast = new bootstrap.Toast(toastLive);
+            toast.show();
+          }  
+        }, 1000);
+        
+      }
+
+    })
+   
   }
 
   getToken() {
@@ -93,17 +112,10 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  onLogout(){
-    // console.log(this.usrObj.getToken());
-    this.usrObj.logout().subscribe((data:any)=>{
-      if (data.status){
-        localStorage.clear();
-        this.router.navigate(['/login']);
-      }
-     
-  });
-   
-    
+  onLogout() {
+    // console.log(this.msgService.getFCMToken());
+    this.msgService.delToken();
+
   }
   toggleMenu(e: any) {
     // console.log(e.currentTarget);
@@ -122,7 +134,7 @@ export class HeaderComponent implements OnInit {
     var myModal = new bootstrap.Modal(modalId!, {
       keyboard: false
     })
-    myModal.show(); 
+    myModal.show();
   }
 
 
@@ -146,7 +158,7 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  
+
 
   getDiseaseId(e: any) {
     var diseaseId = e.target.value;
@@ -300,13 +312,13 @@ export class HeaderComponent implements OnInit {
 
   }
 
-  
+
 
 
   //calculate maxdate
 
   getmaxDate() {
-     var dtToday = new Date();
+    var dtToday = new Date();
 
     var month: any = dtToday.getMonth() + 1;
     var day: any = dtToday.getDate();
@@ -322,30 +334,40 @@ export class HeaderComponent implements OnInit {
 
   // get current time
 
-   getCurrentTime() {
+  getCurrentTime() {
     var dtToday = new Date();
-    var hours:any = dtToday.getHours();
-    var minutes:any = dtToday.getMinutes();
+    var hours: any = dtToday.getHours();
+    var minutes: any = dtToday.getMinutes();
     //var ampm = hours >= 12 ? 'PM' : 'AM';
     hours = hours % 24;
     hours = hours ? hours : 12; // the hour '0' should be '12'
-    if(hours < 9){
-      hours = '0'+hours;
+    if (hours < 9) {
+      hours = '0' + hours;
     }
-    minutes = minutes < 10 ? '0'+minutes : minutes;
+    minutes = minutes < 10 ? '0' + minutes : minutes;
     //this.strTime = hours + ':' + minutes +' '+ ampm;
     this.strTime = hours + ':' + minutes;
-    console.log('currrent time');
-    console.log(this.strTime);
+    // console.log('currrent time');
+    // console.log(this.strTime);
   }
-  
+
   //get unread notifications
   getUnreadNotifications() {
     this.http.get(env.apiurl + 'notification/un-read', this.httpOptions).subscribe(data => {
       this.unreadNotifications = data;
-       console.log(this.unreadNotifications.data);
-       this.totalUnreadNotification = this.unreadNotifications.data.length;
+      //  console.log(this.unreadNotifications.data);
+      this.totalUnreadNotification = this.unreadNotifications.data.length;
     });
+  }
+
+  // mark as read
+  markAsRead(){
+    this.http.get(env.apiurl + 'notification/mark-as-read', this.httpOptions).subscribe((data:any) => {
+     
+        this.router.navigate(['/dashboard/notifications'])
+      
+    });
+    //
   }
 
 

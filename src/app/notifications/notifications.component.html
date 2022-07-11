@@ -17,17 +17,16 @@
 
     <div class="col-lg-12 col-md-12 mx-auto">
         <main class="form-signin mt-3">
-
+            
             <div class="dashboard-header">
                 <ul class="list-group text-left list-group-flush">
                     <li *ngFor="let notification of allNotifcations.data"  href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="w-100">
                             <!-- <small>December 12, 2019</small> -->
                             <h5 class="mt-1 mb-2">{{notification.data.title}}</h5>
-                            
+                            <p class="mb-1"> {{notification.data.body}}</p>
                         </div>
-                        <p class="mb-1"> {{notification.data.body}}
-                        </p>
+                        
                     </li>
 
                     
