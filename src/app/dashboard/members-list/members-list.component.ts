@@ -149,7 +149,7 @@ export class MembersListComponent implements OnInit {
           'bloodGroup': editMemData.data.blood_group,
           'phone': editMemData.data.phone_no,
           'email': editMemData.data.email,
-          'emergency_contact': editMemData.data.emergency_contact,
+          'emgNo': editMemData.data.emergency_contact,
 
       });
     });
@@ -301,6 +301,7 @@ export class MembersListComponent implements OnInit {
     formData.append('blood_group', this.editMemberfrm.value.bloodGroup);
     formData.append('phone_no', this.editMemberfrm.value.phone);
     formData.append('email', this.editMemberfrm.value.email);
+    formData.append('emergency_number', this.editMemberfrm.value.emgNo);
     formData.append('is_member', '1');
     formData.append('_method', 'PUT');
 

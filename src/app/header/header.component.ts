@@ -335,16 +335,16 @@ export class HeaderComponent implements OnInit {
     minutes = minutes < 10 ? '0'+minutes : minutes;
     //this.strTime = hours + ':' + minutes +' '+ ampm;
     this.strTime = hours + ':' + minutes;
-    console.log('currrent time');
-    console.log(this.strTime);
+    //console.log('currrent time');
+    //console.log(this.strTime);
   }
   
   //get unread notifications
   getUnreadNotifications() {
     this.http.get(env.apiurl + 'notification/un-read', this.httpOptions).subscribe(data => {
       this.unreadNotifications = data;
-      console.log('unreadnotification');
-       console.log(this.unreadNotifications.data);
+      //console.log('unreadnotification');
+       //console.log(this.unreadNotifications.data);
        this.totalUnreadNotification = this.unreadNotifications.data.length;
     });
   }
