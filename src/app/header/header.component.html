@@ -38,11 +38,11 @@
                         Notifications
                     </h6>
 
-                    <h6 class="text-center py-4" style="margin: 40px 0;" *ngIf="unreadNotifications.data.length < 1">
+                    <h6 class="text-center py-4" style="margin: 40px 0;" *ngIf="totalUnreadNotification < 1 ">
                     <span class="ico h3 mb-2 d-block"><i class="bi bi-bell"></i></span>
                         No Notifications Available!
                     </h6>
-                    <ul class="notifications" *ngIf="unreadNotifications.data.length >= 1">
+                    <ul class="notifications" *ngIf="totalUnreadNotification >= 1">
                     <li class="dropdown-item py-3 d-flex align-items-center" *ngFor="let notification of unreadNotifications.data" >
                 
                         <div>
@@ -52,7 +52,7 @@
                     </li>
                     </ul>
                     
-                    <a *ngIf="unreadNotifications.data.length >= 1" class="dropdown-item show-all text-center small" [routerLink]="['/dashboard/notifications']">Show All Notifications</a>
+                    <a *ngIf="totalUnreadNotification >= 1" class="dropdown-item show-all text-center small" [routerLink]="['/dashboard/notifications']">Show All Notifications</a>
                 </div>
             </li>
 

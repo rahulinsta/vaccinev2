@@ -343,6 +343,7 @@ export class HeaderComponent implements OnInit {
   getUnreadNotifications() {
     this.http.get(env.apiurl + 'notification/un-read', this.httpOptions).subscribe(data => {
       this.unreadNotifications = data;
+      console.log('unreadnotification');
        console.log(this.unreadNotifications.data);
        this.totalUnreadNotification = this.unreadNotifications.data.length;
     });

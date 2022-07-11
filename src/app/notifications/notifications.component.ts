@@ -15,7 +15,7 @@ export class NotificationsComponent implements OnInit {
   httpOptions: any = {};
   constructor(private http: HttpClient) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
     this.uname = localStorage.getItem('ufname');
     if (this.getToken()) {
       this.httpOptions = {
@@ -27,6 +27,7 @@ export class NotificationsComponent implements OnInit {
     }
 
     this.getAllNotifications();
+    this.markNotificationread();
 
   }
 
@@ -47,6 +48,14 @@ export class NotificationsComponent implements OnInit {
       this.allNotifcations = data;
        console.log(this.allNotifcations.data);
       this.pageLoader = false;
+    });
+  }
+
+  //mark notification as read
+  
+  markNotificationread(){
+    this.http.get(env.apiurl + 'notification/mark-as-read', this.httpOptions).subscribe(data => {
+      this.allNotifcations = data;
     });
   }
 
