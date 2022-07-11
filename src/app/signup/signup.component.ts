@@ -117,9 +117,25 @@ export class SignupComponent implements OnInit {
       //   console.log(result);
         if(res.status){
           this.isSendEOTP = true;
+        } else{
+          this.message.status = false;          
+          this.message.msg.push(res?.message);          
+          this.isSendEOTP = false;
         }
         this.sendToVerify()
-      })
+      },
+      (err:any)=>{
+        let errData = err.error.errors;
+        for(let key in errData){
+          this.message.msg.push(errData[key][0]);
+        }
+        if(errData == undefined || errData == null){
+          this.message.msg.push('Something went wrong. Please try later');
+        }
+        this.message.status = false;
+        this.isSendEOTP = false;
+        this.isSubmit = false;  
+      });
       
     } else{
       this.isSendEOTP = true;
