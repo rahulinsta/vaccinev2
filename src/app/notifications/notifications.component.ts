@@ -28,17 +28,12 @@ export class NotificationsComponent implements OnInit {
     }
 
     this.getAllNotifications();
-<<<<<<< HEAD
-    this.markNotificationread();
-
-=======
     this.msgService.currentMessaging.subscribe((res:any)=>{
       if(res){
         this.getAllNotifications();
       }
      
     })
->>>>>>> 77dce2542dcb9e38ca78ae4ddc83fcde39111174
   }
 
 
@@ -54,20 +49,6 @@ export class NotificationsComponent implements OnInit {
   //get all notifications
   getAllNotifications() {
     this.pageLoader = true;
-<<<<<<< HEAD
-    this.http.get(env.apiurl + 'notification/un-read', this.httpOptions).subscribe(data => {
-      this.allNotifcations = data;
-       console.log(this.allNotifcations.data);
-      this.pageLoader = false;
-    });
-  }
-
-  //mark notification as read
-  
-  markNotificationread(){
-    this.http.get(env.apiurl + 'notification/mark-as-read', this.httpOptions).subscribe(data => {
-      this.allNotifcations = data;
-=======
     this.http.get(env.apiurl + 'notification', this.httpOptions).subscribe((data:any) => {
       if(data.status){
         this.allNotifcations = data;
@@ -75,7 +56,6 @@ export class NotificationsComponent implements OnInit {
    
       //  console.log(this.allNotifcations.data);
       this.pageLoader = false;
->>>>>>> 77dce2542dcb9e38ca78ae4ddc83fcde39111174
     });
   }
 
