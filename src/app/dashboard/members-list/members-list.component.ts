@@ -68,6 +68,7 @@ export class MembersListComponent implements OnInit {
     fileSource: new UntypedFormControl(''),
     phone: new UntypedFormControl(''),
     email: new UntypedFormControl(''),
+    emgNo: new FormControl('')
 
   });
 
@@ -147,7 +148,8 @@ export class MembersListComponent implements OnInit {
           'member_image' : editMemData.data.profile_image,
           'bloodGroup': editMemData.data.blood_group,
           'phone': editMemData.data.phone_no,
-          'email': editMemData.data.email
+          'email': editMemData.data.email,
+          'emergency_contact': editMemData.data.emergency_contact,
 
       });
     });
