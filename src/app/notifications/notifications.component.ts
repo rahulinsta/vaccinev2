@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment as env } from '../../environments/environment';
+import { MessagingService } from '../services/messaging.service';
 
 @Component({
   selector: 'app-notifications',
@@ -13,7 +14,7 @@ export class NotificationsComponent implements OnInit {
   pageLoader: boolean = false;
   allNotifcations:any = [];
   httpOptions: any = {};
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private msgService: MessagingService) { }
 
   ngOnInit(): void { 
     this.uname = localStorage.getItem('ufname');
@@ -27,8 +28,17 @@ export class NotificationsComponent implements OnInit {
     }
 
     this.getAllNotifications();
+<<<<<<< HEAD
     this.markNotificationread();
 
+=======
+    this.msgService.currentMessaging.subscribe((res:any)=>{
+      if(res){
+        this.getAllNotifications();
+      }
+     
+    })
+>>>>>>> 77dce2542dcb9e38ca78ae4ddc83fcde39111174
   }
 
 
@@ -44,6 +54,7 @@ export class NotificationsComponent implements OnInit {
   //get all notifications
   getAllNotifications() {
     this.pageLoader = true;
+<<<<<<< HEAD
     this.http.get(env.apiurl + 'notification/un-read', this.httpOptions).subscribe(data => {
       this.allNotifcations = data;
        console.log(this.allNotifcations.data);
@@ -56,6 +67,15 @@ export class NotificationsComponent implements OnInit {
   markNotificationread(){
     this.http.get(env.apiurl + 'notification/mark-as-read', this.httpOptions).subscribe(data => {
       this.allNotifcations = data;
+=======
+    this.http.get(env.apiurl + 'notification', this.httpOptions).subscribe((data:any) => {
+      if(data.status){
+        this.allNotifcations = data;
+      }
+   
+      //  console.log(this.allNotifcations.data);
+      this.pageLoader = false;
+>>>>>>> 77dce2542dcb9e38ca78ae4ddc83fcde39111174
     });
   }
 

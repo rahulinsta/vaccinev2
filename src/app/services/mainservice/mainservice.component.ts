@@ -142,4 +142,12 @@ httpOptions:any={};
   ngOnInit(): void {
   }
 
+
+  saveFCMToken(token:any){
+    return this.http.post(env.apiurl + 'notification/save-token', token, this.getHeader() );
+  }
+
+ delFCMToken(token:any){
+    return this.http.post(env.apiurl + 'notification/revoke-token', token, this.getHeader() );
+  }
 }

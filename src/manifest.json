@@ -1,0 +1,10 @@
+{
+    "gcm_sender_id": "199153932759",
+    "name": "Vaccine Pro",
+    "short_name": "Vaccine",
+    "theme_color": "#000000",
+    "background_color": "#2196f3",
+    "display": "standalone",
+    "scope": "/",
+    "start_url": "/"
+}

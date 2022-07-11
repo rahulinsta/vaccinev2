@@ -17,7 +17,7 @@
 
 
         <main class="form-signin mt-3">
-
+            
             <div class="dashboard-header">
               <h5 class="text-center py-4" style="margin: 150px 0;" *ngIf="allNotifcations.data.length < 1 && !pageLoader">
                 <span class="ico h1 mb-3 d-block"><i class="bi bi-bell"></i></span> No Notifications Available!
@@ -28,10 +28,9 @@
                         <div class="w-100">
                             <!-- <small>December 12, 2019</small> -->
                             <h5 class="mt-1 mb-2">{{notification.data.title}}</h5>
-                            
+                            <p class="mb-1"> {{notification.data.body}}</p>
                         </div>
-                        <p class="mb-1"> {{notification.data.body}}
-                        </p>
+                        
                     </li>
 
                     
