@@ -36,7 +36,7 @@
                             </div>
                         </div>
                         <div class="col">
-                            <h1 class="user-name">{{member.name}} <sup class="badge memDefault rounded-pill badge-sm bg-secondary" *ngIf="userId==member.id"> Default</sup> </h1>
+                            <h1 class="user-name">{{member.name}}  </h1>
                           
                             <div class="user-dob">
                                 DOB : {{member.dob}}
@@ -48,9 +48,9 @@
                             <div class="user-dob" *ngIf="member.gender" >
                                 Gender : {{member.gender}}
                             </div>
-
+                            <span class="badge memDefault rounded-pill badge-sm bg-secondary" *ngIf="userId==member.id"> Default</span>
                         </div>
-
+                        
                     </div>
                 </div>
                 <div class="col-md-4 text-left text-md-end">
@@ -82,7 +82,7 @@
                         </div>
                     </div>
                 </div>
-
+                
             </div>
         </div>
    

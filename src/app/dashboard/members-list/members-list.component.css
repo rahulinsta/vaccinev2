@@ -6,42 +6,45 @@
     line-height: 70px;
     color: #fff;
     font-size: 35px;
-    text-transform: uppercase; 
+    text-transform: uppercase;
     font-weight: 700;
     text-align: center;
 }
 
-.errFrm{
+.errFrm {
     color: red;
-    text-align: left  !important;
+    text-align: left !important;
 }
-.hide{
+
+.hide {
     display: none;
 }
-.show{
+
+.show {
     display: block;
 }
 
 .header-text .user-name {
-    font-size: 28px;
-        font-weight: 600;
-            color: #0d0c22;
-                margin-bottom: 0.125rem
+    font-size: 20px;
+    font-weight: 600;
+    color: #0d0c22;
+    margin-bottom: 0.125rem
 }
 
 a.add-vaccine {
     border-radius: 25px;
-        line-height: 1;
-        border: 1px solid #7e7e7e;
-        padding: 2px 13px 4px 13px;
-        text-decoration: none;
-        font-size: 13px;
-        font-weight: 500;
-        color: #2f2f2f;
-        cursor: pointer;
+    line-height: 1;
+    border: 1px solid #7e7e7e;
+    padding: 2px 13px 4px 13px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    color: #2f2f2f;
+    cursor: pointer;
 }
+
 .view-chart {
-border-radius: 25px;
+    border-radius: 25px;
     line-height: 1;
     padding: 3px 13px 5px 13px;
     text-decoration: none;
@@ -52,9 +55,10 @@ border-radius: 25px;
     background: #f44336;
 }
 
-.dashboard-page{
+.dashboard-page {
     margin-top: 90px;
 }
+
 .mem-bg {
     border: 1px solid #dee1e6;
     background: #fff;
@@ -64,11 +68,13 @@ border-radius: 25px;
     padding: 20px;
     position: relative;
 }
+
 .mem-bg h3 {
     font-size: 24px;
     margin: 0px;
     font-weight: 700;
 }
+
 .mem-bg span {
     font-size: 13px;
     font-weight: 500;
@@ -82,43 +88,43 @@ border-radius: 25px;
     margin-top: 5px;
 }
 
-.member-list{
+.member-list {
     padding: 30px 30px 40px;
-    margin:0;
+    margin: 0;
 }
 
-.member-list .img-avatar{
+.member-list .img-avatar {
     width: 70px;
     height: 70px;
     border-radius: 50%;
     overflow: hidden;
 }
 
-.member-list .dashboard-header img{
-width: 100%;
-max-width: 70px;
-object-fit: cover;
+.member-list .dashboard-header img {
+    width: 100%;
+    max-width: 70px;
+    object-fit: cover;
 }
 
 
 
-a.add-member{
+a.add-member {
     border-radius: 25px;
-        line-height: 1;
-        border: 1px solid #427dfa;
-        padding: 8px 20px;
-        text-decoration: none;
-        font-size: 16px;
-        font-weight: 500;
-        color: #ffffff;
-        cursor: pointer;
-        background: #427dfa;
+    line-height: 1;
+    border: 1px solid #427dfa;
+    padding: 8px 20px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    color: #ffffff;
+    cursor: pointer;
+    background: #427dfa;
 }
 
-.add-member svg{
-        margin-right: 3px;
-        vertical-align: -3px;
-    
+.add-member svg {
+    margin-right: 3px;
+    vertical-align: -3px;
+
 }
 
 .addmember-form .btn-primary {
@@ -136,51 +142,61 @@ a.add-member{
     border: 1px solid #1f2136;
     box-shadow: none !important;
 }
+
 .addmember-form .form-floating>.form-control:focus {
     border: 1px solid #1563b9;
     box-shadow: none !important;
 }
+
 .addmember-form .btn-primary:hover {
     background: #1563b9;
 }
-
-.memDefault{
-        font-weight: 400;
-            font-size: 13px;
-            top: -10px;
+.dashboard-header{
+    position: relative;
+}
+.memDefault {
+    font-size: 10px;
+    top: -20px;
+    position: absolute;
+    left: 14px;
+    width: auto;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.5px;
 }
 
 @media screen and (max-width:767px) {
 
-  .member-list {
-      padding: 20px 20px 25px;
+    .member-list {
+        padding: 20px 20px 25px;
 
-  }
+    }
 
-  .header-text .user-name {
-      font-size: 22px;
-  }
+    .header-text .user-name {
+        font-size: 22px;
+    }
 
-  a.add-member {
+    a.add-member {
 
-      padding: 5px 10px;
-      font-size: 13px;
-      margin-top: 10px;
-  }
+        padding: 5px 10px;
+        font-size: 13px;
+        margin-top: 10px;
+    }
 
-  .memDefault {
-      top: 0px;
-  }
-  .avatar {
-      width: 50px;
-      height: 50px;
-      line-height: 49px;
-      font-size: 31px;
-  }
+    .memDefault {
+        top: 0px;
+    }
 
-  .member-list .img-avatar {
-      width: 50px;
-      height: 50px;
-}
+    .avatar {
+        width: 50px;
+        height: 50px;
+        line-height: 49px;
+        font-size: 31px;
+    }
+
+    .member-list .img-avatar {
+        width: 50px;
+        height: 50px;
+    }
 
 }

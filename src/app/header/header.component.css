@@ -155,36 +155,38 @@
     text-align: left !important;
 }
 
-.notifications{
+.notifications {
     max-height: 400px;
-    overflow-y:scroll ;
+    overflow-y: scroll;
     margin: 0;
     padding: 0px;
 }
 
-.notifications .text-head{
+.notifications .text-head {
     font-weight: 500;
-    
+
 }
 
 
-.notifications .noti-text{
-        font-size: 14px;
-            line-height: 18px;
-            color: #3e3e3e;
+.notifications .noti-text {
+    font-size: 14px;
+    line-height: 18px;
+    color: #3e3e3e;
 }
- ul.notifications::-webkit-scrollbar {
+
+ul.notifications::-webkit-scrollbar {
     width: 10px;
 }
 
- ul.notifications::-webkit-scrollbar-thumb {
+ul.notifications::-webkit-scrollbar-thumb {
     background: #888;
     border-radius: 10px;
 }
 
- ul.notifications::-webkit-scrollbar-track {
+ul.notifications::-webkit-scrollbar-track {
     background: transparent
 }
+
 @media screen and (min-width: 576px) {
     .app-header .dropdown .dropdown-menu {
         width: auto;
@@ -309,7 +311,7 @@
     /* header end */
 }
 
-.popup--notification{
+.popup--notification {
     max-height: 320px;
     overflow: hidden;
     overflow-y: auto;
@@ -320,6 +322,7 @@
     background-color: #bfbfbf;
     border-radius: 20px;
 }
+
 .scrollBar::-webkit-scrollbar-thumb {
     background-color: #bfbfbf;
     border-radius: 20px;
@@ -328,11 +331,12 @@
 .scrollBar::-webkit-scrollbar {
     width: 8px;
     height: 8px;
-    background-color: rgba(0,0,0,.1);
+    background-color: rgba(0, 0, 0, .1);
     border-radius: 20px;
     position: absolute;
     z-index: 10000;
 }
-.toast-container{
+
+.toast-container {
     z-index: 999;
 }
