@@ -37,18 +37,22 @@
                     <h6 class="dropdown-header">
                         Notifications
                     </h6>
+                    <h6 class="text-center py-4" style="margin: 40px 0;" *ngIf="unreadNotifications.data?.length < 1">
+                        <span class="ico h3 mb-2 d-block"><i class="bi bi-bell"></i></span>
+                            No Notifications Available!
+                    </h6>
                     <ul *ngIf="unreadNotifications.data?.length > 0" class="list-unstyled popup--notification scrollBar">
                         <li class="dropdown-item d-flex align-items-center" *ngFor="let notification of unreadNotifications.data" >
                 
                             <div>
-                                <div class="small text-gray-500">{{notification.data.title}}</div>
-                                <span class="text-success">{{notification.data.body}}</span>
+                                <div class="small text-head text-danger mb-1">{{notification.data.title}}</div>
+                                <span class="noti-text">{{notification.data.body}}</span>
                             </div>
                         </li>
                     </ul>
                    
                     
-                    <a class="dropdown-item show-all text-center small" (click)="markAsRead()">Show All Notifications</a>
+                    <a *ngIf="unreadNotifications.data?.length >= 1" class="dropdown-item show-all text-center small" [routerLink]="['/dashboard/notifications']">Show All Notifications</a>
                 </div>
             </li>
 
