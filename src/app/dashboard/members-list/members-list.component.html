@@ -41,7 +41,7 @@
                             <div class="user-dob">
                                 DOB : {{member.dob}}
                             </div>
-                            <div class="user-dob" *ngIf="member.blood_group" >
+                            <div class="user-dob" *ngIf="member.blood_group && member.blood_group != 'null' " >
                                 Blood Group : {{member.blood_group}}
                             </div>
 

@@ -287,8 +287,16 @@ export class MembersListComponent implements OnInit {
     //return;
 
     var mName = this.editMemberfrm.value.mname;
+    var memail = this.editMemberfrm.value.email;
+    var memgNo = this.editMemberfrm.value.emgNo;
     if(mName == 'null' || mName == null){
       mName = '';
+    }
+    if(memail == 'null' || memail == null){
+      memail = '';
+    }
+    if(memgNo == 'null' || memgNo == null){
+      memgNo = '';
     }
    
     const formData = new FormData();
@@ -300,8 +308,8 @@ export class MembersListComponent implements OnInit {
     formData.append('gender', this.editMemberfrm.value.gender);
     formData.append('blood_group', this.editMemberfrm.value.bloodGroup);
     formData.append('phone_no', this.editMemberfrm.value.phone);
-    formData.append('email', this.editMemberfrm.value.email);
-    formData.append('emergency_number', this.editMemberfrm.value.emgNo);
+    formData.append('email', memail);
+    formData.append('emergency_number', memgNo);
     formData.append('is_member', '1');
     formData.append('_method', 'PUT');
 
