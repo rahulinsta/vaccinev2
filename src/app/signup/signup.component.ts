@@ -28,6 +28,7 @@ export class SignupComponent implements OnInit {
   isSendEOTP: boolean = false;
   formArr={};
   maxDate:any;
+  message: any = { status: true, msg: [] };
 
   form = new FormGroup({
     phone: new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(10)]),
@@ -46,7 +47,7 @@ export class SignupComponent implements OnInit {
   );
 
   constructor(private usrObj: MainserviceComponent, private http: HttpClient, private router: Router) {
-    // localStorage.removeItem('regData');
+    localStorage.removeItem('regData');
     localStorage.removeItem('verificationId');
     localStorage.removeItem('isVerifyP');
   }
@@ -64,10 +65,10 @@ export class SignupComponent implements OnInit {
     if (!firebase.apps.length) {
       firebase.initializeApp(env.firebase);
     }
-    this.formArr = JSON.parse(localStorage.getItem('regData') || '{}');
-    if(this.formArr){
-      this.form.patchValue(this.formArr);
-    }
+    // this.formArr = JSON.parse(localStorage.getItem('regData') || '{}');
+    // if(this.formArr){
+    //   this.form.patchValue(this.formArr);
+    // }
     this.reCaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {size: 'invisible'})
   }
 
@@ -76,6 +77,7 @@ export class SignupComponent implements OnInit {
   }
 
   submit() {
+    this.message = { status: true, msg: [] };
     this.isSubmit = true;
     this.isSubmitted = true;
     if (this.form.invalid) {
@@ -94,6 +96,14 @@ export class SignupComponent implements OnInit {
         .catch(error => {
           console.error('Error :', error);
           this.isSendEOTP = false;
+          this.isSubmit = false;
+          this.message.status = false;
+          if(error.code === "auth/invalid-phone-number"){
+            this.message.msg.push('The phone number provided is incorrect. ')
+          } else{
+            this.message.msg.push(error?.message)
+          }
+          
           this.sendToVerify()
         });
     }
@@ -107,10 +117,29 @@ export class SignupComponent implements OnInit {
       //   console.log(result);
         if(res.status){
           this.isSendEOTP = true;
+        } else{
+          this.message.status = false;          
+          this.message.msg.push(res?.message);          
+          this.isSendEOTP = false;
         }
         this.sendToVerify()
-      })
+      },
+      (err:any)=>{
+        let errData = err.error.errors;
+        for(let key in errData){
+          this.message.msg.push(errData[key][0]);
+        }
+        if(errData == undefined || errData == null){
+          this.message.msg.push('Something went wrong. Please try later');
+        }
+        this.message.status = false;
+        this.isSendEOTP = false;
+        this.isSubmit = false;  
+      });
       
+    } else{
+      this.isSendEOTP = true;
+      this.sendToVerify();
     }
 
    

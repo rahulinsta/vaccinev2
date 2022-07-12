@@ -11,19 +11,22 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChartComponent } from './chart/chart.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { VerifyOtpComponent } from './verify-otp/verify-otp.component';
 import { NgOtpInputModule } from 'ng-otp-input';
-import { MembersListComponent } from './dashboard/members-list/members-list.component'; 
-import {DatePipe} from '@angular/common';
+import { MembersListComponent } from './dashboard/members-list/members-list.component';
+import { DatePipe } from '@angular/common';
 import { QRCodeModule } from 'angular2-qrcode';
 import { PageLoaderComponent } from './elements/page-loader/page-loader.component';
 import { ConfirmDeleteComponent } from './elements/confirm-delete/confirm-delete.component';
 import { NotificationsComponent } from './notifications/notifications.component';
-
+import { MessagingService } from '../app/services/messaging.service';
+import { environment as env } from 'src/environments/environment';
+import firebase from 'firebase';
+firebase.initializeApp(env.firebase);
 @NgModule({
   declarations: [
-    AppComponent, 
+    AppComponent,
     SignupComponent,
     LoginComponent,
     MainserviceComponent,
@@ -45,9 +48,9 @@ import { NotificationsComponent } from './notifications/notifications.component'
     NgbModule,
     NgOtpInputModule,
     QRCodeModule,
-    FormsModule
+    FormsModule,
   ],
-  providers: [DatePipe],
+  providers: [MessagingService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
