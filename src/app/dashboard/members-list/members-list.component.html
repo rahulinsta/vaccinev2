@@ -41,7 +41,7 @@
                             <div class="user-dob">
                                 DOB : {{member.dob}}
                             </div>
-                            <div class="user-dob" *ngIf="member.blood_group" >
+                            <div class="user-dob" *ngIf="member.blood_group && member.blood_group != 'null' " >
                                 Blood Group : {{member.blood_group}}
                             </div>
 
@@ -207,8 +207,7 @@
                             <div class="mb-3">
                                 <label for="dob" class="form-label">Date of Birth</label>
                                 <div class="position-relative">
-                                    <input type="date" formControlName="dob" max="{{maxDate}}" class="form-control"
-                                        id="dob"  placeholder="Date of birth" >
+                                    <input type="date" formControlName="dob" max="{{maxDate}}" class="form-control" id="dob"   placeholder="Date of birth" readonly>
                                 </div>
                                 <div *ngIf="isSubmittedMeb && f2['dob'].invalid" class="errFrm">
                                     <div *ngIf="f2['dob'].errors && f2['dob'].errors['required']">Please enter date of birth.</div>
