@@ -372,9 +372,9 @@ a.add-vaccine svg {
 @media screen and (max-width:767px) {
     .dashboard-page {
         min-height: calc(100vh - 130px);
-        margin: 0;
+        /* margin: 0;
         display: flex;
-        align-items: center;
+        align-items: center; */
     }
 
     .vaccine-detail,
@@ -403,9 +403,28 @@ a.add-vaccine svg {
         width: 100%;
     }
 
-    .right-side .pro-feature .view-info {
-        display: none;
-    }
+
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 31px;
+   }
+
+   .form-signin h1 {
+       font-size: 23px;
+   }
+
+   .header-text .user-dob{
+       font-size: 12px;
+   }
+   .pro-feature .view-info {
+       padding: 2px 6px;
+       margin-left: 0;
+   }
+
+ 
 }
 
 @media screen and (max-width:540px) {

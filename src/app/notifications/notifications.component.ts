@@ -16,7 +16,7 @@ export class NotificationsComponent implements OnInit {
   httpOptions: any = {};
   constructor(private http: HttpClient, private msgService: MessagingService) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
     this.uname = localStorage.getItem('ufname');
     if (this.getToken()) {
       this.httpOptions = {
