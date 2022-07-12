@@ -121,11 +121,11 @@ export class HeaderComponent implements OnInit {
     // console.log(e.currentTarget);
     const btn = e.currentTarget;
     btn.getAttribute('aria-expanded') == 'false' ? btn.setAttribute('aria-expanded', "true") : btn.setAttribute('aria-expanded', "false")
-    var myCollapse = document.getElementById('navbarSupportedContent')
-    // return new bootstrap.Collapse(myCollapse)
-    new bootstrap.Collapse(myCollapse!, {
-      toggle: false
-    })
+    var myCollapse = document.getElementById('navbarSupportedContent');
+    return new bootstrap.Collapse(myCollapse!)
+    // new bootstrap.Collapse(myCollapse!, {
+    //   toggle: false
+    // })
   }
 
 

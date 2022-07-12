@@ -185,6 +185,8 @@ a.add-member {
 
     .memDefault {
         top: 0px;
+        right: 14px;
+        left: auto;
     }
 
     .avatar {
