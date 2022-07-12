@@ -12,7 +12,7 @@
           <div class="col-md-6">
             <div class="form-floating mb-3">
               <input type="text" class="form-control" id="phone" placeholder="Phone Number" formControlName="phone">
-              <label for="floatingInput">Phone Number</label>
+              <label for="floatingInput">Phone Number <sup class="text-danger">*</sup></label>
     
               <div *ngIf="isSubmitted && f['phone'].invalid" class="errFrm">
                 <div *ngIf="f['phone'].errors && f['phone'].errors['required']">Phone is required.</div>
@@ -39,7 +39,7 @@
           <div class="col-md-4">
             <div class="form-floating mb-3">
               <input type="text" class="form-control" id="fname" placeholder="Name" formControlName="fname">
-              <label for="name">First Name</label>
+              <label for="name">First Name <sup class="text-danger">*</sup></label>
     
               <div *ngIf="isSubmitted && f['fname'].invalid" class="errFrm">
                 <div *ngIf="f['fname'].errors && f['fname'].errors['required']">First name is required.</div>
@@ -59,7 +59,7 @@
           <div class="col-md-4">
             <div class="form-floating mb-3">
               <input type="text" class="form-control" id="lname" placeholder="Last name" formControlName="lname">
-              <label for="name">Last Name</label>
+              <label for="name">Last Name <sup class="text-danger">*</sup></label>
     
               <div *ngIf="isSubmitted && f['lname'].invalid" class="errFrm">
                 <div *ngIf="f['lname'].errors && f['lname'].errors['required']">Last name is required.</div>
@@ -75,7 +75,7 @@
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </select>
-              <label for="gender">Select Gender</label>
+              <label for="gender">Select Gender <sup class="text-danger">*</sup></label>
     
               <div *ngIf="isSubmitted && f['genderType'].invalid" class="errFrm">
                 <div *ngIf="f['genderType'].errors && f['genderType'].errors['required']">Gender is required.</div>
@@ -86,7 +86,7 @@
           <div class="col-md-6"> 
             <div class="form-floating mb-3">
               <input type="date" class="form-control" id="dob" max="{{maxDate}}" placeholder="DOB" formControlName="dob">
-              <label for="name">Date of Birth</label>
+              <label for="name">Date of Birth <sup class="text-danger">*</sup></label>
     
               <div *ngIf="isSubmitted && f['dob'].invalid" class="errFrm">
                 <div *ngIf="f['dob'].errors && f['dob'].errors['required']">Date of birth is required.</div>
@@ -126,7 +126,7 @@
           <div class="col-md-6">
             <div class="form-floating mb-3">
               <input type="password" class="form-control" id="name" placeholder="Name" formControlName="password">
-              <label for="name">Password</label>
+              <label for="name">Password <sup class="text-danger">*</sup></label>
     
               <div *ngIf="isSubmitted && f['password'].invalid" class="errFrm">
                 <div *ngIf="f['password'].errors && f['password'].errors['required']">Password is required.</div>
@@ -137,7 +137,7 @@
           <div class="col-md-6">
             <div class="form-floating mb-3">
               <input type="password" class="form-control" id="name" placeholder="Name" formControlName="cpassword">
-              <label for="name">Confirm Password</label>
+              <label for="name">Confirm Password <sup class="text-danger">*</sup></label>
     
               <div *ngIf="isSubmitted && f['cpassword'].invalid" class="errFrm">
                 <div *ngIf="f['cpassword'].errors && f['cpassword'].errors['required']">Confirm password is required.</div>
