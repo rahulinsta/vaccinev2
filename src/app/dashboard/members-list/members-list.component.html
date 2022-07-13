@@ -77,6 +77,13 @@
                                     </svg>
                                     Delete</a>
                             </span>
+
+                            <span class="view-chart bg-info text-center" *ngIf="userId==member.id">
+                                <a (click)="changePassword()">
+                                    <i class="bi bi-key-fill"></i>
+                                    Change Password</a>
+                            </span>
+                            
                             </div>
 
                         </div>
@@ -468,6 +475,85 @@
         </div>
         </div>
     </div>
+</div>
+
+
+<!-- modal for change password -->
+<div class="modal fade" id="changePassword" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+aria-labelledby="vaccineLabel" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content ">
+        <div class="modal-header">
+            <h5 class="modal-title" id="vaccineLabel">Change Password</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" #closeModal aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body p-4">
+            <form [formGroup]="chagepaswrdform" (ngSubmit)="changePassSubmit()" class="addmember-form">
+
+              
+              
+                   
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="currtPaswd" placeholder="Name"
+                                formControlName="currtPaswd">
+                            <label for="name">Current Password <sup class="text-danger">*</sup></label>
+
+                            <div *ngIf="isSubmitted && f['currtPaswd'].invalid" class="errFrm">
+                                <div *ngIf="f['currtPaswd'].errors && f['currtPaswd'].errors['required']">First name is required.
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="newPaswd" placeholder="Middle name"
+                                formControlName="newPaswd">
+                            <label for="newPaswd">New Password<sup class="text-danger">*</sup></label>
+                            <div *ngIf="isSubmitted && f['currtPaswd'].invalid" class="errFrm">
+                                <div *ngIf="f['currtPaswd'].errors && f['currtPaswd'].errors['required']">First name is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="cofrmNewPsword" placeholder="Last name"
+                                formControlName="cofrmNewPsword">
+                            <label for="name"> Confirm New Password<sup class="text-danger">*</sup></label>
+
+                            <div *ngIf="isSubmitted && f['cofrmNewPsword'].invalid" class="errFrm">
+                                <div *ngIf="f['cofrmNewPsword'].errors && f['cofrmNewPsword'].errors['required']">Last name is required.
+                                </div>
+                            </div>
+
+                        
+                    </div>
+              
+                
+        
+
+
+
+
+                <ng-container *ngIf="successMsg">
+                    <div class="alert alert-success" role="alert">
+                        {{successMsg}}
+                    </div>
+                </ng-container>
+
+
+
+                <button class="w-100 btn btn-lg btn-primary" type="submit">
+                    Submit
+                    <div class="spinner-border form-loader ml-2" role="status" *ngIf="isSubmit"></div>
+                </button>
+
+
+            </form>
+
+        </div>
+    </div>
+</div>
 </div>
 
 <app-footer></app-footer>
