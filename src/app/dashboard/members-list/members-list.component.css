@@ -104,6 +104,7 @@ a.add-vaccine {
     width: 100%;
     max-width: 70px;
     object-fit: cover;
+    height: 70px;
 }
 
 
@@ -195,5 +196,8 @@ a.add-member {
         width: 50px;
         height: 50px;
     }
+        .member-list .dashboard-header img {
+           height: 50px;
+        }
 
 }

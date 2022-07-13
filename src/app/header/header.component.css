@@ -16,6 +16,13 @@
     padding: 0px;
 }
 
+.navbar-light .navbar-brand {
+    color: #fff;
+    font-size: 30px;
+    font-weight: 700;
+        padding: 5px 0 10px 0;
+}
+
 .errFrm {
     color: red;
     text-align: left !important;
@@ -41,7 +48,7 @@
     color: #fff;
     font-weight: 500;
     text-transform: uppercase;
-    line-height: 30px;
+    line-height: 35px;
     padding: 0px;
     letter-spacing: 1px;
 }
