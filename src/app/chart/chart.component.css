@@ -5,46 +5,46 @@
 .schedule-active {
     background-color: green;
     color: #fff;
-        font-size: 14px;
+    font-size: 14px;
 }
 
-.check-opt{
-    font-size:20px !important;
+.check-opt {
+    font-size: 20px !important;
 }
 
 .schedule-gray {
     background-color: #d5d7d8;
-   
+
 }
 
 
-.dose-taken{
-    background-color:  #736f65;
+.dose-taken {
+    background-color: #736f65;
     color: #fff;
 }
 
-.dose-taken i{
+.dose-taken i {
     font-size: 24px;
 }
 
-.dose-overdue{
+.dose-overdue {
     background-color: #ad1909;
     color: #fff;
 }
 
-.dose-coming{
+.dose-coming {
     background-color: #edda09;
 }
 
 
-.dose-dueOn{
+.dose-dueOn {
     background-color: #09d60c;
     color: #fff;
 }
 
 
-.box{
-height: 40px;
+.box {
+    height: 40px;
     width: 40px;
 }
 
@@ -78,16 +78,22 @@ height: 40px;
     background-color: #fff;
 }
 
-.cell.same-row+.same-row{
+.cell.same-row+.same-row {
     display: none;
 }
 
-.errFrm{
+.errFrm {
     color: red;
-    text-align: left  !important;
+    text-align: left !important;
 }
 
-.myModal.in{
+.myModal.in {
     z-index: 999999;
 }
 
+@media screen and (max-width:767px) {
+    .table .thead-light th:first-child,
+    .table tbody th:first-child {
+        min-width: 185px;
+    }
+}

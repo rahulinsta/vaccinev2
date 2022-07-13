@@ -1,6 +1,6 @@
-<app-header></app-header>
+<app-header (updateVaccine)="updateVaccine($event)"></app-header>
 
-<app-page-loader *ngIf="pageLoader"></app-page-loader>
+<app-page-loader *ngIf="pageLoader" ></app-page-loader>
 <div *ngIf="!pageLoader"  class="container dashboard-page">
   
 

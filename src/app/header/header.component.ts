@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Component, OnInit,EventEmitter,Output, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { MainserviceComponent } from '../services/mainservice/mainservice.component';
 import { Router } from "@angular/router"
 import * as bootstrap from 'bootstrap';
@@ -44,6 +44,9 @@ export class HeaderComponent implements OnInit {
 
   toastMsg: any;
 
+  // update vaccine
+  @Output() updateVaccine= new EventEmitter<any>();
+
   // form data
   form = new UntypedFormGroup({
     selectAge: new UntypedFormControl('', [Validators.required]),
@@ -64,8 +67,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(private usrObj: MainserviceComponent, private router: Router, private http: HttpClient, private msgService: MessagingService) { }
 
-  ngOnInit(): void {
-
+  ngOnInit(): void {   
     if (this.getToken()) {
       this.httpOptions = {
         headers: new HttpHeaders({
@@ -77,6 +79,7 @@ export class HeaderComponent implements OnInit {
 
     this.getLatlong();
 
+    // console.log(Notification.permission);
     this.userId = localStorage.getItem('userid');
 
     var e = document.getElementById("navbar");
@@ -119,17 +122,27 @@ export class HeaderComponent implements OnInit {
 
   onLogout() {
     // console.log(this.msgService.getFCMToken());
-    this.msgService.delToken();
+    if (Notification.permission !== "granted") {
+      this.usrObj.logout().subscribe((data: any) => {
+        if (data.status) {
+          localStorage.clear();
+          this.router.navigate(['/login']);
+        }
+      });
+    } else{
+      this.msgService.delToken();
+    }
+   
 
   }
   toggleMenu(e: any) {
     const btn = e.currentTarget;
     btn.getAttribute('aria-expanded') == 'false' ? btn.setAttribute('aria-expanded', "true") : btn.setAttribute('aria-expanded', "false")
-    var myCollapse = document.getElementById('navbarSupportedContent')
-    // return new bootstrap.Collapse(myCollapse)
-    new bootstrap.Collapse(myCollapse!, {
-      toggle: false
-    })
+    var myCollapse = document.getElementById('navbarSupportedContent');
+    return new bootstrap.Collapse(myCollapse!)
+    // new bootstrap.Collapse(myCollapse!, {
+    //   toggle: false
+    // })
   }
 
 
@@ -260,12 +273,21 @@ export class HeaderComponent implements OnInit {
         this.successMsg = data.message;
         this.closeModal('addVaccineStep2');
         this.closeModal('addVaccineStep1');
-        setTimeout(() => {
-          this.router.navigate(['/dashboard']).then(() => {
-            window.location.reload();
-          });
+        if(this.router.url === '/dashboard'){
+          this.updateVaccine.emit('updated');
+        } else{
+          this.router.navigate(['/dashboard'])
+        }
+       
+        // setTimeout(() => {
+        //   this.router.navigate(['/dashboard']).then(() => {
+        //     window.location.reload();
+        //   });
+        //   // location.reload();
 
-        }, 2000);
+        // }, 2000);
+        //this.form.reset();
+        //this.router.navigate(['register-verify']);
       } else {
         this.errmsg = data.message;
       }

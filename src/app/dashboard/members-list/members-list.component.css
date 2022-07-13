@@ -104,6 +104,7 @@ a.add-vaccine {
     width: 100%;
     max-width: 70px;
     object-fit: cover;
+    height: 70px;
 }
 
 
@@ -172,12 +173,7 @@ a.add-member {
 
     }
 
-    .header-text .user-name {
-        font-size: 22px;
-    }
-
     a.add-member {
-
         padding: 5px 10px;
         font-size: 13px;
         margin-top: 10px;
@@ -185,6 +181,8 @@ a.add-member {
 
     .memDefault {
         top: 0px;
+        right: 14px;
+        left: auto;
     }
 
     .avatar {
@@ -198,5 +196,8 @@ a.add-member {
         width: 50px;
         height: 50px;
     }
+        .member-list .dashboard-header img {
+           height: 50px;
+        }
 
 }

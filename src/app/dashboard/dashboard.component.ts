@@ -229,7 +229,13 @@ export class DashboardComponent implements OnInit {
 
   
 
-
+  // updateVaccine
+  updateVaccine(e:any){
+    console.log(e);
+   if(e === 'updated'){
+    this.getVaccinebyMemberId(this.userId);
+   }
+  }
 
 
 }
