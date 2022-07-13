@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, NgZone, AfterViewInit} from '@angular/core';
-
+import { MapsAPILoader } from '@agm/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
 import { environment as env } from '../../environments/environment';
@@ -31,8 +31,8 @@ export class ChartComponent implements OnInit {
   vcDate:any;
   vcName:any;
   vcTime:any;
-  latitude : any;
-  longitude: any;
+  latitude!: number;
+  longitude!: number;
   zoom: any;
   pageLoader : boolean = false;
   private geoCoder:any;
@@ -79,13 +79,13 @@ export class ChartComponent implements OnInit {
         if(params['user'] != undefined){
           this.userId = this.memberId;
         }
-        //console.log(this.memberId);
       }
     )
 
     this.getChartdata();
     this.getmaxDate();
     this.getCurrentTime();
+    this.getLatlong();
   }
 
 
@@ -147,12 +147,13 @@ export class ChartComponent implements OnInit {
       'vaccine_location': this.formArr.vclocation,
       'userId': this.userId,
       'track_id': trackId,
-      'lat': 48.89899,
-      'long': 68.49590,
+      'lat': this.latitude,
+      'long': this.longitude,
       'upload_file': this.formArr.img
     }
 
-    
+    console.log(vcdata);
+    return;
     this.usrObj.addVaccine(vcdata).subscribe((data:any)=>{
       this.isSubmit = false; 
       if (data.status){
@@ -232,27 +233,11 @@ export class ChartComponent implements OnInit {
 
   getChartdata() { 
     this.pageLoader = true;
-
-    // var vcToken = localStorage.getItem('vctoken');
-    // const httpOptions = {
-    //   headers: new HttpHeaders({
-    //     'Accept': 'application/json',
-    //     'Authorization': 'Bearer '+vcToken
-    //   })
-    // }
-
     this.http.get(env.apiurl + 'charts?userId='+this.userId, this.httpOptions).subscribe(data => {
       this.vcData = data;
-      //console.log(this.vcData.data);
-
       for (var i = 0; i < this.vcData.data.length; i++) {
-        //console.log(this.vcData.data[i].charts);
-        
           this.chartData.push(this.vcData.data[i].charts);
       }
-    
-    //console.log('this.chartData');
-    //console.log(this.chartData);
       this.pageLoader = false;
     });
   }
@@ -372,6 +357,19 @@ export class ChartComponent implements OnInit {
     console.log('currrent time');
     console.log(this.strTime);
   }
+
+ //get the latitude and logintude
+
+ getLatlong() {  
+  if (navigator.geolocation) {  
+      navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {  
+          if (position) {  
+              this.latitude = position.coords.latitude;  
+              this.longitude = position.coords.longitude;       
+          }  
+      })  
+  }  
+}
 
 
   

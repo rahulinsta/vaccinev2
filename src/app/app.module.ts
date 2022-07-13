@@ -23,6 +23,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { MessagingService } from '../app/services/messaging.service';
 import { environment as env } from 'src/environments/environment';
 import firebase from 'firebase';
+import { AgmCoreModule } from '@agm/core';
 firebase.initializeApp(env.firebase);
 @NgModule({
   declarations: [
@@ -49,6 +50,10 @@ firebase.initializeApp(env.firebase);
     NgOtpInputModule,
     QRCodeModule,
     FormsModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDuYWAPhW9TQvx4SsjrTqK7KFPmJwfOnUQ',
+      libraries: ['places']
+    })
   ],
   providers: [MessagingService, DatePipe],
   bootstrap: [AppComponent]

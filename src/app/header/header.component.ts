@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { MainserviceComponent } from '../services/mainservice/mainservice.component';
 import { Router } from "@angular/router"
 import * as bootstrap from 'bootstrap';
@@ -6,6 +6,7 @@ import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment as env } from '../../environments/environment';
 import { MessagingService } from '../services/messaging.service';
+import { MapsAPILoader } from '@agm/core';
 
 @Component({
   selector: 'app-header',
@@ -17,7 +18,9 @@ export class HeaderComponent implements OnInit {
   userId: any;
   uname: any;
   pageUrl: any = '';
-
+  latitude!: number;
+  longitude!: number;
+  Position:any;
   members: any = [];
   diseaseList: any = [];
   vaccineList: any = [];
@@ -72,6 +75,8 @@ export class HeaderComponent implements OnInit {
       }
     }
 
+    this.getLatlong();
+
     this.userId = localStorage.getItem('userid');
 
     var e = document.getElementById("navbar");
@@ -118,7 +123,6 @@ export class HeaderComponent implements OnInit {
 
   }
   toggleMenu(e: any) {
-    // console.log(e.currentTarget);
     const btn = e.currentTarget;
     btn.getAttribute('aria-expanded') == 'false' ? btn.setAttribute('aria-expanded', "true") : btn.setAttribute('aria-expanded', "false")
     var myCollapse = document.getElementById('navbarSupportedContent')
@@ -211,7 +215,6 @@ export class HeaderComponent implements OnInit {
     if (this.age == 18) {
       this.hideVaccineModlefirst();
       window.location.href = '/chart?user=' + this.memberId;
-      //this.router.navigate(['/chart?user', 87]);
     } else {
       this.addVaccineStep2();
       this.isSubmit = false;
@@ -240,14 +243,13 @@ export class HeaderComponent implements OnInit {
     var vcdata = {
       'userId': this.memberId,
       'diseaseId': this.addvcFrm.value.diseaseId,
-      // 'vendorId': this.addvcFrm.value.vendorId,
       'vaccine_date': this.addvcFrm.value.vaccine_date,
       'vaccine_time': this.addvcFrm.value.vaccine_time,
       'vaccine_location': this.addvcFrm.value.vaccine_location,
       'dose': this.addvcFrm.value.dose,
       'upload_file': this.addvcFrm.value.file,
-      'lat': 48.89899,
-      'long': 68.49590,
+      'lat': this.latitude,
+      'long': this.longitude,
 
     }
 
@@ -262,19 +264,12 @@ export class HeaderComponent implements OnInit {
           this.router.navigate(['/dashboard']).then(() => {
             window.location.reload();
           });
-          // location.reload();
 
         }, 2000);
-        //this.form.reset();
-        //this.router.navigate(['register-verify']);
       } else {
         this.errmsg = data.message;
       }
     });
-
-
-
-
 
   }
 
@@ -296,23 +291,16 @@ export class HeaderComponent implements OnInit {
 
   //get member on chage
   getMemberid(e: any) {
-    // console.log(e);
     this.memberId = e.target.value;
-    // console.log(this.currMember)
-
   }
 
 
   getVaccine(vendorId: any) {
     this.http.get(env.apiurl + 'get-vendor-by-disease?diseaseId=' + vendorId, this.httpOptions).subscribe(data => {
       this.vaccineList = data;
-      //console.log('vaccine list');
-      //console.log(this.vaccineList.data);
     });
 
   }
-
-
 
 
   //calculate maxdate
@@ -345,18 +333,13 @@ export class HeaderComponent implements OnInit {
       hours = '0' + hours;
     }
     minutes = minutes < 10 ? '0' + minutes : minutes;
-    //this.strTime = hours + ':' + minutes +' '+ ampm;
     this.strTime = hours + ':' + minutes;
-    // console.log('currrent time');
-    // console.log(this.strTime);
   }
 
   //get unread notifications
   getUnreadNotifications() {
     this.http.get(env.apiurl + 'notification/un-read', this.httpOptions).subscribe(data => {
       this.unreadNotifications = data;
-      //console.log('unreadnotification');
-       //console.log(this.unreadNotifications.data);
        this.totalUnreadNotification = this.unreadNotifications.data.length;
     });
   }
@@ -370,6 +353,21 @@ export class HeaderComponent implements OnInit {
     });
     //
   }
+
+
+  //get the latitude and logintude
+
+  getLatlong() {  
+    if (navigator.geolocation) {  
+        navigator.geolocation.getCurrentPosition((position: GeolocationPosition) => {  
+            if (position) {  
+                this.latitude = position.coords.latitude;  
+                this.longitude = position.coords.longitude;       
+            }  
+        })  
+    }  
+}   
+
 
 
 }
