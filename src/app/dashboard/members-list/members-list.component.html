@@ -346,7 +346,7 @@
         <div class="col">
           <div class="form-floating mb-3">
             <input type="text" class="form-control" id="fname" placeholder="Name" formControlName="fname">
-            <label for="name">First Name</label>
+            <label for="name">First Name <sup class="text-danger">*</sup></label>
 
             <div *ngIf="isSubmitted && f['fname'].invalid" class="errFrm">
                 <div *ngIf="f['fname'].errors && f['fname'].errors['required']">First name is required.</div>
@@ -365,7 +365,7 @@
         <div class="col">
           <div class="form-floating mb-3">
             <input type="text" class="form-control" id="lname" placeholder="Last name" formControlName="lname">
-            <label for="name">Last Name</label>
+            <label for="name">Last Name <sup class="text-danger">*</sup></label>
 
             <div *ngIf="isSubmitted && f['lname'].invalid" class="errFrm">
                 <div *ngIf="f['lname'].errors && f['lname'].errors['required']">Last name is required.</div>
@@ -379,7 +379,7 @@
          <div class="col">
           <div class="form-floating mb-3">
             <input type="date" class="form-control" id="dob" max="{{maxDate}}"  placeholder="DOB" formControlName="dob">
-            <label for="name">Date of Birth</label>
+            <label for="name">Date of Birth <sup class="text-danger">*</sup></label>
 
             <div *ngIf="isSubmitted && f['dob'].invalid" class="errFrm">
                 <div *ngIf="f['dob'].errors && f['dob'].errors['required']">Date of birth is required.</div>
@@ -419,7 +419,7 @@
                <option value="Female" >Female</option>
                <option value="Other">Other</option>
            </select>
-           <label for="genderType">Select Gender</label>
+           <label for="genderType">Select Gender <sup class="text-danger">*</sup></label>
 
            <div *ngIf="isSubmitted && f['genderType'].invalid" class="errFrm">
                <div *ngIf="f['genderType'].errors && f['genderType'].errors['required']">Gender is required.</div>
