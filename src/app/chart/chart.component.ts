@@ -152,8 +152,6 @@ export class ChartComponent implements OnInit {
       'upload_file': this.formArr.img
     }
 
-    console.log(vcdata);
-    return;
     this.usrObj.addVaccine(vcdata).subscribe((data:any)=>{
       this.isSubmit = false; 
       if (data.status){
