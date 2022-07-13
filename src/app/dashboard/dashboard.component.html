@@ -68,7 +68,7 @@
                                     <div class="col-md-4" *ngIf="gender != null " >
                                         <p><span>Gender :</span> <br> {{gender}}</p>
                                     </div>
-                                    <div class="col-md-4" *ngIf="bloodGroup !='' || bloodGroup != null ">
+                                    <div class="col-md-4" *ngIf="bloodGroup != null && bloodGroup != 'null' ">
                                         <p><span>Blood Group: </span> <br> {{bloodGroup}} </p>
                                     </div>
                                     <!-- <a (click)="editProfileModel()" >Edit</a> -->
