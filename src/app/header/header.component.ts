@@ -73,7 +73,7 @@ export class HeaderComponent implements OnInit {
         })
       }
     }
-
+    // console.log(Notification.permission);
     this.userId = localStorage.getItem('userid');
 
     var e = document.getElementById("navbar");
@@ -116,7 +116,17 @@ export class HeaderComponent implements OnInit {
 
   onLogout() {
     // console.log(this.msgService.getFCMToken());
-    this.msgService.delToken();
+    if (Notification.permission !== "granted") {
+      this.usrObj.logout().subscribe((data: any) => {
+        if (data.status) {
+          localStorage.clear();
+          this.router.navigate(['/login']);
+        }
+      });
+    } else{
+      this.msgService.delToken();
+    }
+   
 
   }
   toggleMenu(e: any) {
