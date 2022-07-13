@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MainserviceComponent } from '../services/mainservice/mainservice.component';
 import { Router } from "@angular/router"
 import * as bootstrap from 'bootstrap';
@@ -41,6 +41,9 @@ export class HeaderComponent implements OnInit {
 
   toastMsg: any;
 
+  // update vaccine
+  @Output() updateVaccine= new EventEmitter<any>();
+
   // form data
   form = new UntypedFormGroup({
     selectAge: new UntypedFormControl('', [Validators.required]),
@@ -61,8 +64,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(private usrObj: MainserviceComponent, private router: Router, private http: HttpClient, private msgService: MessagingService) { }
 
-  ngOnInit(): void {
-
+  ngOnInit(): void {   
     if (this.getToken()) {
       this.httpOptions = {
         headers: new HttpHeaders({
@@ -258,13 +260,19 @@ export class HeaderComponent implements OnInit {
         this.successMsg = data.message;
         this.closeModal('addVaccineStep2');
         this.closeModal('addVaccineStep1');
-        setTimeout(() => {
-          this.router.navigate(['/dashboard']).then(() => {
-            window.location.reload();
-          });
-          // location.reload();
+        if(this.router.url === '/dashboard'){
+          this.updateVaccine.emit('updated');
+        } else{
+          this.router.navigate(['/dashboard'])
+        }
+       
+        // setTimeout(() => {
+        //   this.router.navigate(['/dashboard']).then(() => {
+        //     window.location.reload();
+        //   });
+        //   // location.reload();
 
-        }, 2000);
+        // }, 2000);
         //this.form.reset();
         //this.router.navigate(['register-verify']);
       } else {
