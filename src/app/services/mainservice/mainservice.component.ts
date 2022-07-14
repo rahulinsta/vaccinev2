@@ -150,4 +150,11 @@ httpOptions:any={};
  delFCMToken(token:any){
     return this.http.post(env.apiurl + 'notification/revoke-token', token, this.getHeader() );
   }
+
+  changePassword(formData: any) {
+    return this.http.post(env.apiurl + 'change-password', formData, this.getHeader()).toPromise();
+  }
+
 }
+
+
