@@ -544,7 +544,7 @@ aria-labelledby="vaccineLabel" aria-hidden="true">
                                 <div *ngIf="cp['cofrmNewPsword'].errors?.['minlength']">
                                     Confirm password must be at least 8 characters long.
                                 </div>
-                                <div *ngIf="cp['cofrmNewPsword'].errors?.['passwordMatch']">
+                                <div *ngIf="cp['cofrmNewPsword'].errors?.['passwordMismatch']">
                                     New Passsword and Confirm Password didn't match. </div>
                             </div>
 
