@@ -27,6 +27,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ForgotComponent } from './forgot-password/forgot/forgot.component';
 import { GetOtpComponent } from './forgot-password/get-otp/get-otp.component';
 import { ResetPasswordComponent } from './forgot-password/reset-password/reset-password.component';
+import { AgmCoreModule } from '@agm/core';
 firebase.initializeApp(env.firebase);
 @NgModule({
   declarations: [
@@ -57,6 +58,10 @@ firebase.initializeApp(env.firebase);
     NgOtpInputModule,
     QRCodeModule,
     FormsModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDuYWAPhW9TQvx4SsjrTqK7KFPmJwfOnUQ',
+      libraries: ['places']
+    })
   ],
   providers: [MessagingService, DatePipe],
   bootstrap: [AppComponent]

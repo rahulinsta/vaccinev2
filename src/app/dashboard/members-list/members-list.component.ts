@@ -289,6 +289,7 @@ export class MembersListComponent implements OnInit {
     var mName = this.editMemberfrm.value.mname;
     var memail = this.editMemberfrm.value.email;
     var memgNo = this.editMemberfrm.value.emgNo;
+    var bloodGroup = this.editMemberfrm.value.bloodGroup;
     if(mName == 'null' || mName == null){
       mName = '';
     }
@@ -298,6 +299,10 @@ export class MembersListComponent implements OnInit {
     if(memgNo == 'null' || memgNo == null){
       memgNo = '';
     }
+
+    if(bloodGroup == 'null' || bloodGroup == null){
+      bloodGroup = '';
+    }
    
     const formData = new FormData();
     formData.append('member_image', this.editMemberfrm.value.fileSource);
@@ -306,7 +311,7 @@ export class MembersListComponent implements OnInit {
     formData.append('lname', this.editMemberfrm.value.lname);
     formData.append('dob', this.editMemberfrm.value.dob);
     formData.append('gender', this.editMemberfrm.value.gender);
-    formData.append('blood_group', this.editMemberfrm.value.bloodGroup);
+    formData.append('blood_group', bloodGroup);
     formData.append('phone_no', this.editMemberfrm.value.phone);
     formData.append('email', memail);
     formData.append('emergency_number', memgNo);
