@@ -1,20 +1,9 @@
 <div class="container">
-    <div class="col-md-5 mx-auto">
-      <main class="form-signin text-center">
-        <form [formGroup]="form" (ngSubmit)="submit()" class="formaddedit" >
-            <div class="logo-img">
-                <a href="">MyDigiRecords</a>
-            </div>
-            <h1 class="mb-2 mt-4">Sign In</h1>
-            <p class="mb-4 fw-normal text-muted">Enter the details to view vaccination records</p>   
-    
-          <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="phoneEmail" placeholder="Email" formControlName="email">
-            <label for="floatingInput">Email</label>
-
-            <div *ngIf="isSubmitted && f['email'].invalid" class="errFrm">
-              <div *ngIf="f['email'].errors && f['email'].errors['required']">Email is required.</div>
-              <div *ngIf="f['email'].errors && f['email'].errors['required']">Please, enter valid email address.</div>
+  <div class="col-md-5 mx-auto">
+    <main class="form-signin text-center">
+      <form [formGroup]="form" (ngSubmit)="submit()" class="formaddedit">
+        <div class="logo-img">
+          <a href="javascript:void(0)">MyDigiRecords</a>
         </div>
         <h1 class="mb-2 mt-4">Sign In</h1>
         <p class="mb-4 fw-normal text-muted">Enter the details to view vaccination records</p>
@@ -27,8 +16,6 @@
             <div *ngIf="f['email'].errors && f['email'].errors['required']">Email is required.</div>
             <div *ngIf="f['email'].errors && f['email'].errors['required']">Please, enter valid email address.</div>
           </div>
-
-
         </div>
         <div class="form-floating mb-3">
           <input type="password" class="form-control" id="name" placeholder="Name" formControlName="password">

@@ -14,9 +14,7 @@ export class ForgotPasswordComponent implements OnInit {
     var userId = localStorage.getItem('userid');
     if(userId){
       this.router.navigate(['/dashboard']);
-    } else{
-      this.router.navigate(['/login']); 
-    } 
+    }
   }
 
 }
