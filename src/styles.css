@@ -1,78 +1,152 @@
-body{
+body {
     background-color: #f1f1f1 !important;
-    }
-    
-    .form-signin{
-        padding: 100px 0;
-        background-color: #fff;
-        box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
-        border-radius: 10px;
-        padding: 40px 40px 60px 40px;
-        text-align: center;
-           border-radius: 8px;
-        margin: 100px 0 70px 0;
-    }
-    
-    .logo-img{
-        width: 130px;
-        height: 130px;
-        border-radius: 100%;
-        background-color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: -105px auto 0;
-        box-shadow: 0 2px 3px 0 rgb(0 0 0 / 19%);
-        overflow: hidden;
-        padding: 20px;
-    }
-    
-    .form-signin  h1 {
-        color: #1b63ab;
-        font-size: 28px;
-        font-weight: 600;
-    }
-    
-    .form-signin p{
-        color: #1f2136;
-        font-size: 16px;
-    }
-    
-    .form-signin .btn-primary{
-        background-color: #1f2136;
-        border: none;
-        text-transform: uppercase;
-        font-size: 16px;
-        box-shadow: none;
-        padding: 18px 0;
-        box-shadow: none;
-        border-radius: 5px;
-    }
-    
-    .form-signin .btn-primary:hover{
-        background:#1563b9;
-    }
-    
-    .form-signin .form-floating>.form-control{
-    
-     
-        border:1px solid #1f2136;
-        box-shadow: none !important;
-    
-    }
-    
-    .form-signin .form-floating>.form-control:focus{
-        border:1px solid  #1563b9;
-         box-shadow: none !important;
-    }
+}
 
-    .addmember-form .form-loader, .formaddedit .form-loader{
+.form-signin {
+    padding: 100px 0;
+    background-color: #fff;
+    box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+    border-radius: 10px;
+    padding: 40px 40px 60px 40px;
+    text-align: center;
+    border-radius: 8px;
+    margin: 100px 0 70px 0;
+}
+
+.logo-img {
+    width: 130px;
+    height: 130px;
+    border-radius: 100%;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: -105px auto 0;
+    box-shadow: 0 2px 3px 0 rgb(0 0 0 / 19%);
+    overflow: hidden;
+    padding: 20px;
+}
+
+.form-signin h1 {
+    color: #1b63ab;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.form-signin p {
+    color: #1f2136;
+    font-size: 16px;
+}
+
+.form-signin .btn-primary {
+    background-color: #1f2136;
+    border: none;
+    text-transform: uppercase;
+    font-size: 16px;
+    box-shadow: none;
+    padding: 18px 0;
+    box-shadow: none;
+    border-radius: 5px;
+}
+
+.form-signin .btn-primary:hover {
+    background: #1563b9;
+}
+
+.form-signin .form-floating>.form-control {
+
+
+    border: 1px solid #1f2136;
+    box-shadow: none !important;
+
+}
+
+.form-signin .form-floating>.form-control:focus {
+    border: 1px solid #1563b9;
+    box-shadow: none !important;
+}
+
+.addmember-form .form-loader,
+.formaddedit .form-loader {
     width: 1.5rem;
-        height: 1.5rem;
-        vertical-align: -0.3em;
-        border: 0.2em solid currentColor;
-        border-right-color: transparent;
-    }
+    height: 1.5rem;
+    vertical-align: -0.3em;
+    border: 0.2em solid currentColor;
+    border-right-color: transparent;
+}
 
-   
-    
+.switches-container {
+    width: 200px;
+    display: flex;
+    padding: 0;
+    position: relative;
+    background: #e0e0e0;
+    line-height: 40px;
+    border-radius: 60px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2rem;
+}
+
+.switches-container input {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+}
+
+.switches-container label {
+    width: 50%;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    cursor: pointer;
+    color: #212121;
+    font-weight: 500;
+}
+
+.switch-wrapper {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    padding: 0.25rem;
+    z-index: 3;
+    transition: transform .5s cubic-bezier(.77, 0, .175, 1);
+    /* transition: transform 1s; */
+}
+
+.switch {
+    border-radius: 3rem;
+    background: #fff;
+    height: 100%;
+}
+
+.switch div {
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    display: block;
+    color: #212121;
+    transition: opacity .2s cubic-bezier(.77, 0, .175, 1) .125s;
+    will-change: opacity;
+    position: absolute;
+    font-weight: 500;
+    top: 0;
+    left: 0;
+}
+
+.switches-container.phone .switch-wrapper {
+    transform: translateX(0%);
+}
+
+.switches-container.email .switch-wrapper {
+    transform: translateX(100%);
+}
+
+.switches-container.phone .switch-wrapper .switch div:nth-of-type(1) {
+    opacity: 1;
+}
+
+.switches-container.email .switch-wrapper .switch div:nth-of-type(2) {
+    opacity: 1;
+}

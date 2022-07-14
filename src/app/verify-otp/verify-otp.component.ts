@@ -63,7 +63,7 @@ export class VerifyOtpComponent implements OnInit {
         this.message.status = false;
         this.message.msg.push('Please, Enter email otp');
         return;
-      }
+      }      
     }
     if (!this.mobileInput.currentVal) {
       this.isSubmit = false;
@@ -113,9 +113,9 @@ export class VerifyOtpComponent implements OnInit {
 
   sendToVerify() {
     if (this.isVerEOTP && this.isVerMOTP) {
-      console.log('inner');
+      // console.log('inner');
       this.mainService.register(this.regData).subscribe((res: any) => {
-        console.log('subscribe');
+        // console.log('subscribe');
         if (res.status) {
           this.message.status = true;
           this.message.msg.push(res.message);

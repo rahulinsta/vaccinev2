@@ -31,6 +31,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void { 
     var userId = localStorage.getItem('userid');
+    localStorage.removeItem('recovery-data');
+    localStorage.removeItem('verificationId');   
     // console.log(userId);
     // console.log(localStorage.getItem('vctoken'));
 

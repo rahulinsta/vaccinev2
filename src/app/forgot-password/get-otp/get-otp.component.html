@@ -1,0 +1,33 @@
+<app-page-loader *ngIf="pageLoader" [msg]="pageMsg"></app-page-loader>
+<div class="container">
+    <div class="col-md-5 mx-auto" *ngIf="!pageLoader">
+        <main class="form-signin text-center pb-4">
+            <form  #f="ngForm" (ngSubmit)="onSubmit(f)">
+                <div class="logo-img">
+                    <a href=""><img class="img-fluid" src="assets/img/logo.jpg" alt=""></a>
+                </div>
+                <h1 class="mb-2 mt-4">Verification</h1>
+                <p class="mb-4 fw-normal text-muted">Please enter the 6 digit code sent to <br>{{ recoveryData.username }}</p>
+                
+                <div class="form-floating mb-3">
+                    <ng-otp-input #verifyInput [config]="config"></ng-otp-input>
+                </div>
+                <p class="mt-4 fw-normal text-muted">Didn't receive the code <a class="link-text resend" (click)="resendOTP()">Resend OTP</a></p>
+
+                <ng-container *ngIf="message?.msg?.length > 0">
+                    <div class="alert" [ngClass]="{'alert-danger': !message?.status, 'alert-success': message?.status}" role="alert" *ngFor="let errMsg of message?.msg">
+                        {{errMsg}}
+                    </div>
+                </ng-container>
+
+                <button class="w-100 btn btn-primary" type="submit" [disabled]="isSubmit">
+                    Verify <span class="spinner-border spinner-border-sm form-loader ml-2" role="status" *ngIf="isSubmit"></span>
+                </button>
+            </form>
+
+            <!-- <hr class="mt-4">
+            <a [routerLink]="['/login']" class="text-decoration-none"><i class="bi bi-arrow-left"></i> Back to Login</a> -->
+        </main>
+    </div>
+    <div id="recaptcha-container"></div>
+</div>

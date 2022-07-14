@@ -150,4 +150,24 @@ httpOptions:any={};
  delFCMToken(token:any){
     return this.http.post(env.apiurl + 'notification/revoke-token', token, this.getHeader() );
   }
+
+
+  // identify account
+  identify(formData:any){
+    return this.http.post<any>(env.apiurl + 'validate-user', formData, {
+      headers: new HttpHeaders({
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      })
+    });
+  }
+
+  resetPassword(formData:any){   
+    return this.http.post<any>(env.apiurl + 'reset-password', formData, {
+      headers: new HttpHeaders({
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      })
+    });
+  }
 }

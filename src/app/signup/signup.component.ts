@@ -50,6 +50,8 @@ export class SignupComponent implements OnInit {
     localStorage.removeItem('regData');
     localStorage.removeItem('verificationId');
     localStorage.removeItem('isVerifyP');
+    localStorage.removeItem('recovery-data');
+    localStorage.removeItem('verificationId');   
   }
 
   ngOnInit(): void {

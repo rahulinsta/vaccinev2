@@ -1,0 +1,54 @@
+<div class="container">
+    <div class="col-md-5 mx-auto">
+        <main class="form-signin text-center pb-4">
+            <form [formGroup]="forgotForm" (ngSubmit)="submit()">
+                <div class="logo-img">
+                    <a href=""><img class="img-fluid" src="assets/img/logo.jpg" alt=""></a>
+                </div>
+                <h1 class="mb-2 mt-4">Forgot Password</h1>
+                <p class="mb-4 fw-normal text-muted">Please enter your email address or phone number to receive a verification code.</p>
+                <div class="switches-container mb-3 {{ switchClass }}">
+                    <input type="radio" id="phone" name="type" formControlName="type" value="phone" (change)="getTypeVal($event)"/>
+                    <input type="radio" id="email" name="type" formControlName="type" value="email" (change)="getTypeVal($event)"/>
+                    <label for="phone">Phone</label>
+                    <label for="email">Email</label>
+                    <div class="switch-wrapper">
+                        <div class="switch">
+                            <div>Phone</div>
+                            <div>Email</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="username" placeholder="Phone Number" formControlName="username">
+                    <label for="floatingInput">{{ (switchClass === 'phone') ? 'Phone Number' : 'Email Address' }}</label>  
+                    <div *ngIf="isSubmitted && f['username'].invalid" class="errFrm">
+                        <ng-container *ngIf="switchClass === 'phone'">
+                            <div *ngIf="f['username'].errors && f['username'].errors['required']">Phone Number is required.</div>
+                            <div *ngIf="f['username'].errors && (f['username'].errors['pattern'] || f['username'].errors['minlength'])">{{ f['username'].errors['pattern'] ? 'Please, enter valid phone number': 'Please, enter 10 digit phone number'}}.</div>
+                            <div *ngIf="f['username'].errors && f['username'].errors['maxlength']">Please, enter 10 digit phone number.</div>
+                        </ng-container>
+                        <ng-container *ngIf="switchClass === 'email'">
+                            <div *ngIf="f['username'].errors && f['username'].errors['required']">Email Address is required.</div>
+                            <div *ngIf="f['username'].errors && f['username'].errors['pattern']">Please, enter valid email address.</div>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <ng-container *ngIf="message?.msg?.length > 0">
+                    <div class="alert" [ngClass]="{'alert-danger': !message?.status, 'alert-success': message?.status}" role="alert" *ngFor="let errMsg of message?.msg">
+                        {{errMsg}}
+                    </div>
+                </ng-container>
+                <button class="w-100 btn btn-primary" type="submit" [disabled]="isSubmit">
+                    Send <span class="spinner-border spinner-border-sm form-loader ml-2" role="status" *ngIf="isSubmit"></span>
+                </button>
+                <div id="sign-in-button"></div>
+            </form>
+
+            <hr class="mt-4">
+            <a [routerLink]="['/login']" class="text-decoration-none"><i class="bi bi-arrow-left"></i> Back to Login</a>
+        </main>
+    </div>
+</div>

@@ -23,6 +23,10 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { MessagingService } from '../app/services/messaging.service';
 import { environment as env } from 'src/environments/environment';
 import firebase from 'firebase';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ForgotComponent } from './forgot-password/forgot/forgot.component';
+import { GetOtpComponent } from './forgot-password/get-otp/get-otp.component';
+import { ResetPasswordComponent } from './forgot-password/reset-password/reset-password.component';
 firebase.initializeApp(env.firebase);
 @NgModule({
   declarations: [
@@ -38,7 +42,11 @@ firebase.initializeApp(env.firebase);
     MembersListComponent,
     PageLoaderComponent,
     ConfirmDeleteComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    ForgotPasswordComponent,
+    ForgotComponent,
+    GetOtpComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,
