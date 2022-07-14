@@ -495,35 +495,57 @@ aria-labelledby="vaccineLabel" aria-hidden="true">
               
                    
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="currtPaswd" placeholder="Name"
+                            <input type="password" class="form-control" id="currtPaswd" placeholder="Name"
                                 formControlName="currtPaswd">
                             <label for="name">Current Password <sup class="text-danger">*</sup></label>
 
-                            <div *ngIf="isSubmitted && f['currtPaswd'].invalid" class="errFrm">
-                                <div *ngIf="f['currtPaswd'].errors && f['currtPaswd'].errors['required']">First name is required.
-                                </div>
+                      
+
+                        <div *ngIf="(cp['currtPaswd'].dirty || cp['currtPaswd'].touched) && cp['currtPaswd'].invalid" class="errFrm">
+                        
+                            <div *ngIf="cp['currtPaswd'].errors?.['required']">
+                                The current password Field is required
                             </div>
+                            <div *ngIf="cp['currtPaswd'].errors?.['minlength']">
+                                Current password must be at least 8 characters long.
+                            </div>
+                        </div>
 
                         </div>
 
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="newPaswd" placeholder="Middle name"
+                            <input type="password" class="form-control" id="newPaswd" placeholder="Middle name"
                                 formControlName="newPaswd">
                             <label for="newPaswd">New Password<sup class="text-danger">*</sup></label>
-                            <div *ngIf="isSubmitted && f['currtPaswd'].invalid" class="errFrm">
-                                <div *ngIf="f['currtPaswd'].errors && f['currtPaswd'].errors['required']">First name is required.
-                                </div>
-                            </div>
+                      
+
+<div *ngIf="(cp['newPaswd'].dirty || cp['newPaswd'].touched) && cp['newPaswd'].invalid" class="errFrm">
+    <div *ngIf="cp['newPaswd'].errors?.['required']">
+        The new password Field is required
+    </div>
+    <div *ngIf="cp['newPaswd'].errors?.['minlength']">
+        New password must be at least 8 characters long.
+    </div>
+</div>
+
                         </div>
 
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="cofrmNewPsword" placeholder="Last name"
+                            <input type="password" class="form-control" id="cofrmNewPsword" placeholder="Last name"
                                 formControlName="cofrmNewPsword">
                             <label for="name"> Confirm New Password<sup class="text-danger">*</sup></label>
 
-                            <div *ngIf="isSubmitted && f['cofrmNewPsword'].invalid" class="errFrm">
-                                <div *ngIf="f['cofrmNewPsword'].errors && f['cofrmNewPsword'].errors['required']">Last name is required.
+                          
+
+                            <div class="errFrm" *ngIf="(cp['cofrmNewPsword'].dirty || cp['cofrmNewPsword'].touched) && cp['cofrmNewPsword'].invalid">
+                                <div *ngIf="cp['cofrmNewPsword'].errors?.['required']">
+                                    The confirm password Field is required
                                 </div>
+                                <div *ngIf="cp['cofrmNewPsword'].errors?.['minlength']">
+                                    Confirm password must be at least 8 characters long.
+                                </div>
+                                <div *ngIf="cp['cofrmNewPsword'].errors?.['passwordMatch']">
+                                    New Passsword and Confirm Password didn't match. </div>
                             </div>
 
                         
@@ -541,9 +563,16 @@ aria-labelledby="vaccineLabel" aria-hidden="true">
                     </div>
                 </ng-container>
 
+                            <ng-container *ngIf="errmsg">
+                                <div class="alert alert-danger" role="alert">
+                                    {{errmsg}}
+                                </div>
+                            </ng-container>
 
 
-                <button class="w-100 btn btn-lg btn-primary" type="submit">
+
+
+                <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="!chagepaswrdform.valid">
                     Submit
                     <div class="spinner-border form-loader ml-2" role="status" *ngIf="isSubmit"></div>
                 </button>

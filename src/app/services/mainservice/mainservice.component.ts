@@ -151,6 +151,7 @@ httpOptions:any={};
     return this.http.post(env.apiurl + 'notification/revoke-token', token, this.getHeader() );
   }
 
+<<<<<<< HEAD
 
   // identify account
   identify(formData:any){
@@ -170,4 +171,12 @@ httpOptions:any={};
       })
     });
   }
+=======
+  changePassword(formData: any) {
+    return this.http.post(env.apiurl + 'change-password', formData, this.getHeader()).toPromise();
+  }
+
+>>>>>>> aededadd8525d365f8aefc9e462881f8524f06f7
 }
+
+

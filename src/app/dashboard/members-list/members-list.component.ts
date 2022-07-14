@@ -5,7 +5,8 @@ import { environment as env } from '../../../environments/environment';
 import { MainserviceComponent } from '../../services/mainservice/mainservice.component';
 import {Router} from "@angular/router"
 import { DatePipe } from '@angular/common';
-import { FormGroup, FormControl, UntypedFormGroup, UntypedFormControl, Validators} from '@angular/forms';
+import { FormGroup, FormControl, UntypedFormGroup, UntypedFormControl, Validators, FormBuilder} from '@angular/forms';
+import { passwordMatch } from 'src/app/signup/confirm-password.validator';
 declare var $: any;
 
 
@@ -72,16 +73,9 @@ export class MembersListComponent implements OnInit {
 
   });
 
-  chagepaswrdform = new UntypedFormGroup({
-    currtPaswd: new UntypedFormControl('', [Validators.required]),
-    newPaswd: new UntypedFormControl('', [Validators.required]),
-    cofrmNewPsword: new UntypedFormControl('', [Validators.required]),
-   
+ 
 
-  });
-
-
-  constructor(private router: Router,private http: HttpClient,
+  constructor(private router: Router,private http: HttpClient, private fb : FormBuilder,
     private usrObj:MainserviceComponent,private datePipe: DatePipe) {
 
    }
@@ -110,6 +104,24 @@ export class MembersListComponent implements OnInit {
     this.getmaxDate();
 
   }
+
+
+// change password form
+  chagepaswrdform = this.fb.group({
+    currtPaswd : ['', [Validators.required, Validators.minLength(8)]],
+    newPaswd : ['', [Validators.required, Validators.minLength(8)]],
+    cofrmNewPsword : ['', [Validators.required, Validators.minLength(8)]]
+  },
+    {
+      validator: passwordMatch("newPaswd", "cofrmNewPsword")
+      
+    })
+
+  get cp() {
+    return this.chagepaswrdform.controls;
+  }
+
+
 
   // get token function
   getToken() {
@@ -406,17 +418,53 @@ export class MembersListComponent implements OnInit {
     
   } 
 
-  changePassSubmit(){
-
-  }
-
-  changePassword(){
+  changePassword() {
     var modalId = document.querySelector("#changePassword");
     var myModal = new bootstrap.Modal(modalId!, {
       keyboard: false
     })
     myModal.show();
   }
+
+  changePassSubmit(){
+    this.isSubmit = true;
+    const formData = {
+      current_password: this.chagepaswrdform.value.currtPaswd,
+      password: this.chagepaswrdform.value.newPaswd,
+      password_confirmation: this.chagepaswrdform.value.cofrmNewPsword
+    };
+    // console.log(formData);
+    this.successMsg = '';
+    this.errmsg = '';
+    this.usrObj.changePassword(formData).then((res:any) => {
+      if (res['status'] && res['status_code'] === 200) {
+        this.successMsg = res['message'];
+        this.chagepaswrdform.reset();
+        this.closeModal('changePassword');
+        localStorage.clear();
+        
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+          this.isSubmit = false;
+        }, 1000);
+      } else {
+        this.isSubmit = false;
+        this.errmsg = 'Unable to Change Password.';
+
+      }
+
+    }).catch((err: any) => {
+      let errData = err.error.errors;
+      this.isSubmit = false;
+      for (let key in errData) {
+        this.errmsg = errData[key][0];
+      }
+    });
+    
+  }
+  
+
+ 
 
 }
 
