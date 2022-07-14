@@ -14,9 +14,9 @@ body {
 }
 
 .logo-img {
-    width: 130px;
-    height: 130px;
-    border-radius: 100%;
+    width: 270px;
+    height: 97px;
+    border-radius: 8px;
     background-color: #fff;
     display: flex;
     align-items: center;
@@ -25,6 +25,15 @@ body {
     box-shadow: 0 2px 3px 0 rgb(0 0 0 / 19%);
     overflow: hidden;
     padding: 20px;
+}
+
+.logo-img a {
+    font-size: 30px;
+    font-weight: 700;
+    padding: 5px 0 10px 0;
+    text-decoration: none;
+    color: #000;
+
 }
 
 .form-signin h1 {

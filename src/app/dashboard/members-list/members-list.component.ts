@@ -72,6 +72,14 @@ export class MembersListComponent implements OnInit {
 
   });
 
+  chagepaswrdform = new UntypedFormGroup({
+    currtPaswd: new UntypedFormControl('', [Validators.required]),
+    newPaswd: new UntypedFormControl('', [Validators.required]),
+    cofrmNewPsword: new UntypedFormControl('', [Validators.required]),
+   
+
+  });
+
 
   constructor(private router: Router,private http: HttpClient,
     private usrObj:MainserviceComponent,private datePipe: DatePipe) {
@@ -396,8 +404,19 @@ export class MembersListComponent implements OnInit {
   
      this.maxDate = year + '-' + month + '-' + day;    
     
+  } 
+
+  changePassSubmit(){
+
   }
 
+  changePassword(){
+    var modalId = document.querySelector("#changePassword");
+    var myModal = new bootstrap.Modal(modalId!, {
+      keyboard: false
+    })
+    myModal.show();
+  }
 
 }
 
