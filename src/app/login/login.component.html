@@ -10,7 +10,7 @@
 
         <div class="form-floating mb-3">
           <input type="text" class="form-control" id="phoneEmail" placeholder="Email" formControlName="email">
-          <label for="floatingInput">Email</label>
+          <label for="floatingInput">Email or Phone Number</label>
 
           <div *ngIf="isSubmitted && f['email'].invalid" class="errFrm">
             <div *ngIf="f['email'].errors && f['email'].errors['required']">Email is required.</div>

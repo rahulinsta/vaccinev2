@@ -71,11 +71,12 @@ export class ResetPasswordComponent implements OnInit {
       }
     },(err:any)=>{
         // console.error("Error: ",err);
-        let errData = err.error.message;        
+        let errData = err.error.errors;
+        for(let key in errData){
+          this.message.msg.push(errData[key][0]);
+        }
         if(errData == undefined || errData == null){
           this.message.msg.push('Something went wrong. Please try later');
-        } else{
-          this.message.msg.push(errData);
         }
         this.message.status = false;
         this.isSubmit = false;  
