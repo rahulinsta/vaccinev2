@@ -26,6 +26,8 @@ export class ForgotComponent implements OnInit {
     var userId = localStorage.getItem('userid');
     if(userId){
       this.router.navigate(['/dashboard']);
+    } else{
+      this.router.navigate(['/login']); 
     } 
     this.forgotForm = this.FB.group({
       'type':'phone',
