@@ -226,8 +226,12 @@ export class HeaderComponent implements OnInit {
     }
     this.age = this.form.value.selectAge;
     if (this.age == 18) {
-      this.hideVaccineModlefirst();
-      window.location.href = '/chart?user=' + this.memberId;
+      this.closeModal("addVaccineStep1");
+      setTimeout(()=>{
+        this.router.navigate(['/chart'], { queryParams: { user: this.memberId }});
+        this.isSubmit = false;
+      }, 1000)
+      
     } else {
       this.addVaccineStep2();
       this.isSubmit = false;

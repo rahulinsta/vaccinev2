@@ -41,7 +41,7 @@ export class SignupComponent implements OnInit {
     bloodGroup: new FormControl(''),
     password: new FormControl('', [Validators.required]),
     cpassword: new FormControl('', [Validators.required]),
-    genderType: new FormControl('', [Validators.required])
+    gender: new FormControl('', [Validators.required])
   },
     [passwordMatch('password', 'cpassword')]
   );

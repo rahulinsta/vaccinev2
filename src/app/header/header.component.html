@@ -1,7 +1,7 @@
 <header class="app-header">
     <nav class="navbar navbar-expand-lg navbar-light navbar-fixed is-sticky" id="navbar">
         <div class="container">
-            <a class="navbar-brand" href="/">
+            <a class="navbar-brand" href="javascript:void(0)">
             MyDigiRecords
             </a>
             <button class="navbar-toggler" type="button" (click)="toggleMenu($event)" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,7 +79,7 @@
                             (change)="onAgechange($event)">
                             <option value=""> Select Age </option>
                             <option id="selectAge18" value="18+"> Select 18+ </option>
-                            <option id="BerthTo18" value="18"> Berth to 18 </option>
+                            <option id="BerthTo18" value="18"> Birth to 18 </option>
                         </select>
                         <div *ngIf="isSubmitted && f['selectAge'].invalid" class="errFrm">
                             <div *ngIf="f['selectAge'].errors && f['selectAge'].errors['required']">Please select age

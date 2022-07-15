@@ -73,15 +73,15 @@
           <div class="col-md-6">
             <div class="form-floating mb-3">
 
-              <select class="form-control" id="gender" placeholder="Select Gender" formControlName="genderType">
+              <select class="form-control" id="gender" placeholder="Select Gender" formControlName="gender">
                 <option value="">Select Gender</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </select>
               <label for="gender">Select Gender <sup class="text-danger">*</sup></label>
     
-              <div *ngIf="isSubmitted && f['genderType'].invalid" class="errFrm">
-                <div *ngIf="f['genderType'].errors && f['genderType'].errors['required']">Gender is required.</div>
+              <div *ngIf="isSubmitted && f['gender'].invalid" class="errFrm">
+                <div *ngIf="f['gender'].errors && f['gender'].errors['required']">Gender is required.</div>
               </div>
     
             </div>
