@@ -20,8 +20,32 @@
                     </div>
                 </div>
 
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="username" placeholder="Phone Number" formControlName="username">
+                <div class="form-floating mb-3 phone-input">
+                    <ng-container *ngIf="switchClass === 'phone'">
+                        <ngx-intl-tel-input
+                        [cssClass]="'form-control'"
+                        [preferredCountries]="preferredCountries"
+                        [enableAutoCountrySelect]="true"
+                        [enablePlaceholder]="false"
+                        [searchCountryFlag]="true"
+                        [searchCountryField]="[
+                          SearchCountryField.Iso2,
+                          SearchCountryField.Name
+                        ]"
+                        [selectFirstCountry]="false"
+                        [selectedCountryISO]="CountryISO.UnitedStates"
+                        [phoneValidation]="true"
+                        [separateDialCode]="false"
+                        [maxLength]="maxLength"
+                        name="username"
+                        formControlName="username"
+                      >
+                      </ngx-intl-tel-input>
+                    </ng-container>
+                    <ng-container *ngIf="switchClass !== 'phone'">
+                        <input type="text" class="form-control" id="username" placeholder="Email Address" formControlName="username">
+                    </ng-container>
+                   
                     <label for="floatingInput">{{ (switchClass === 'phone') ? 'Phone Number' : 'Email Address' }}</label>  
                     <div *ngIf="isSubmitted && f['username'].invalid" class="errFrm">
                         <ng-container *ngIf="switchClass === 'phone'">

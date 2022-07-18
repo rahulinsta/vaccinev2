@@ -159,3 +159,30 @@ body {
 .switches-container.email .switch-wrapper .switch div:nth-of-type(2) {
     opacity: 1;
 }
+
+.phone-input label{
+    opacity: 0.65;
+    transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+}
+
+.phone-input .iti{
+    display: block;
+}
+
+.phone-input .iti .form-control{
+    padding-top: 1.625rem;
+    padding-bottom: 0.625rem;
+    border: 1px solid #1f2136;
+    box-shadow: none !important;
+    height: calc(3.5rem + 2px);
+    line-height: 1.25;
+}
+.phone-input .iti .iti__flag-container{
+    top: 1.125rem;    
+}
+.phone-input .iti .iti__flag-container .iti__selected-flag{
+    padding-left: 0.75rem;
+}
+.phone-input .iti--allow-dropdown .iti__flag-container:hover .iti__selected-flag{
+    background-color: transparent;
+}

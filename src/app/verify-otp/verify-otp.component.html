@@ -13,7 +13,7 @@
                     <a href="">MyDigiRecords</a>
                 </div>
                 <ng-container *ngIf="regData.email">
-                    <div class="h2 mb-2 mt-4">Email Verification</div>
+                    <!-- <div class="h2 mb-2 mt-4">Email Verification</div>
                     <p class="mb-4 fw-normal text-muted">
                         The verification OTP is sent on Email Address
                         <br><b>{{ regData.email }}</b>
@@ -29,10 +29,10 @@
                         <ng-otp-input #emailInput [config]="config"></ng-otp-input>
                     </div>
                     <p class="mt-4 fw-normal text-muted">Didn't receive the code <a class="link-text resend" (click)="resendEOTP()">Resend OTP</a>
-                    </p>
+                    </p> -->
                 </ng-container>
                 <ng-container *ngIf="regData.phone">
-                <hr class="mt-4" *ngIf="regData.phone && regData.email">
+                <!-- <hr class="mt-4" *ngIf="regData.phone && regData.email"> -->
                 <div class="h2 mb-2 mt-3">Mobile Verification</div>
                 <p class="mb-4 fw-normal text-muted">
                     The verification OTP is sent on Mobile Number
@@ -50,7 +50,9 @@
                 <div class="form-floating mb-3">
                     <ng-otp-input #mobileInput [config]="config2"></ng-otp-input>
                 </div>
-                <p class="mt-4 fw-normal text-muted">Didn't receive the code <a class="link-text resend" (click)="resendMOTP()">Resend OTP</a>
+                <p class="mt-4 fw-normal text-muted">Didn't receive the code 
+                    <span *ngIf="!isActResend" class="text-primary fw-bold">{{ display }}</span>
+                    <a *ngIf="isActResend" class="link-text resend" (click)="resendMOTP()">Resend OTP</a>
                 </p>
 
              </ng-container>

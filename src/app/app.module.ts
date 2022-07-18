@@ -28,6 +28,8 @@ import { ForgotComponent } from './forgot-password/forgot/forgot.component';
 import { GetOtpComponent } from './forgot-password/get-otp/get-otp.component';
 import { ResetPasswordComponent } from './forgot-password/reset-password/reset-password.component';
 import { AgmCoreModule } from '@agm/core';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 firebase.initializeApp(env.firebase);
 @NgModule({
   declarations: [
@@ -61,7 +63,9 @@ firebase.initializeApp(env.firebase);
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDuYWAPhW9TQvx4SsjrTqK7KFPmJwfOnUQ',
       libraries: ['places']
-    })
+    }),
+    NgxIntlTelInputModule,
+    BrowserAnimationsModule
   ],
   providers: [MessagingService, DatePipe],
   bootstrap: [AppComponent]

@@ -4,6 +4,7 @@ import { MainserviceComponent } from 'src/app/services/mainservice/mainservice.c
 import firebase from 'firebase';
 import { environment as env } from 'src/environments/environment';
 import { Router } from '@angular/router';
+import { SearchCountryField, CountryISO } from 'ngx-intl-tel-input';
 @Component({
   selector: 'app-forgot',
   templateUrl: './forgot.component.html',
@@ -17,7 +18,11 @@ export class ForgotComponent implements OnInit {
   emailRegex = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
   switchClass = "phone";
   message: any = { status: true, msg: [] };
-  reCaptchaVerifier:any;
+  reCaptchaVerifier:any;  
+  SearchCountryField = SearchCountryField;
+  CountryISO = CountryISO;
+  preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.India];
+  maxLength:any = 15;
   constructor(private FB:  FormBuilder, private mainService: MainserviceComponent, private router: Router) { }
 
   ngOnInit(): void {
@@ -29,7 +34,7 @@ export class ForgotComponent implements OnInit {
     } 
     this.forgotForm = this.FB.group({
       'type':'phone',
-      "username": [null, [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(10), Validators.maxLength(10)]],
+      "username": [null, [Validators.required]],
     })
     if (!firebase.apps.length) {
       firebase.initializeApp(env.firebase);
@@ -49,14 +54,18 @@ export class ForgotComponent implements OnInit {
       this.isSubmit = false;
       return
     }
+    const PhoneNum: any = this.forgotForm.value.username;
     const formData = this.forgotForm.value;
+    if(this.switchClass === 'phone'){
+      formData.username = PhoneNum?.e164Number;
+    }   
     this.mainService.identify(formData).subscribe((res:any) =>{
       if(res.status){
         localStorage.setItem('recovery-data', JSON.stringify(formData));
         this.message.status = true;          
         this.message.msg.push('Sending... OTP'); 
         if(formData?.type === 'phone'){
-          const num = env.DEF_CCODE + formData?.username;
+          const num = formData?.username;
           this.sendOTPToPhone(num);
         }   
         if(formData?.type === 'email'){
@@ -88,6 +97,7 @@ export class ForgotComponent implements OnInit {
   getTypeVal(e:any){
     const inputVal = e.target.value;
     this.isSubmitted = false;
+    this.message = { status: true, msg: [] };
     this.forgotForm.reset();
     if(inputVal === 'email'){
       this.switchClass = 'email';
@@ -99,7 +109,7 @@ export class ForgotComponent implements OnInit {
     if(inputVal === 'phone'){
       this.switchClass = 'phone';
       this.forgotForm.get('type')?.setValue('phone');
-      this.forgotForm.controls['username'].setValidators([Validators.pattern("^[0-9]*$"), Validators.minLength(10), Validators.maxLength(10), Validators.required]);
+      this.forgotForm.controls['username'].setValidators([Validators.required]);
       this.forgotForm.controls['username'].updateValueAndValidity();
       return;
     }
@@ -113,6 +123,7 @@ export class ForgotComponent implements OnInit {
       this.router.navigate(['/recovery/verify']);
     }).catch(error => {
         // console.error('Error :', error);
+        this.message = { status: true, msg: [] };
         this.isSubmit = false;
         this.message.status = false;
         if(error.code === "auth/invalid-phone-number"){

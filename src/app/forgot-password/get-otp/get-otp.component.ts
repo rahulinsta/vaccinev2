@@ -25,6 +25,8 @@ export class GetOtpComponent implements OnInit {
   pageMsg: string = 'Loading...';
   @ViewChild('verifyInput', { static: false }) verifyInput: any;
   reCaptcha: any;  
+  display:string = '';
+  isActResend:boolean = false;
   constructor(private router: Router, private mainService: MainserviceComponent) { }
 
   ngOnInit(): void {
@@ -40,6 +42,7 @@ export class GetOtpComponent implements OnInit {
     setTimeout(() => {
       this.pageLoader = false;
       this.pageMsg = '';
+      this.timer(1);
     }, 500);
     if (!firebase.apps.length) {
       firebase.initializeApp(env.firebase);
@@ -121,6 +124,8 @@ export class GetOtpComponent implements OnInit {
       this.message.status = true;
       this.pageLoader = false;
       this.pageMsg = '';
+      this.isActResend= false;      
+      this.timer(1);
       this.message.msg.push('OTP was resent successfully');
       setTimeout(() => {
         this.message = { status: true, msg: [] };
@@ -146,6 +151,8 @@ export class GetOtpComponent implements OnInit {
         this.pageLoader = false;
         this.pageMsg = '';
         this.message.msg.push(res.message);
+        this.isActResend= false;      
+        this.timer(1);
         setTimeout(() => {
           this.message = { status: true, msg: [] };
         }, 3000);
@@ -162,6 +169,32 @@ export class GetOtpComponent implements OnInit {
         this.message.status = false;
         this.isSubmit = false;
       });
+  }
+
+
+  timer(minute:number){
+    let seconds: number = minute * 60;
+    let textSec: any = "0";
+    let statSec: number = 60;
+
+    const prefix = minute < 10 ? "0" : "";
+    const timer = setInterval(() => {
+      seconds--;
+      if (statSec != 0) statSec--;
+      else statSec = 59;
+
+      if (statSec < 10) {
+        textSec = "0" + statSec;
+      } else textSec = statSec;
+
+      this.display = `${prefix}${Math.floor(seconds / 60)}:${textSec}`;
+
+      if (seconds == 0) {
+        // console.log("finished");
+        this.isActResend = true;
+        clearInterval(timer);
+      }
+    }, 1000);
   }
 
 }

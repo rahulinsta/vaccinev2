@@ -7,15 +7,47 @@
         </div>
         <h1 class="mb-2 mt-4">Sign In</h1>
         <p class="mb-4 fw-normal text-muted">Enter the details to view vaccination records</p>
-
-        <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="phoneEmail" placeholder="Email" formControlName="email">
-          <label for="floatingInput">Email or Phone Number</label>
+        <div class="switches-container mb-3 {{ switchClass }}">
+          <input type="radio" id="phone" name="type" formControlName="type" value="phone"
+            (change)="getTypeVal($event)" />
+          <input type="radio" id="email" name="type" formControlName="type" value="email"
+            (change)="getTypeVal($event)" />
+          <label for="phone">Phone</label>
+          <label for="email">Email</label>
+          <div class="switch-wrapper">
+            <div class="switch">
+              <div>Phone</div>
+              <div>Email</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-floating mb-3 phone-input">
+          <ng-container *ngIf="switchClass === 'phone'">
+            <ngx-intl-tel-input [cssClass]="'form-control'" [preferredCountries]="preferredCountries"
+              [enableAutoCountrySelect]="true" [enablePlaceholder]="false" [searchCountryFlag]="true"
+              [searchCountryField]="[
+              SearchCountryField.Iso2,
+              SearchCountryField.Name
+            ]" [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.UnitedStates" [phoneValidation]="true"
+              [separateDialCode]="false" [maxLength]="maxLength" name="email" formControlName="email">
+            </ngx-intl-tel-input>
+            <label for="floatingInput">Phone Number</label>
+          </ng-container>
+          <ng-container *ngIf="switchClass !== 'phone'">
+            <input type="text" class="form-control" id="phoneEmail" placeholder="Email" formControlName="email">
+            <label for="floatingInput">Email Address</label>
+          </ng-container>
 
           <div *ngIf="isSubmitted && f['email'].invalid" class="errFrm">
-            <div *ngIf="f['email'].errors && f['email'].errors['required']">Email is required.</div>
-            <div *ngIf="f['email'].errors && f['email'].errors['required']">Please, enter valid email address.</div>
+            <ng-container *ngIf="switchClass === 'phone'">
+              <div *ngIf="f['email'].errors && f['email'].errors['required']">Phone Number is required.</div>
+            </ng-container>
+            <ng-container *ngIf="switchClass === 'email'">
+              <div *ngIf="f['email'].errors && f['email'].errors['required']">Email Address is required.</div>
+              <div *ngIf="f['email'].errors && f['email'].errors['pattern']">Please, enter valid email address.</div>
+            </ng-container>
           </div>
+
         </div>
         <div class="form-floating mb-3">
           <input type="password" class="form-control" id="name" placeholder="Name" formControlName="password">
@@ -36,7 +68,7 @@
           </div>
         </ng-container>
 
-        <button class="w-100 btn btn-lg btn-primary" type="submit">
+        <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="isSubmit">
           Continue
           <div class="spinner-border form-loader ml-2" role="status" *ngIf="isSubmit"></div>
         </button>

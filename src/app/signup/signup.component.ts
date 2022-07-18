@@ -6,7 +6,7 @@ import { environment as env } from '../../environments/environment';
 import { Router } from "@angular/router";
 import { passwordMatch } from './confirm-password.validator';
 import firebase from 'firebase';
-
+import { SearchCountryField, CountryISO } from 'ngx-intl-tel-input';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -29,9 +29,9 @@ export class SignupComponent implements OnInit {
   formArr={};
   maxDate:any;
   message: any = { status: true, msg: [] };
-
+  maxLength:any = 15;
   form = new FormGroup({
-    phone: new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(10)]),
+    phone: new FormControl('', [Validators.required]),
     email: new FormControl(''),
     fname: new FormControl('', [Validators.required]),
     lname: new FormControl('', [Validators.required]),
@@ -46,6 +46,9 @@ export class SignupComponent implements OnInit {
     [passwordMatch('password', 'cpassword')]
   );
 
+  SearchCountryField = SearchCountryField;
+  CountryISO = CountryISO;
+  preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.India];
   constructor(private usrObj: MainserviceComponent, private http: HttpClient, private router: Router) {
     localStorage.removeItem('regData');
     localStorage.removeItem('verificationId');
@@ -86,17 +89,24 @@ export class SignupComponent implements OnInit {
       this.isSubmit = false;
       return
     }
-    // console.log(this.form.value);
-    localStorage.setItem('regData', JSON.stringify(this.form.value));
+    const PhoneNum: any = this.form.value.phone;
+    // console.table(this.form.value);
+    // return;
+    const formData = this.form.value;
+    formData.phone = PhoneNum?.e164Number;
+    localStorage.setItem('regData', JSON.stringify(formData));
     if (this.form.value.phone) {
-      const num = env.DEF_CCODE + this.form.value.phone;
+      const num = PhoneNum?.e164Number;
       firebase.auth().signInWithPhoneNumber(num, this.reCaptchaVerifier).then(result => {
         localStorage.setItem('verificationId', JSON.stringify(result.verificationId));
         this.isSendMOTP = true;
-        this.sendToVerify()
+        this.isSendEOTP = true;
+        this.sendToVerify();
+      
       })
         .catch(error => {
-          console.error('Error :', error);
+          // console.error('Error :', error);
+          this.isSendEOTP = false;
           this.isSendEOTP = false;
           this.isSubmit = false;
           this.message.status = false;
@@ -106,43 +116,43 @@ export class SignupComponent implements OnInit {
             this.message.msg.push(error?.message)
           }
           
-          this.sendToVerify()
+          this.sendToVerify();
         });
     }
 
-    if (this.form.value.email) {
-      const formData = {
-        "email" : this.form.value.email
-      }
-      // console.log(formData);
-      this.usrObj.sendEmailOtp(formData).subscribe((res:any) => {
-      //   console.log(result);
-        if(res.status){
-          this.isSendEOTP = true;
-        } else{
-          this.message.status = false;          
-          this.message.msg.push(res?.message);          
-          this.isSendEOTP = false;
-        }
-        this.sendToVerify()
-      },
-      (err:any)=>{
-        let errData = err.error.errors;
-        for(let key in errData){
-          this.message.msg.push(errData[key][0]);
-        }
-        if(errData == undefined || errData == null){
-          this.message.msg.push('Something went wrong. Please try later');
-        }
-        this.message.status = false;
-        this.isSendEOTP = false;
-        this.isSubmit = false;  
-      });
+    // if (this.form.value.email) {
+    //   const formData = {
+    //     "email" : this.form.value.email
+    //   }
+    //   // console.log(formData);
+    //   this.usrObj.sendEmailOtp(formData).subscribe((res:any) => {
+    //   //   console.log(result);
+    //     if(res.status){
+    //       this.isSendEOTP = true;
+    //     } else{
+    //       this.message.status = false;          
+    //       this.message.msg.push(res?.message);          
+    //       this.isSendEOTP = false;
+    //     }
+    //     this.sendToVerify()
+    //   },
+    //   (err:any)=>{
+    //     let errData = err.error.errors;
+    //     for(let key in errData){
+    //       this.message.msg.push(errData[key][0]);
+    //     }
+    //     if(errData == undefined || errData == null){
+    //       this.message.msg.push('Something went wrong. Please try later');
+    //     }
+    //     this.message.status = false;
+    //     this.isSendEOTP = false;
+    //     this.isSubmit = false;  
+    //   });
       
-    } else{
-      this.isSendEOTP = true;
-      this.sendToVerify();
-    }
+    // } else{
+    //   this.isSendEOTP = true;
+    //   this.sendToVerify();
+    // }
 
    
 
@@ -234,6 +244,8 @@ export class SignupComponent implements OnInit {
      this.maxDate = year + '-' + month + '-' + day;    
     
   }
+
+  
 
 
 }
