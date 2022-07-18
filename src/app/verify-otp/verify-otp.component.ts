@@ -38,6 +38,7 @@ export class VerifyOtpComponent implements OnInit {
   reCaptcha: any;
   display:string = '';
   isActResend:boolean = false;
+  interval :any;
   ngOnInit(): void {
     if (!localStorage.getItem('isVerifyP')) {
       this.route.navigate(['/']);
@@ -117,6 +118,8 @@ export class VerifyOtpComponent implements OnInit {
         this.isVerMOTP = false; 
         this.isVerEOTP = false;
         this.isSubmit = false;
+        this.isActResend = true;
+        clearInterval(this.interval);
       });
   }
 
@@ -163,7 +166,7 @@ export class VerifyOtpComponent implements OnInit {
   resendMOTP() {
     this.pageLoader = true;
     this.pageMsg = 'Sending OTP. Please wait...';
-    const num = env.DEF_CCODE + this.regData.phone;
+    const num = this.regData.phone_no;
     firebase.auth().signInWithPhoneNumber(num, this.reCaptcha).then((res: any) => {
       localStorage.setItem('verificationId', JSON.stringify(res.verificationId));
       this.verify = res.verificationId;
@@ -221,12 +224,13 @@ export class VerifyOtpComponent implements OnInit {
   }
 
   timer(minute:number){
+    this.display = '';
     let seconds: number = minute * 60;
     let textSec: any = "0";
     let statSec: number = 60;
 
     const prefix = minute < 10 ? "0" : "";
-    const timer = setInterval(() => {
+    this.interval = setInterval(() => {
       seconds--;
       if (statSec != 0) statSec--;
       else statSec = 59;
@@ -240,7 +244,7 @@ export class VerifyOtpComponent implements OnInit {
       if (seconds == 0) {
         // console.log("finished");
         this.isActResend = true;
-        clearInterval(timer);
+        clearInterval(this.interval);
       }
     }, 1000);
   }

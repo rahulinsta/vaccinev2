@@ -21,7 +21,7 @@
             </div>
           </div>
         </div>
-        <div class="form-floating mb-3 phone-input">
+        <div class="form-floating mb-3 " [ngClass]="{'phone-input': switchClass === 'phone'}">
           <ng-container *ngIf="switchClass === 'phone'">
             <ngx-intl-tel-input [cssClass]="'form-control'" [preferredCountries]="preferredCountries"
               [enableAutoCountrySelect]="true" [enablePlaceholder]="false" [searchCountryFlag]="true"

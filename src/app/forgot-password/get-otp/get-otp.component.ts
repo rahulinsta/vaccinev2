@@ -27,6 +27,7 @@ export class GetOtpComponent implements OnInit {
   reCaptcha: any;  
   display:string = '';
   isActResend:boolean = false;
+  interval:any;
   constructor(private router: Router, private mainService: MainserviceComponent) { }
 
   ngOnInit(): void {
@@ -101,6 +102,8 @@ export class GetOtpComponent implements OnInit {
           this.message.msg.push(err.message); 
           this.message.status = false; 
           this.isSubmit = false;
+          this.isActResend = true;
+          clearInterval(this.interval);
         });
     }
   }
@@ -131,7 +134,7 @@ export class GetOtpComponent implements OnInit {
         this.message = { status: true, msg: [] };
       }, 3000);
     }).catch((err: any) => {
-      this.message.msg.push(err.message); this.message.status = false;
+      this.message.msg.push(err.message); this.message.status = false;     
       setTimeout(() => {
         this.message = { status: true, msg: [] };
       }, 3000);
@@ -178,7 +181,7 @@ export class GetOtpComponent implements OnInit {
     let statSec: number = 60;
 
     const prefix = minute < 10 ? "0" : "";
-    const timer = setInterval(() => {
+    this.interval = setInterval(() => {
       seconds--;
       if (statSec != 0) statSec--;
       else statSec = 59;
@@ -192,7 +195,7 @@ export class GetOtpComponent implements OnInit {
       if (seconds == 0) {
         // console.log("finished");
         this.isActResend = true;
-        clearInterval(timer);
+        clearInterval(this.interval);
       }
     }, 1000);
   }

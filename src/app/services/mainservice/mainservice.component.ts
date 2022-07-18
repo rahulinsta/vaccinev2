@@ -62,19 +62,8 @@ httpOptions:any={};
   }
 
 //user sign up
-  register(frmAr:any = []){
-    return this.http.post(env.apiurl+'register', {
-      phone_no:frmAr.phone,
-      email:frmAr.email,
-      fname:frmAr.fname,
-      lname:frmAr.lname,
-      dob: frmAr.dob,
-      gender:frmAr.gender,
-      emergency_number: frmAr.emgNo,
-      password: frmAr.password,
-      password_confirmation: frmAr.cpassword,
-      blood_group: frmAr.bloodGroup
-    }).pipe(rawData => {return rawData;});
+  register(regData:any){
+    return this.http.post(env.apiurl+'register', regData).pipe(rawData => {return rawData;});
   }
 
 
@@ -172,6 +161,15 @@ httpOptions:any={};
   }
   changePassword(formData: any) {
     return this.http.post(env.apiurl + 'change-password', formData, this.getHeader()).toPromise();
+  }
+
+  validateRegForm(formData:any){
+    return this.http.post(env.apiurl + 'validate-reg', formData, {
+      headers: new HttpHeaders({
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      })
+    })
   }
 
 }

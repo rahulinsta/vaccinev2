@@ -31,12 +31,12 @@
                     <p class="mt-4 fw-normal text-muted">Didn't receive the code <a class="link-text resend" (click)="resendEOTP()">Resend OTP</a>
                     </p> -->
                 </ng-container>
-                <ng-container *ngIf="regData.phone">
+                <ng-container *ngIf="regData.phone_no">
                 <!-- <hr class="mt-4" *ngIf="regData.phone && regData.email"> -->
                 <div class="h2 mb-2 mt-3">Mobile Verification</div>
                 <p class="mb-4 fw-normal text-muted">
                     The verification OTP is sent on Mobile Number
-                    <br><b>{{ regData.phone }}</b>
+                    <br><b>{{ regData.phone_no }}</b>
                     <a (click)="editForm()">
                         <svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="fa-w-16">
                             <path fill="currentColor"

@@ -14,7 +14,6 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-floating mb-3 phone-input">
-              <!-- <input type="text" class="form-control" id="phone" placeholder="Phone Number" formControlName="phone"> -->
               <ngx-intl-tel-input
               [cssClass]="'form-control'"
               [preferredCountries]="preferredCountries"
@@ -30,15 +29,16 @@
               [phoneValidation]="true"
               [separateDialCode]="false"
               [maxLength]="maxLength"
-              name="phone"
-              formControlName="phone"
+              name="phone_no"
+              formControlName="phone_no"
             >
             </ngx-intl-tel-input>
               <label for="floatingInput">Phone Number <sup class="text-danger">*</sup></label>
     
-              <div *ngIf="isSubmitted && f['phone'].invalid" class="errFrm">
-                <div *ngIf="f['phone'].errors && f['phone'].errors['required']">Phone is required.</div>
-                <div *ngIf="f['phone'].errors && (f['phone'].errors['pattern'] || f['phone'].errors['minlength'])">{{ f['phone'].errors['pattern'] ? 'Please, enter valid phone number': 'Please, enter 10 digit phone number'}}.</div>
+              <div *ngIf="isSubmitted && f['phone_no'].invalid" class="errFrm">
+                <div *ngIf="f['phone_no'].errors && f['phone_no'].errors['required']">Phone is required.</div>
+                <div *ngIf="f['phone_no'].errors && f['phone_no'].errors['validatePhoneNumber']">Invalid Phone Number</div>
+                
               </div>
     
             </div>
@@ -118,11 +118,11 @@
           </div>
           <div class="col-md-6">
             <div class="form-floating mb-3">
-              <input type="text" class="form-control" id="name" placeholder="Name" formControlName="emgNo">
-              <label for="name">Emergency Phone Number</label>
+              <input type="text" class="form-control" id="emergency_number" placeholder="emergency_number" formControlName="emergency_number">
+              <label for="emergency_number">Emergency Phone Number</label>
     
-              <div *ngIf="isSubmitted && f['emgNo'].invalid" class="errFrm">
-                <div *ngIf="f['emgNo'].errors && f['emgNo'].errors['required']">Emergency number is required.</div>
+              <div *ngIf="isSubmitted && f['emergency_number'].invalid" class="errFrm">
+                <div *ngIf="f['emergency_number'].errors && f['emergency_number'].errors['required']">Emergency number is required.</div>
               </div>
     
     
@@ -130,7 +130,7 @@
           </div>
           <div class="col-md-6">
             <div class="form-floating mb-3">
-              <select class="form-control" id="bloodGroup" placeholder="Select Blood Group" formControlName="bloodGroup">
+              <select class="form-control" id="bloodGroup" placeholder="Select Blood Group" formControlName="blood_group">
                 <option value="A">A</option>
                 <option value="AB">AB</option>
                 <option value="B+">B+</option>
@@ -139,16 +139,16 @@
               </select>
               <label for="bloodGroup">Select Blood Group</label>
     
-              <div *ngIf="isSubmitted && f['bloodGroup'].invalid" class="errFrm">
-                <div *ngIf="f['bloodGroup'].errors && f['bloodGroup'].errors['required']">Blood group is required.</div>
+              <div *ngIf="isSubmitted && f['blood_group'].invalid" class="errFrm">
+                <div *ngIf="f['blood_group'].errors && f['blood_group'].errors['required']">Blood group is required.</div>
               </div>
     
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-floating mb-3">
-              <input type="password" class="form-control" id="name" placeholder="Name" formControlName="password">
-              <label for="name">Password <sup class="text-danger">*</sup></label>
+              <input type="password" class="form-control" id="password" placeholder="password" formControlName="password">
+              <label for="password">Password <sup class="text-danger">*</sup></label>
     
               <div *ngIf="isSubmitted && f['password'].invalid" class="errFrm">
                 <div *ngIf="f['password'].errors && f['password'].errors['required']">Password is required.</div>
@@ -158,12 +158,12 @@
           </div>
           <div class="col-md-6">
             <div class="form-floating mb-3">
-              <input type="password" class="form-control" id="name" placeholder="Name" formControlName="cpassword">
-              <label for="name">Confirm Password <sup class="text-danger">*</sup></label>
+              <input type="password" class="form-control" id="password_confirmation" placeholder="password_confirmation" formControlName="password_confirmation">
+              <label for="password_confirmation">Confirm Password <sup class="text-danger">*</sup></label>
     
-              <div *ngIf="isSubmitted && f['cpassword'].invalid" class="errFrm">
-                <div *ngIf="f['cpassword'].errors && f['cpassword'].errors['required']">Confirm password is required.</div>
-                <div *ngIf="f['cpassword'].errors?.['passwordMismatch']">Password and confirm not match</div>
+              <div *ngIf="isSubmitted && f['password_confirmation'].invalid" class="errFrm">
+                <div *ngIf="f['password_confirmation'].errors && f['password_confirmation'].errors['required']">Confirm password is required.</div>
+                <div *ngIf="f['password_confirmation'].errors?.['passwordMismatch']">Password and confirm not match</div>
               </div>
     
             </div>
