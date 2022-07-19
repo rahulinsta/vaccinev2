@@ -60,7 +60,7 @@ export class MessagingService {
     }
     this.mainService.delFCMToken(Token).subscribe((res: any) => {
       console.log(res.message);
-      if(res.data){
+      if(res.status){
         this.mainService.logout().subscribe((data: any) => {
           if (data.status) {
             localStorage.clear();        

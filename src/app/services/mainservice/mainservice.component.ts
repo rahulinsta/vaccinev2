@@ -85,7 +85,6 @@ httpOptions:any={};
   }
 
   //add vaccine from chart
-
   addVaccine(data:any){
     return this.http.post(env.apiurl + 'add-vaccine', data, this.getHeader() );
   }
