@@ -12,6 +12,7 @@
                 <div class="logo-img">
                     <a href="">MyDigiRecords</a>
                 </div>
+                <div *ngIf="!isSuccss">
                 <ng-container *ngIf="regData.email">
                     <!-- <div class="h2 mb-2 mt-4">Email Verification</div>
                     <p class="mb-4 fw-normal text-muted">
@@ -69,8 +70,18 @@
                     <span class="spinner-border spinner-border-sm ml-2" role="status" 
                         aria-hidden="true" *ngIf="isSubmit"></span>
                 </button>
+            </div>
+            <div *ngIf="isSuccss">
+                <div class="alert alert-success">
+                    We sent you an activation link. Check your email and click on the link to verify.
+                </div>
+                <hr class="mt-4">
+                Already have an account ? <a [routerLink]="['/login']" class="text-decoration-none">Login</a>
+            </div>
                
             </form>
+            
+             
         </main>
     </div>
     <div id="recaptcha-container"></div>

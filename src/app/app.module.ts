@@ -30,6 +30,8 @@ import { ResetPasswordComponent } from './forgot-password/reset-password/reset-p
 import { AgmCoreModule } from '@agm/core';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EmailWarningComponent } from './elements/email-warning/email-warning.component';
+import { VerifiedAccountComponent } from './verified-account/verified-account.component';
 firebase.initializeApp(env.firebase);
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ firebase.initializeApp(env.firebase);
     ForgotPasswordComponent,
     ForgotComponent,
     GetOtpComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    EmailWarningComponent,
+    VerifiedAccountComponent
   ],
   imports: [
     BrowserModule,

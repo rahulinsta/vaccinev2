@@ -39,6 +39,7 @@ export class VerifyOtpComponent implements OnInit {
   display:string = '';
   isActResend:boolean = false;
   interval :any;
+  isSuccss: boolean = false;
   ngOnInit(): void {
     if (!localStorage.getItem('isVerifyP')) {
       this.route.navigate(['/']);
@@ -61,6 +62,7 @@ export class VerifyOtpComponent implements OnInit {
     this.isVerEOTP = false;
     this.isVerMOTP = false;
     this.message = { status: true, msg: [] };
+    this.isSuccss = false;
     // if (this.regData.email) {
     //   if (!this.emailInput.currentVal) {
     //     this.isSubmit = false;
@@ -112,7 +114,7 @@ export class VerifyOtpComponent implements OnInit {
         this.sendToVerify();
       })
       .catch((err: any) => {
-        console.log(err); 
+        // console.log(err); 
         this.message.msg.push(err.message); 
         this.message.status = false; 
         this.isVerMOTP = false; 
@@ -125,20 +127,13 @@ export class VerifyOtpComponent implements OnInit {
 
   sendToVerify() {
     if (this.isVerEOTP && this.isVerMOTP) {
-      // console.log('inner');
       this.mainService.register(this.regData).subscribe((res: any) => {
-        // console.log('subscribe');
-        if (res.status) {
-          this.message.status = true;
-          this.message.msg.push(res.message);
-          setTimeout(() => {
-            this.message = { status: true, msg: [] };
-            localStorage.removeItem('regData');
-            localStorage.removeItem('verificationId');
-            localStorage.removeItem('isVerifyP');
-            this.isSubmit = false;
-            this.route.navigate(['/login']);
-          }, 3000);
+        if (res.status) {         
+          this.isSuccss = true;
+          this.isSubmit = false;
+          localStorage.removeItem('regData');
+          localStorage.removeItem('verificationId');
+          localStorage.removeItem('isVerifyP');          
         } else {
           this.message.status = false;
           this.message.msg.push(res.message + res.data);
@@ -167,6 +162,7 @@ export class VerifyOtpComponent implements OnInit {
     this.pageLoader = true;
     this.pageMsg = 'Sending OTP. Please wait...';
     const num = this.regData.phone_no;
+    this.message = { status: true, msg: [] };
     firebase.auth().signInWithPhoneNumber(num, this.reCaptcha).then((res: any) => {
       localStorage.setItem('verificationId', JSON.stringify(res.verificationId));
       this.verify = res.verificationId;

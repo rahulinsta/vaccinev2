@@ -43,7 +43,8 @@ export class HeaderComponent implements OnInit {
   totalUnreadNotification: any;
 
   toastMsg: any;
-
+  pageLoader: boolean = false;
+  pageMsg: string = '';
   // update vaccine
   @Output() updateVaccine= new EventEmitter<any>();
 
@@ -121,16 +122,19 @@ export class HeaderComponent implements OnInit {
   }
 
   onLogout() {
-    // console.log(this.msgService.getFCMToken());
+    this.pageLoader = true;
+    this.pageMsg = 'Logging Off...';
     if (Notification.permission !== "granted") {
       this.usrObj.logout().subscribe((data: any) => {
-        if (data.status) {
+        if (data.status) {          
           localStorage.clear();
           this.router.navigate(['/login']);
+          this.pageLoader = false;
+          this.pageMsg = '';
         }
       });
     } else{
-      this.msgService.delToken();
+     this.msgService.delToken();
     }
    
 

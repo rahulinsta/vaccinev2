@@ -15,10 +15,10 @@ export class MessagingService {
 
   getPermission() {
     this.messaging.requestPermission().then(() => {
-      console.log("Notification permission granted");
+      // console.log("Notification permission granted");
       return this.messaging.getToken();
     }).then(token => {
-      console.log(token);
+      // console.log(token);
       this.fcmToken(token);
     }).catch((err) => {
       console.error("Unable to get permission to notify: ", err);
@@ -29,7 +29,7 @@ export class MessagingService {
      this.messaging.getToken().then(t =>{
       return t;
     }).then(token => {
-      console.log(token);
+      // console.log(token);
       this.messaging.deleteToken(token);
       this.delfcmToken(token);
       // this.fcmToken(token);
@@ -40,7 +40,7 @@ export class MessagingService {
 
   receiveMessage() {
     this.messaging.onMessage((payload) => {
-      console.log("Message received", payload);
+      // console.log("Message received", payload);
       this.currentMessaging.next(payload)
     })
   }
@@ -49,7 +49,7 @@ export class MessagingService {
       "token": token
     }
     this.mainService.saveFCMToken(Token).subscribe((res: any) => {
-      console.log(res.message)
+      // console.log(res.message)
     }, (err: any) => {
       console.error('Unable to get permission to notify.', err)
     })
@@ -59,7 +59,7 @@ export class MessagingService {
       "token": token
     }
     this.mainService.delFCMToken(Token).subscribe((res: any) => {
-      console.log(res.message);
+      // console.log(res.message);
       if(res.status){
         this.mainService.logout().subscribe((data: any) => {
           if (data.status) {

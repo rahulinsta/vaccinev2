@@ -1,0 +1,23 @@
+<div class="alert alert-warning text-center" role="alert" *ngIf="isEmailVerify && getEmail">
+    Looks like your email address is not verified. Not to worry, we can send the link again. <button class="ml-2 btn btn-secondary" (click)="sendActLink()">Resend verification link</button>
+</div>
+
+<div class="alert alert-warning text-center" role="alert" *ngIf="isPhoneVerify">
+    Looks like your phone number is not verified. Not to worry. <button class="ml-2 btn btn-secondary">Verify Now </button>
+</div>
+
+
+<div class="modal fade" id="popupMsg" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+            <ng-container *ngIf="message?.msg?.length > 0">
+                <div class="alert" [ngClass]="{'alert-danger': !message?.status, 'alert-success': message?.status}" role="alert" *ngFor="let errMsg of message?.msg">
+                    {{errMsg}}
+                </div>
+            </ng-container>
+        </div>
+       
+      </div>
+    </div>
+  </div>

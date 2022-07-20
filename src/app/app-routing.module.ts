@@ -11,6 +11,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ForgotComponent } from './forgot-password/forgot/forgot.component';
 import { GetOtpComponent } from './forgot-password/get-otp/get-otp.component';
 import { ResetPasswordComponent } from './forgot-password/reset-password/reset-password.component';
+import { VerifiedAccountComponent } from './verified-account/verified-account.component';
 
 const routes: Routes = [
   {path: '', component: SignupComponent},
@@ -25,7 +26,8 @@ const routes: Routes = [
     {path: 'identify', component: ForgotComponent},
     {path: 'verify', component: GetOtpComponent},
     {path: 'reset', component: ResetPasswordComponent }
-  ]}
+  ]},
+  { path:"verified-account", component: VerifiedAccountComponent}
 ];
 
 @NgModule({

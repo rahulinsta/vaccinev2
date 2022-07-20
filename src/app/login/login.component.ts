@@ -72,7 +72,14 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('vctoken', this.token);
         localStorage.setItem('ufname', data.data.first_name);
         localStorage.setItem('ufullname', data.data.name);
-
+        if(!data?.data?.email_verified_at){
+          const userName = {
+            'isEMailVerified': data?.data?.email_verified_at,
+            'emailAddress': data?.data?.email
+          }
+          localStorage.setItem('checkUser', JSON.stringify(userName));
+        }
+        
         this.router.navigate(['/dashboard']);
 
 
