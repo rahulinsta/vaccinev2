@@ -128,12 +128,27 @@ export class VerifyOtpComponent implements OnInit {
   sendToVerify() {
     if (this.isVerEOTP && this.isVerMOTP) {
       this.mainService.register(this.regData).subscribe((res: any) => {
-        if (res.status) {         
-          this.isSuccss = true;
-          this.isSubmit = false;
-          localStorage.removeItem('regData');
-          localStorage.removeItem('verificationId');
-          localStorage.removeItem('isVerifyP');          
+        if (res.status) { 
+          if(this.regData.email){
+            this.isSuccss = true;
+            this.isSubmit = false;
+            localStorage.removeItem('regData');
+            localStorage.removeItem('verificationId');
+            localStorage.removeItem('isVerifyP'); 
+          } else{
+            this.isSuccss = false;
+            this.message.status = true;
+            this.message.msg.push(res.message);
+            setTimeout(() => {
+              this.message = { status: true, msg: [] };
+              this.isSubmit = false;
+              localStorage.removeItem('regData');
+              localStorage.removeItem('verificationId');
+              localStorage.removeItem('isVerifyP'); 
+              this.route.navigate(['/login'])
+            }, 3000);
+          }       
+                   
         } else {
           this.message.status = false;
           this.message.msg.push(res.message + res.data);
