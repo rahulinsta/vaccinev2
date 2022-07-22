@@ -344,10 +344,17 @@ export class MembersListComponent implements OnInit {
       this.isSubmit = false;
       if (data.status){
         this.successMsg = data.message;
+        if(!data?.data?.isVerificationLinkSent){
+          const userName = {
+            'isEMailVerified': null,
+            'emailAddress': memail
+          }
+          localStorage.setItem('checkUser', JSON.stringify(userName));
+        }
         setTimeout(()=>{ 
           this.successMsg = false;                        
           this.closeModal('editMember');
-          this.getMembers()
+          this.getMembers();
       }, 2000);
       }else{
         this.errmsg = data.message+data.data;

@@ -7,7 +7,7 @@
                 </div>
                 <h1 class="mb-2 mt-4">Forgot Password</h1>
                 <p class="mb-4 fw-normal text-muted">Please enter your email address or phone number to receive a verification code.</p>
-                <div class="switches-container mb-3 {{ switchClass }}">
+                <div class="switches-container mb-3 {{ switchClass }} d-none" >
                     <input type="radio" id="phone" name="type" formControlName="type" value="phone" (change)="getTypeVal($event)"/>
                     <input type="radio" id="email" name="type" formControlName="type" value="email" (change)="getTypeVal($event)"/>
                     <label for="phone">Phone</label>
