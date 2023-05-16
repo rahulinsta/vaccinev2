@@ -1,6 +1,6 @@
 export const environment = { 
   production: true,
-  apiurl:'https://mydigirecords.com/vaccineadmin/api/v2/',
+  apiurl:'https://vaccine2.showmeproject.com/api/v2/',
   imgurl:'https://vaccine2.showmeproject.com/admin/public/storage/',
   firebase: {
     apiKey: "AIzaSyBM4iMSuQf68kUp4HLruFA1-deyW6Cn8Yc",
